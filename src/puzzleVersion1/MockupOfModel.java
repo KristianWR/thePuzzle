@@ -78,4 +78,6 @@ public class MockupOfModel {
 		numb[b] = move;
 		blank.setLocation(numbPos[i]);
 	}
+	
+	
 }
