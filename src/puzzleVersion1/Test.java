@@ -1,21 +1,45 @@
 package puzzleVersion1;
 
-import javafx.scene.control.Button;
 
-public class Test {
-		public static Controller kontrol;
-	public static void main(String[] args){
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class Test extends Application{
+
+	Stage window;
+	Scene scene1;
+	Controller kontrol;
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	public void start(Stage primaryStage) throws Exception {
+
+		window = primaryStage;
+		
+		window.setTitle("Hello");
+		
+		VBox layout1 = new VBox();
+		
 		
 		kontrol = new Controller(3);
-		printPuzzle();
+		Button[][] btn1 = kontrol.currentPuzzle.getButtons();
+		
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				layout1.getChildren().add(btn1[i][j]);
+			}
+		}
+		
+		scene1 = new Scene(layout1,200,200);
+		
+		window.setScene(scene1);
+		window.show();
+
 	}
-	
-	public static void printPuzzle(){
-		Button[][] btns = kontrol.currentPuzzle.getButtons();
-		System.out.println("*******");
-		System.out.println("*" + btns[0][0].getText() + "*" + btns[0][1].getText() + "*" + btns[0][2].getText() + "*");
-		System.out.println("*" + btns[1][0].getText() + "*" + btns[1][1].getText() + "*" + btns[1][2].getText() + "*");
-		System.out.println("*" + btns[2][0].getText() + "*" + btns[2][1].getText() + "*" + btns[2][2].getText() + "*");
-		System.out.println("*******");
-	}
+
 }
