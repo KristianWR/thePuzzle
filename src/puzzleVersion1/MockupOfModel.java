@@ -14,11 +14,12 @@ public class MockupOfModel {
 	
 	public static void main(String[] args){
 		Scanner input = new Scanner(System.in);
-		while(!won){
-			drawBoard();
+		drawBoard();
+		while(!won){			
 			int move = input.nextInt();
 			System.out.println(doMove(move));
-			//isWon();
+			drawBoard();
+			isWon();
 		}
 		
 		input.close();
@@ -79,5 +80,12 @@ public class MockupOfModel {
 		blank.setLocation(numbPos[i]);
 	}
 	
-	
+	public static void isWon(){
+		if ((numb[0] == 1) 	&& (numb[1] == 2) && (numb[2] == 3) && (numb[3] == 4) 
+							&& (numb[4] == 5) && (numb[5] == 6) && (numb[6] == 7) 
+							&& (numb[7] == 8) && (numb[8] == 0)){
+			won = true;
+			System.out.println("You've won!");
+		}
+	}
 }
