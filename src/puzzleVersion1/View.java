@@ -68,7 +68,7 @@ return menuBar;
 		
 		window.setTitle("15-Puzzle");
 		
-		kontrol = new Controller(3);
+		kontrol = new Controller(10);
 		buttons = kontrol.currentPuzzle.getButtons();
 	    
 	    ///// LEFT SIDE ////////
@@ -119,26 +119,28 @@ return menuBar;
 	}
 	
 	public GridPane addButtons(GridPane layout1){
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
+		for(int i = 0; i < buttons.length; i++){
+			for(int j = 0; j < buttons.length; j++){
 				GridPane.setConstraints(buttons[i][j], j, i);
 				layout1.getChildren().add(buttons[i][j]);
-				buttons[i][j].setOnAction(e -> {
-					Object obj = e.getSource();
-					if (obj instanceof Button){
-						kontrol.checkMove(((Button) obj).getText());
-						removeButtons(buttons, layout1);
-						addButtons(layout1);
-					}
-				});
+				if (kontrol.nextToZeroBool(buttons, i, j)){
+					buttons[i][j].setOnAction(e -> {
+						Object obj = e.getSource();
+						if (obj instanceof Button){
+							kontrol.checkMove(((Button) obj).getText());
+							removeButtons(buttons, layout1);
+							addButtons(layout1);
+						}
+					});
+				}
 			}
 		}
 		return layout1;
 	}
 	
 	public GridPane removeButtons(Button[][] btn1, GridPane layout1){
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
+		for(int i = 0; i < buttons.length; i++){
+			for(int j = 0; j < buttons.length; j++){
 				layout1.getChildren().remove(btn1[i][j]);
 			}
 		}
