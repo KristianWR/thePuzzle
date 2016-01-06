@@ -55,8 +55,9 @@ return menuBar;
 	Stage window;
 	Scene scene1;
 	Controller kontrol;
-	public static String btnID; 
-
+	Button[][] buttons;
+	int[][] rowCol;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -68,7 +69,7 @@ return menuBar;
 		window.setTitle("15-Puzzle");
 		
 		kontrol = new Controller(3);
-		Button[][] btn1 = kontrol.currentPuzzle.getButtons();
+		buttons = kontrol.currentPuzzle.getButtons();
 	    
 	    ///// LEFT SIDE ////////
 	    
@@ -83,7 +84,7 @@ return menuBar;
 	    layout1.setHgap(5);
 	    layout1.setVgap(5);
 	    	
-	    layout1= addButtons(btn1, layout1);
+	    layout1= addButtons(layout1);
 
 	    
 	    
@@ -117,14 +118,18 @@ return menuBar;
 
 	}
 	
-	public GridPane addButtons(Button[][] btn1, GridPane layout1){
+	public GridPane addButtons(GridPane layout1){
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
-				GridPane.setConstraints(btn1[i][j], j, i);
-				layout1.getChildren().add(btn1[i][j]);
-				btnID = btn1[i][j].getText();
-				btn1[i][j].setOnAction(e -> {
-					kontrol.checkMove(btnID);
+				GridPane.setConstraints(buttons[i][j], j, i);
+				layout1.getChildren().add(buttons[i][j]);
+				buttons[i][j].setOnAction(e -> {
+					Object obj = e.getSource();
+					if (obj instanceof Button){
+						kontrol.checkMove(((Button) obj).getText());
+						removeButtons(buttons, layout1);
+						addButtons(layout1);
+					}
 				});
 			}
 		}
