@@ -1,20 +1,57 @@
 package puzzleVersion1;
 
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends Application{
 
+	private MenuBar buildMenuBarWithMenus(ReadOnlyDoubleProperty menuWidthProperty)
+	   {
+MenuBar menuBar = new MenuBar();
+
+//Prepare left-most 'File' drop-down menu
+Menu fileMenu = new Menu("File");
+fileMenu.getItems().add(new MenuItem("New"));
+fileMenu.getItems().add(new MenuItem("Open"));
+fileMenu.getItems().add(new MenuItem("Save"));
+fileMenu.getItems().add(new MenuItem("Save As"));
+fileMenu.getItems().add(new SeparatorMenuItem());
+fileMenu.getItems().add(new MenuItem("Exit"));
+menuBar.getMenus().add(fileMenu);
+
+//Prepare 'Examples' drop-down menu
+Menu examplesMenu = new Menu("JavaFX Exempler");
+examplesMenu.getItems().add(new MenuItem("Text Exampel"));
+examplesMenu.getItems().add(new MenuItem("Hej"));
+examplesMenu.getItems().add(new MenuItem("Hej Pelle"));
+menuBar.getMenus().add(examplesMenu);
+
+//Prepare 'Help' drop-down menu
+Menu helpMenu = new Menu("Help");
+MenuItem searchMenuItem = new MenuItem("Søg");
+helpMenu.getItems().add(searchMenuItem);
+MenuItem onlineManualMenuItem = new MenuItem("Pilsner");
+helpMenu.getItems().add(onlineManualMenuItem);
+helpMenu.getItems().add(new SeparatorMenuItem());
+
+menuBar.getMenus().add(helpMenu);
+return menuBar;
+	   }
+	
+	
 	Stage window;
 	Scene scene1;
 	Controller kontrol;
@@ -32,13 +69,6 @@ public class View extends Application{
 		
 		kontrol = new Controller(3);
 		Button[][] btn1 = kontrol.currentPuzzle.getButtons();
-		
-	    
-	    ////  TOP MENU ////////
-	    
-	    HBox topMenu = new HBox();
-	    Label label1 = new Label("THIS IS THE TOP BAR");
-	    topMenu.getChildren().add(label1);
 	    
 	    ///// LEFT SIDE ////////
 	    
@@ -80,7 +110,8 @@ public class View extends Application{
 	    //////  BORDERPANE LAYOUT ////////
 	    
 	    BorderPane borderPane = new BorderPane();
-	    borderPane.setTop(topMenu);
+	    MenuBar menuBar = buildMenuBarWithMenus(window.widthProperty());
+	    borderPane.setTop(menuBar);
 	    borderPane.setLeft(leftSide);
 	    borderPane.setCenter(layout1);
 	    borderPane.setRight(rightSide);
