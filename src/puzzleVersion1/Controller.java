@@ -13,17 +13,41 @@ public class Controller {
 		return "hej";
 	}
 	
-	public void checkMove(int hej){
-		Button[][] movable = currentPuzzle.getButtons();
+	public void checkMove(String btnText, int i, int j){
+		Button[][] movable = currentPuzzle.btns;
 		
-		String valid = validMove("hej");
-		if (valid == "left"){		
-			
-		}//else if ()
-		
-		//change [i][j] with [j][i]
-		
+		//check up.
+		if (i > 0){
+			if (movable[i-1][j].getText().equals("0")){
+				movable = switchBtns(movable, i, j, i-1, j);
+			}
+		}
+		//check down
+		if (i < (currentPuzzle.puzzleSize -1)){
+			if (movable[i+1][j].getText().equals("0")){
+				movable = switchBtns(movable, i+1, j, i, j);
+			}
+		}
+		//check left
+		if (j > 0){
+			if (movable[i][j-1].getText().equals("0")){
+				movable = switchBtns(movable, i, j, i, j-1);
+			}
+		}
+		//check right
+		if (j < (currentPuzzle.puzzleSize-1)){
+			if (movable[i][j+1].getText().equals("0")){
+				movable = switchBtns(movable, i, j, i, j+1);
+			}
+		}
 		currentPuzzle.changeBtns(movable);
+	}
+	
+	public Button[][] switchBtns(Button[][] btn, int i, int j, int k, int l){
+		Button temp = btn[i][j];
+		btn[i][j] = btn[k][l];
+		btn[k][l] = temp;
+		return btn;
 	}
 	
 	public boolean winCheck(){
