@@ -13,9 +13,11 @@ public class Controller {
 		return "hej";
 	}
 	
-	public void checkMove(String btnText, int i, int j){
+	public void checkMove(String btnText){
 		Button[][] movable = currentPuzzle.btns;
-		
+		int[] ij = findPos(btnText, movable);
+		int i = ij[0];
+		int j = ij[1];
 		//check up.
 		if (i > 0){
 			if (movable[i-1][j].getText().equals("0")){
@@ -41,6 +43,19 @@ public class Controller {
 			}
 		}
 		currentPuzzle.changeBtns(movable);
+	}
+	
+	public int[] findPos(String btnText, Button[][] btns){
+		int[] ij = new int[2];
+		for (int i = 0; i < currentPuzzle.puzzleSize; i++){
+			for (int j = 0; j < currentPuzzle.puzzleSize; j++){
+				if (btns[i][j].getText().equals(btnText)){ 
+					ij[0] = i;
+					ij[1] = j;
+				}
+			}
+		}
+		return ij;
 	}
 	
 	public Button[][] switchBtns(Button[][] btn, int i, int j, int k, int l){

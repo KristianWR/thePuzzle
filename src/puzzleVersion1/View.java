@@ -18,6 +18,7 @@ public class View extends Application{
 	Stage window;
 	Scene scene1;
 	Controller kontrol;
+	public static String btnID; 
 
 	public static void main(String[] args) {
 		launch(args);
@@ -56,9 +57,9 @@ public class View extends Application{
 			for(int j = 0; j < 3; j++){
 				GridPane.setConstraints(btn1[i][j], j, i);
 				layout1.getChildren().add(btn1[i][j]);
+				btnID = btn1[i][j].getText();
 				btn1[i][j].setOnAction(e -> {
-					String temp = btn1[i][j].getText();
-					kontrol.CheckMove(temp,i,j);
+					kontrol.checkMove(btnID);
 				});
 			}
 		}
