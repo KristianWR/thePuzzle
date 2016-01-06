@@ -82,17 +82,9 @@ return menuBar;
 	    layout1.setPadding(new Insets(5,5,5,5));
 	    layout1.setHgap(5);
 	    layout1.setVgap(5);
-	    
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
-				GridPane.setConstraints(btn1[i][j], j, i);
-				layout1.getChildren().add(btn1[i][j]);
-				btnID = btn1[i][j].getText();
-				btn1[i][j].setOnAction(e -> {
-					kontrol.checkMove(btnID);
-				});
-			}
-		}
+	    	
+	    layout1= addButtons(btn1, layout1);
+
 	    
 	    
 	    //// RIGHT SIDE ///////////
@@ -124,8 +116,32 @@ return menuBar;
 		window.show();
 
 	}
+	
+	public GridPane addButtons(Button[][] btn1, GridPane layout1){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				GridPane.setConstraints(btn1[i][j], j, i);
+				layout1.getChildren().add(btn1[i][j]);
+				btnID = btn1[i][j].getText();
+				btn1[i][j].setOnAction(e -> {
+					kontrol.checkMove(btnID);
+				});
+			}
+		}
+		return layout1;
+	}
+	
+	public GridPane removeButtons(Button[][] btn1, GridPane layout1){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				layout1.getChildren().remove(btn1[i][j]);
+			}
+		}
+		return layout1;
+	}
 
 }
+
 
 
 
