@@ -56,6 +56,10 @@ public class View extends Application{
 			for(int j = 0; j < 3; j++){
 				GridPane.setConstraints(btn1[i][j], j, i);
 				layout1.getChildren().add(btn1[i][j]);
+				btn1[i][j].setOnAction(e -> {
+					String temp = btn1[i][j].getText();
+					kontrol.CheckMove(temp,i,j);
+				});
 			}
 		}
 	    
