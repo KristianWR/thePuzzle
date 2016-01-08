@@ -1,5 +1,7 @@
 package puzzleV2;
 
+import javafx.event.ActionEvent;
+
 public class PuzzleController {
 	PuzzleView curentView;
 	PuzzleModel currentPuzzle;
@@ -7,10 +9,12 @@ public class PuzzleController {
 	public PuzzleController(PuzzleView view, PuzzleModel puzzle){
 		this.curentView = view;
 		this.currentPuzzle = puzzle;
-		puzzle.createLabels(3);
-		view.gridPane = view.removeLabels(view.gridPane, view.tempLabels);
-		view.gridPane = view.addLabels(view.gridPane, puzzle.getLabels());
-		view.updateWindow();
+	}
+	
+	public void playListener(ActionEvent e){
+		currentPuzzle.createLabels(3);
+		
+		curentView.window.setScene(curentView.scene);
 	}
 }
 
