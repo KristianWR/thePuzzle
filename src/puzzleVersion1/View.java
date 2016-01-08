@@ -1,5 +1,7 @@
 package puzzleVersion1;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.Insets;
@@ -57,6 +59,8 @@ return menuBar;
 	Controller kontrol;
 	Button[][] buttons;
 	int[][] rowCol;
+	ArrayList<Button> buttonsToRemove;
+	ArrayList<Label> labelsToRemove;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -121,9 +125,10 @@ return menuBar;
 	public GridPane addButtons(GridPane layout1){
 		for(int i = 0; i < buttons.length; i++){
 			for(int j = 0; j < buttons.length; j++){
-				GridPane.setConstraints(buttons[i][j], j, i);
-				layout1.getChildren().add(buttons[i][j]);
 				if (kontrol.nextToZeroBool(buttons, i, j)){
+					GridPane.setConstraints(buttons[i][j], j, i);
+					//buttonsToRemove.add(buttons[i][j]);
+					layout1.getChildren().add(buttons[i][j]);
 					buttons[i][j].setOnAction(e -> {
 						Object obj = e.getSource();
 						if (obj instanceof Button){
@@ -132,6 +137,12 @@ return menuBar;
 							addButtons(layout1);
 						}
 					});
+				}else {
+					Label label = new Label(buttons[i][j].getText());
+					GridPane.setConstraints(label, j, i);
+					//labelsToRemove.add(label);
+					layout1.getChildren().add(label);
+					
 				}
 			}
 		}
@@ -139,10 +150,11 @@ return menuBar;
 	}
 	
 	public GridPane removeButtons(Button[][] btn1, GridPane layout1){
-		for(int i = 0; i < buttons.length; i++){
-			for(int j = 0; j < buttons.length; j++){
-				layout1.getChildren().remove(btn1[i][j]);
-			}
+		for(Button btn : buttonsToRemove){
+			layout1.getChildren().remove(btn);
+		}
+		for(Label label : labelsToRemove){
+			layout1.getChildren().remove(label);
 		}
 		return layout1;
 	}
