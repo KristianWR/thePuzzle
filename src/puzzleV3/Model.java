@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 public class Model {
 	Label[][] labels;
 	int puzzleSize;
-	
 	public void changeLabels(Label[][] newLabels){
 		labels = newLabels;
 	}
@@ -34,45 +33,55 @@ public class Model {
 		Label holder1 = labels[0][0];
 		Label holder2 = labels[0][1];
 		labels[0][0] = labels[0][2];	labels[0][2] = holder1;
-		labels[0][1] = labels[0][0];	labels[0][0] = holder2; 
+		labels[0][1] = labels[0][0];	labels[0][0] = holder2;
+		
+		for (int i = 0; i<labels.length; i++){
+			for (int j = 0; j<labels.length; j++){
+				setMouseClickAction(i, j);
+			}
+		}
 	}
 	
-	public String nextToZero(int i, int j){
-		String relative = "";
+	public String nextToZero(int x, int y){
 		//check up.
-		if (i > 0) {
-			if (labels[i - 1][j].getText().equals("0")) {relative = "up";}}
+		System.out.println("check: up");
+		if (y > 0) {
+			if (labels[y - 1][x].getText().equals("0")) {return "up";}}
 		// check down
-		if (i < (getSize() - 1)) {
-			if (labels[i + 1][j].getText().equals("0")) {relative = "down";}}
+		System.out.println("check: down");
+		if (y < (getSize() - 1)) {
+			if (labels[y + 1][x].getText().equals("0")) {return "down";}}
 		// check left
-		if (j > 0) {
-			if (labels[i][j - 1].getText().equals("0")) {relative = "left";}}
+		System.out.println("check: left");
+		if (x > 0) {
+			if (labels[y][x - 1].getText().equals("0")) {return "left";}}
 		// check right
-		if (j < (getSize() - 1)) {
-			if (labels[i][j + 1].getText().equals("0")) {relative = "right";}}
+		System.out.println("check: right");
+		if (x < (getSize() - 1)) {
+			if (labels[y][x + 1].getText().equals("0")) {return "right";}}
 		//if not next to zero 
-		else {relative = "not";}
-		return relative;
+		return "not";
 	}
 	public void checkMove(int x, int y){
+		System.out.println("x = " + x + " y = " + y);
 		String var = nextToZero(x, y);
+		System.out.println(var + " x=" + x + " y=" + y + " " + labels[y][x].getText());
 		if (var == "up"){
-			switchLabels(x-1, y, x, y);
+			switchLabels(y-1, x, y, x);
 		}else if (var == "down"){
-			switchLabels( x+1, y, x, y);
+			switchLabels( y+1, x, y, x);
 		}else if (var == "left"){
-			switchLabels( x, y, x, y-1);
+			switchLabels( y, x, y, x-1);
 		}else if (var == "right"){
-			switchLabels( x, y, x, y+1);
+			switchLabels( y, x, y, x+1);
 		}else if (var == "not"){
 			System.out.println("not a valid move");
 		}
 	}
-	public void switchLabels(int i, int j, int k, int l){
-		Label temp = labels[i][j];
-		labels[i][j] = labels[k][l];
-		labels[k][l] = temp;
+	public void switchLabels(int i, int j, int h, int v){
+		String temp = labels[i][j].getText();
+		labels[i][j].setText(labels[h][v].getText());
+		labels[h][v].setText(temp);
 	}
 	
 	public boolean winCheck(){
@@ -91,4 +100,11 @@ public class Model {
 		}
 		return won;
 	}
+	
+	public void setMouseClickAction(int y, int x){
+		labels[y][x].setOnMouseClicked(e -> {
+			checkMove(x, y);
+		});
+	}
+	
 }

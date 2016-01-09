@@ -31,12 +31,6 @@ public class View extends Application{
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
 		gridPane.setVgap(5);
-		gridPane.setOnMouseClicked(e -> {
-			System.out.println("hejhej");
-			kontrol.mouseClick(e.getX(), e.getY());
-			removeLabels(labels, gridPane);
-			addLabels(gridPane, kontrol.theModel.getLabels());
-		});
 		    	
 		gridPane= addLabels(gridPane, labels);
 		
