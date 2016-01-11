@@ -21,6 +21,7 @@ public class View extends Application{
 	GridPane gridPane;
 	Label[][] labels;
 	Controller kontrol;
+	int initSize;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -28,9 +29,35 @@ public class View extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		window = primaryStage;
+		window.setTitle("15-Puzzle");
+		mainMenuM();
+		window.show();
 		
-		////////////// start skærm ////////////////////
-		
+	}
+	
+	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
+		for(int i = 0; i < tempLabels.length; i++){
+			for(int j = 0; j < tempLabels.length; j++){
+					GridPane.setConstraints(tempLabels[i][j], j, i);
+					gridPane.getChildren().add(tempLabels[i][j]);
+			}
+		}
+		return gridPane;
+	}
+	
+	public GridPane removeLabels(Label[][] tempLabels, GridPane gridPane){
+		for(int i = 0; i < tempLabels.length; i++){
+			for(int j = 0; j < tempLabels.length; j++){
+					GridPane.setConstraints(tempLabels[i][j], j, i);
+					gridPane.getChildren().remove(tempLabels[i][j]);
+			}
+		}
+		return gridPane;
+	}
+	
+	
+	public void mainMenuM(){
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
 	    grid.setVgap(20);
@@ -54,7 +81,7 @@ public class View extends Application{
 	    Button btnexit = new Button("Exit");
 		GridPane.setConstraints(btnexit, 0, 8);
 		
-		btnplay.setOnAction(e -> window.setScene(sizePicker));
+		btnplay.setOnAction(e -> sizePickerM());
 		
 		btnexit.setOnAction(e -> {Platform.exit();
 		});
@@ -66,20 +93,20 @@ public class View extends Application{
 	    
 	    
 	    grid.getChildren().addAll(titel, btnplay, btnsetting, btnabout, btnexit);	
-
-		mainMenu.getStylesheets().add("viper.css");
-		
-		////// Size scene ///////////
-		
+	    
+	    window.setScene(mainMenu);
+		//mainMenu.getStylesheets().add("viper.css");
+	}
+	public void sizePickerM(){
 		GridPane grid2 = new GridPane();
-	    grid2.setHgap(10);
-	    grid2.setVgap(20);
-	    grid2.setAlignment(Pos.TOP_CENTER);
-	    
-	    BorderPane borderP = new BorderPane();
-
+		grid2.setHgap(10);
+		grid2.setVgap(20);
+		grid2.setAlignment(Pos.TOP_CENTER);
+		
+		BorderPane borderP = new BorderPane();
+		
 		sizePicker = new Scene(borderP, 1000, 500);
-	    
+		
 		Label chooseSize = new Label("Choose the size of the game");
 		GridPane.setConstraints(chooseSize, 5, 2);
 		
@@ -92,20 +119,24 @@ public class View extends Application{
 		
 		Button go = new Button("Start");
 		GridPane.setConstraints(go, 6, 3);
-		
+		go.setOnAction(e -> {
+			initSize = Integer.parseInt(sizePrompt.getText());
+			gameSceneM();
+		});
 		Button goBack = new Button("Back");
 		GridPane.setConstraints(goBack, 0, 0);
-		goBack.setOnAction(e -> window.setScene(mainMenu));
-	    
-	    grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go, goBack);
+		goBack.setOnAction(e -> mainMenuM());
+		
+		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go, goBack);
 		borderP.setTop(goBack);
 		borderP.setCenter(grid2);
-	    
-		////// GAME //////////
-		
+		window.setScene(sizePicker);
+	}
+	
+	public void gameSceneM(){
 		Model temp = new Model();
 		kontrol = new Controller(temp);
-		kontrol.theModel.createLabels(3);
+		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
 		
 		gridPane = new GridPane();
@@ -117,32 +148,7 @@ public class View extends Application{
 		
 		game = new Scene(gridPane, 400, 400);
 		
-		window = primaryStage;
-		window.setTitle("15-Puzzle");
-		
-		window.setScene(mainMenu);
-		window.show();
-		
-	}
-	
-	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
-		for(int i = 0; i < tempLabels.length; i++){
-			for(int j = 0; j < tempLabels.length; j++){
-					GridPane.setConstraints(tempLabels[i][j], j, i);
-					gridPane.getChildren().add(tempLabels[i][j]);
-			}
-		}
-		return gridPane;
-	}
-	
-	public GridPane removeLabels(Label[][] tempLabels, GridPane gridPane){
-		for(int i = 0; i < tempLabels.length; i++){
-			for(int j = 0; j < tempLabels.length; j++){
-					GridPane.setConstraints(tempLabels[i][j], j, i);
-					gridPane.getChildren().remove(tempLabels[i][j]);
-			}
-		}
-		return gridPane;
+		window.setScene(game);
 	}
 
 }
