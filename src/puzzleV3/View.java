@@ -3,12 +3,14 @@ package puzzleV3;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
@@ -151,15 +153,27 @@ public class View extends Application{
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
 		
-	    
+		GridPane mainGrid = new GridPane();
+		mainGrid.setPadding(new Insets(5,5,5,5));
+		mainGrid.setHgap(5);
+		mainGrid.setVgap(5);
+		
 		gridPane = new GridPane();
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
 		gridPane.setVgap(5);
+		
 		    	
 		gridPane= addLabels(gridPane, labels);
 		
-		game = new Scene(gridPane, 400, 400);
+		ScrollPane scroll1 = new ScrollPane(gridPane);
+		scroll1.setFitToWidth(true);
+		scroll1.setFitToHeight(true);
+		
+		mainGrid.add(gridPane, 0, 0);
+		mainGrid.add(scroll1, 0, 1);
+		
+		game = new Scene(mainGrid, 1000, 500);
 		
 		window.setScene(game);
 	}
