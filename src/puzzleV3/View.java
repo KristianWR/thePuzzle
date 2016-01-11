@@ -1,8 +1,11 @@
 package puzzleV3;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -22,6 +25,45 @@ public class View extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+		//start skærm
+		GridPane grid = new GridPane();
+	    grid.setHgap(10);
+	    grid.setVgap(20);
+	    grid.setAlignment(Pos.TOP_CENTER);
+
+		Scene screen = new Scene(grid, 1000, 500);
+	    
+		//titel label
+		Label titel = new Label("15-Puzzle");
+		GridPane.setConstraints(titel, 0, 2);
+
+	    Button btnplay = new Button("Play");
+		GridPane.setConstraints(btnplay, 0, 5);
+		
+	    Button btnsetting = new Button("Setting");
+		GridPane.setConstraints(btnsetting, 0, 6);
+		
+		Button btnabout = new Button("About");
+		GridPane.setConstraints(btnabout, 0, 7);
+	    
+	    Button btnexit = new Button("Exit");
+		GridPane.setConstraints(btnexit, 0, 8);
+		
+		btnexit.setOnAction(e -> {Platform.exit();
+		});
+	    
+	    btnplay.setMaxWidth(Double.MAX_VALUE);
+	    btnsetting.setMaxWidth(Double.MAX_VALUE);
+	    btnabout.setMaxWidth(Double.MAX_VALUE);
+	    btnexit.setMaxWidth(Double.MAX_VALUE);
+	    
+	    
+	    grid.getChildren().addAll(titel, btnplay, btnsetting, btnabout, btnexit);	
+
+		screen.getStylesheets().add("viper.css");
+		
+		
+		
 		Model temp = new Model();
 		kontrol = new Controller(temp);
 		kontrol.theModel.createLabels(3);
@@ -39,7 +81,7 @@ public class View extends Application{
 		window = primaryStage;
 		window.setTitle("15-Puzzle");
 		
-		window.setScene(game);
+		window.setScene(screen);
 		window.show();
 		
 	}
