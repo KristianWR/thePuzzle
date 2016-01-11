@@ -19,10 +19,13 @@ public class Model {
 		labels = new Label[size][size];
 		puzzleSize = size;
 		int count = 1;
+		String amountOfCiffers = Integer.toString(size*size);
+		double dSize = (amountOfCiffers.length()*5)+20.0;
 		//initiates the array with labels with the text of the current label. starting with 1.
 		for (int i = 0; i<size; i++){
 			for (int j = 0; j<size; j++){
 				labels[i][j] = new Label(Integer.toString(count));
+				labels[i][j].setMinSize(dSize, dSize);
 				count++;
 			}
 		}
@@ -104,6 +107,9 @@ public class Model {
 	public void setMouseClickAction(int y, int x){
 		labels[y][x].setOnMouseClicked(e -> {
 			checkMove(x, y);
+			if (winCheck()){
+				
+			}
 		});
 	}
 	
