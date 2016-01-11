@@ -3,19 +3,17 @@ package puzzleV3;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends Application{
@@ -136,8 +134,11 @@ public class View extends Application{
 			initSize = Integer.parseInt(sizePrompt.getText());
 			gameSceneM();
 		});
-		Button goBack = new Button("Back");
+		
+		Image backButton = new Image(getClass().getResourceAsStream("BackArrow.png"));
+		Button goBack = new Button();
 		GridPane.setConstraints(goBack, 0, 0);
+		goBack.setGraphic(new ImageView(backButton));
 		goBack.setOnAction(e -> mainMenuM());
 		
 		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go, goBack);
