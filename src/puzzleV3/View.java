@@ -99,7 +99,7 @@ public class View extends Application{
 	    grid.getChildren().addAll(titel, btnplay, btnsetting, btnabout, btnexit);	
 	    
 	    window.setScene(mainMenu);
-		//mainMenu.getStylesheets().add("viper.css");
+		mainMenu.getStylesheets().add("viper.css");
 	}
 	public void sizePickerM(){
 		GridPane grid2 = new GridPane();
