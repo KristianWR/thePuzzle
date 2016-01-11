@@ -67,7 +67,7 @@ public class View extends Application{
 	    grid.setVgap(20);
 	    grid.setAlignment(Pos.TOP_CENTER);
 
-		mainMenu = new Scene(grid, 1000, 500);
+		mainMenu = new Scene(grid, 750, 750);
 	    
 		//titel label
 		Label titel = new Label("15-Puzzle");
@@ -109,7 +109,7 @@ public class View extends Application{
 		
 		BorderPane borderP = new BorderPane();
 		
-		sizePicker = new Scene(borderP, 1000, 500);
+		sizePicker = new Scene(borderP, 750, 750);
 		
 		Label chooseSize = new Label("Choose the size of the game");
 		GridPane.setConstraints(chooseSize, 5, 2);
@@ -174,7 +174,7 @@ public class View extends Application{
 		mainGrid.add(gridPane, 0, 0);
 		mainGrid.add(scroll1, 0, 1);
 		
-		game = new Scene(mainGrid, 1000, 500);
+		game = new Scene(mainGrid, 750, 750);
 		
 		window.setScene(game);
 	}
