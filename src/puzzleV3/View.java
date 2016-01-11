@@ -4,12 +4,16 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends Application{
@@ -114,6 +118,13 @@ public class View extends Application{
 		sizePrompt.setPromptText("E.g. 3");
 		GridPane.setConstraints(sizePrompt, 5, 3);
 		
+		sizePrompt.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)){
+				initSize = Integer.parseInt(sizePrompt.getText());
+				gameSceneM();
+			}
+		});
+		
 		Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
 		GridPane.setConstraints(sizeInfo, 5, 4);
 		
@@ -134,11 +145,13 @@ public class View extends Application{
 	}
 	
 	public void gameSceneM(){
+
 		Model temp = new Model();
 		kontrol = new Controller(temp);
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
 		
+	    
 		gridPane = new GridPane();
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
