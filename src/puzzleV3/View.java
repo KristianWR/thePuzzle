@@ -22,6 +22,8 @@ public class View extends Application{
 	Scene mainMenu;
 	Scene sizePicker;
 	Scene game;
+	Scene about;
+	Scene setting;
 	GridPane gridPane;
 	Label[][] labels;
 	Controller kontrol;
@@ -86,6 +88,8 @@ public class View extends Application{
 		GridPane.setConstraints(btnexit, 0, 8);
 		
 		btnplay.setOnAction(e -> sizePickerM());
+		
+		btnsetting.setOnAction(e -> settingscreen());
 		
 		btnabout.setOnAction(e -> aboutscreen());
 		
@@ -194,7 +198,7 @@ public class View extends Application{
 	    grid.getChildren().add(dev);
 
 		
-	    Scene about = new Scene(grid, 750, 750);
+	    about = new Scene(grid, 750, 750);
 		window.setScene(about);
 		about.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
@@ -204,14 +208,10 @@ public class View extends Application{
 	    grid.setVgap(20);
 	    grid.setAlignment(Pos.CENTER);
 	    
-	    Label dev= new Label("The awesome developers: \n Kristian Wolthers Rasmussen \n Pelle Rubin Galløe \n Rasmus Suonperä Liebst "
-	    		+ "\n Jia Johnny Ye");
-	    grid.getChildren().add(dev);
-
 		
-	    Scene about = new Scene(grid, 750, 750);
-		window.setScene(about);
-		about.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
+	    setting = new Scene(grid, 750, 750);
+		window.setScene(setting);
+		setting.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
 
 }
