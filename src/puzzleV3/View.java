@@ -167,10 +167,10 @@ public class View extends Application{
 			gameSceneM();
 		});
 		
-		Image backButton = new Image(getClass().getResourceAsStream("BackArrow.png"));
 		Button goBack = new Button();
 		GridPane.setConstraints(goBack, 0, 0);
-		goBack.setGraphic(new ImageView(backButton));
+		goBack.setMaxWidth(40);
+		goBack.getStyleClass().add("button-back");
 		goBack.setOnAction(e -> mainMenuM());
 		
 		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go, goBack);
