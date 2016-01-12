@@ -10,7 +10,7 @@ public class Model {
 	int puzzleSize;
 	Label isPlaying = new Label("you are still playing huh?");
 	Label moveCount = new Label("0");
-	Point zeroPos;
+	Point zeroPos; //hello
 	public void changeLabels(Label[][] newLabels){
 		labels = newLabels;
 	}
