@@ -9,7 +9,7 @@ public class Model {
 	int puzzleSize;
 	Label isPlaying = new Label("you are still playing huh?");
 	Label moveCount = new Label("0");
-	Point zeroPos;
+	Point zeroPos = new Point(0,0);
 	public void changeLabels(Label[][] newLabels){
 		labels = newLabels;
 	}
@@ -45,6 +45,7 @@ public class Model {
 				setMouseClickAction(i, j);
 			}
 		}
+		zeroPos.setLocation(size-1, size-1);
 	}
 	
 	public String nextToZero(int x, int y){
