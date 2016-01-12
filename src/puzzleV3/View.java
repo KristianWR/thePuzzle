@@ -16,7 +16,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.media.Media;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class View extends Application{
 
@@ -30,6 +46,14 @@ public class View extends Application{
 	Label[][] labels;
 	Controller kontrol;
 	int initSize;
+	MediaPlayer mpMusic;
+	MediaPlayer mpFX;
+	MediaPlayer mpWin;
+	//timer variables
+    private static final Integer STARTTIME = 3;
+    private Timeline timeline;
+    private Label timerLabel = new Label();
+    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -41,6 +65,15 @@ public class View extends Application{
 		window.setTitle("15-Puzzle");
 		mainMenuM();
 		window.show();
+		
+		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/zelda.mp3").toString());
+		Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/win.mp3").toString());
+		//Media backgroundMusic = new Media(getClass().getResourceAsStream("zelda.mp3"));
+		mpMusic = new MediaPlayer(backgroundMusic);		
+		mpWin = new MediaPlayer(winMusic);
+		
+		mpMusic.setAutoPlay(true);	
+		mpMusic.setVolume(0.3);
 		
 	}
 	
@@ -55,6 +88,7 @@ public class View extends Application{
 	}
 	
 	public void mainMenuM(){
+		
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
 	    grid.setVgap(20);
@@ -98,6 +132,7 @@ public class View extends Application{
 	    window.setScene(mainMenu);
 	    mainMenu.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
+	
 	public void sizePickerM(){
 		GridPane grid2 = new GridPane();
 		grid2.setHgap(10);
@@ -151,25 +186,104 @@ public class View extends Application{
 		kontrol = new Controller(temp);
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
+		Button btn_mute = new Button("Mute Music");
+	    Button btn_muteFX = new Button("Mute SoundFX");
+	    
+	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());	
+	    
+    	mpFX = new MediaPlayer(tileSwap);
+		mpFX.setVolume(1.0);
 		
+		// Bind the timerLabel text property to the timeSeconds property
+        timerLabel.textProperty().bind(timeSeconds.asString());
+        timerLabel.setTextFill(Color.BLACK);
+        timerLabel.setStyle("-fx-font-size: 4em;");
+        Label timeLeft = new Label();
+        timeLeft.setText("Time left:");
+		
+	    //toggle music on/off
+	    btn_mute.setOnAction(new EventHandler<ActionEvent>() {										
+			
+			public void handle(ActionEvent arg0) {
+				
+				//mpMusic.setMute(true);
+				
+				if (mpMusic.getVolume() != 0.0){					
+					mpMusic.setVolume(0.0);
+				} else {
+					mpMusic.setVolume(0.3);
+				}
+				
+			
+			}
+		});
+	    
+	    //toggle sound fx on/off
+	    btn_muteFX.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			
+			public void handle(ActionEvent arg0) {
+															
+				if (mpFX.getVolume() != 0.0){					
+					mpFX.setVolume(0.0);
+				} else {
+					mpFX.setVolume(1.0);
+				}								
+				
+			}
+		});
+	    
+	    	    
 		Label playLabel = kontrol.theModel.isPlaying;
 		playLabel.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-               mainMenuM();
+            	
+            	mpWin.stop();
+            	mpWin.play();
+            	popUpWin();
+            	                        	
             }
         }); 
 		Label moves = kontrol.theModel.moveCount;
 		moves.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-               System.out.println("NOISE!!!!!!!!!!!!!");
-            }
+            	  
+            	mpFX.stop();
+            	mpFX.play();
+            	
+            	 if (timeline != null) {
+	                    timeline.stop();    
+	                }
+	                				                
+	                //System.out.println(timeSeconds.getValue()); 				                				               
+	                timeSeconds.set(STARTTIME);
+	                timeline = new Timeline();
+	                timeline.getKeyFrames().add(				                		
+	                        new KeyFrame(Duration.seconds(STARTTIME+1),
+	                        new KeyValue(timeSeconds, 0)));
+	                
+	                timeline.playFromStart();
+	                //When times runs out
+	                				                				           
+	                timeline.setOnFinished((ActionEvent event1) -> {
+	                        // put event handler code here
+	                		popUpLoose();
+	                		//PopUpWin.display("Game over", "Time's up!");
+	                		//System.out.println("Timer Works");
+	                		
+	                });
+            	//mpFX.setAutoPlay(true);             	            	
+            	//if (mpFX.getVolume() != 0.0){}         }					            					
+            	//System.out.println("NOISE!!!!!!!!!!!!!");
+            	
+				}
         }); 
 		GridPane mainGrid = new GridPane();
 		mainGrid.setPadding(new Insets(5,5,5,5));
 		mainGrid.setHgap(5);
-		mainGrid.setVgap(5);
+		mainGrid.setVgap(5);		
 		
 		gridPane = new GridPane();
 		gridPane.setPadding(new Insets(5,5,5,5));
@@ -188,6 +302,10 @@ public class View extends Application{
 		mainGrid.add(scroll1, 0, 1);
 		mainGrid.add(playLabel, 0, 2);
 		mainGrid.add(moves, 1, 1);
+		mainGrid.add(btn_mute, 2, 0);
+		mainGrid.add(btn_muteFX, 2, 1);
+		mainGrid.add(timerLabel, 3, 0);
+		mainGrid.add(timeLeft, 3, 1);
 		
 		game = new Scene(mainGrid, 750, 750);
 
@@ -220,7 +338,77 @@ public class View extends Application{
 		window.setScene(setting);
 		setting.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
+	
+	public void popUpWin(){
+		Stage window = new Stage();
+		Scene scene;
+		
+		window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Congratulations");
+        window.setMinWidth(250);
+        
+        Label label = new Label();
+        label.setText("Congratulations! You won!");
+        
+        Button restartButton = new Button("Play again");
+        restartButton.setOnAction(e -> {
+        	sizePickerM();
+        	window.close();
+        });
+        
+        Button mainMenuButton = new Button("Main menu");
+        mainMenuButton.setOnAction(e -> {
+        	mainMenuM();
+        	window.close();
+        });
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, restartButton, mainMenuButton);
+        layout.setAlignment(Pos.CENTER);
+
+        //Display window and wait for it to be closed before returning
+        scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+
+	}
+	
+	public void popUpLoose(){
+		Stage window = new Stage();
+		Scene scene;
+		
+		window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Game over");
+        window.setMinWidth(250);
+        
+        Label label = new Label();
+        label.setText("Time is up! You have lost!");
+        
+        Button restartButton = new Button("Try again");
+        restartButton.setOnAction(e -> {
+        	sizePickerM();
+        	window.close();
+        });
+        
+        Button mainMenuButton = new Button("Main menu");
+        mainMenuButton.setOnAction(e -> {
+        	mainMenuM();
+        	window.close();
+        });
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, restartButton, mainMenuButton);
+        layout.setAlignment(Pos.CENTER);
+
+        //Display window and wait for it to be closed before returning
+        scene = new Scene(layout);
+        window.setScene(scene);
+        window.show();
+
+	}
+	
 
 }
+
 
 
