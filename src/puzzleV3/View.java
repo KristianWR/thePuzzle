@@ -164,6 +164,7 @@ public class View extends Application{
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
 		gridPane.setVgap(5);
+		gridPane.getStyleClass().addAll("pane","gridPane");
 		
 		    	
 		gridPane= addLabels(gridPane, labels);
@@ -176,8 +177,9 @@ public class View extends Application{
 		mainGrid.add(scroll1, 0, 1);
 		
 		game = new Scene(mainGrid, 750, 750);
-		
+
 		window.setScene(game);
+		game.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
 	}
 
 }
