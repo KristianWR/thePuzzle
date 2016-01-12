@@ -87,6 +87,8 @@ public class View extends Application{
 		
 		btnplay.setOnAction(e -> sizePickerM());
 		
+		btnabout.setOnAction(e -> aboutscreen());
+		
 		btnexit.setOnAction(e -> {Platform.exit();
 		});
 	    
@@ -99,7 +101,7 @@ public class View extends Application{
 	    grid.getChildren().addAll(titel, btnplay, btnsetting, btnabout, btnexit);	
 	    
 	    window.setScene(mainMenu);
-	    mainMenu.getStylesheets().add(View.class.getResource("viper.css").toExternalForm());
+	    mainMenu.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
 	public void sizePickerM(){
 		GridPane grid2 = new GridPane();
@@ -181,5 +183,22 @@ public class View extends Application{
 		window.setScene(game);
 		game.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
 	}
+	public void aboutscreen(){
+		GridPane grid = new GridPane();
+	    grid.setHgap(10);
+	    grid.setVgap(20);
+	    grid.setAlignment(Pos.CENTER);
+	    
+	    Label dev= new Label("The awesome developers: \n Kristian Wolthers Rasmussen \n Pelle Rubin Galløe \n Rasmus Suonperä Liebst "
+	    		+ "\n Jia Johnny Ye");
+	    grid.getChildren().add(dev);
+
+		
+	    Scene about = new Scene(grid, 750, 750);
+		window.setScene(about);
+		about.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
+	}
 
 }
+
+
