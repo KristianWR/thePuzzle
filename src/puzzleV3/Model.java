@@ -2,7 +2,6 @@ package puzzleV3;
 
 import java.awt.Point;
 import java.util.Random;
-
 import javafx.scene.control.Label;
 
 public class Model {
@@ -11,6 +10,7 @@ public class Model {
 	Label isPlaying = new Label("you are still playing huh?");
 	Label moveCount = new Label("0");
 	Point zeroPos; //hello
+	int useless = 0;
 	public void changeLabels(Label[][] newLabels){
 		labels = newLabels;
 	}
