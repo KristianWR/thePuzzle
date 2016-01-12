@@ -145,6 +145,7 @@ public class View extends Application{
 		borderP.setTop(goBack);
 		borderP.setCenter(grid2);
 		window.setScene(sizePicker);
+		sizePicker.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
 	
 	public void gameSceneM(){
