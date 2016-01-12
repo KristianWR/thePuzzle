@@ -198,6 +198,21 @@ public class View extends Application{
 		window.setScene(about);
 		about.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
+	public void settingscreen(){
+		GridPane grid = new GridPane();
+	    grid.setHgap(10);
+	    grid.setVgap(20);
+	    grid.setAlignment(Pos.CENTER);
+	    
+	    Label dev= new Label("The awesome developers: \n Kristian Wolthers Rasmussen \n Pelle Rubin Galløe \n Rasmus Suonperä Liebst "
+	    		+ "\n Jia Johnny Ye");
+	    grid.getChildren().add(dev);
+
+		
+	    Scene about = new Scene(grid, 750, 750);
+		window.setScene(about);
+		about.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
+	}
 
 }
 
