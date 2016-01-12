@@ -1,5 +1,8 @@
 package puzzleV3;
 
+import java.awt.Point;
+import java.util.Random;
+
 import javafx.scene.control.Label;
 
 public class Model {
@@ -7,7 +10,7 @@ public class Model {
 	int puzzleSize;
 	Label isPlaying = new Label("you are still playing huh?");
 	Label moveCount = new Label("0");
-	
+	Point zeroPos;
 	public void changeLabels(Label[][] newLabels){
 		labels = newLabels;
 	}
@@ -80,10 +83,31 @@ public class Model {
 			System.out.println("not a valid move");
 		}
 	}
+	
+	public void randomMove(){
+		Random rndmNumbGenerator = new Random();
+		for (int i = puzzleSize * 10; i>0; i--){
+			int randNumb = rndmNumbGenerator.nextInt(4);
+			int x = zeroPos.x;
+			int y = zeroPos.y;
+			if (randNumb == 0){
+				checkMove(x, y-1);
+			}else if (randNumb == 1){
+				checkMove(x, y+1);
+			}else if(randNumb == 2){
+				checkMove(x-1, y);
+			}else {	
+				checkMove(x+1, y);
+			}
+		}
+		moveCount.setText("0");
+	}
+	
 	public void switchLabels(int i, int j, int h, int v){
 		String temp = labels[i][j].getText();
 		labels[i][j].setText(labels[h][v].getText());
 		labels[h][v].setText(temp);
+		zeroPos.setLocation(v, h);
 		int moves = Integer.parseInt(moveCount.getText())+1;
 		moveCount.setText(Integer.toString(moves));
 	}
