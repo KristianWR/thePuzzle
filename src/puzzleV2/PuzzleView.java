@@ -36,8 +36,7 @@ public class PuzzleView extends Application {
 		
 		box.getChildren().add(play);
 		
-		play.setOnAction(e -> PuzzleController);
-		
+		play.setText("dont");
 		////// GRIDPANE LAYOUT
 		gridPane = new GridPane();
 		gridPane.setPadding(new Insets(5,5,5,5));

@@ -2,6 +2,8 @@ package puzzleV3;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -51,17 +53,6 @@ public class View extends Application{
 		}
 		return gridPane;
 	}
-	
-	public GridPane removeLabels(Label[][] tempLabels, GridPane gridPane){
-		for(int i = 0; i < tempLabels.length; i++){
-			for(int j = 0; j < tempLabels.length; j++){
-					GridPane.setConstraints(tempLabels[i][j], j, i);
-					gridPane.getChildren().remove(tempLabels[i][j]);
-			}
-		}
-		return gridPane;
-	}
-	
 	
 	public void mainMenuM(){
 		GridPane grid = new GridPane();
@@ -161,6 +152,20 @@ public class View extends Application{
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
 		
+		Label playLabel = kontrol.theModel.isPlaying;
+		playLabel.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> ov, String t, String t1) {
+               mainMenuM();
+            }
+        }); 
+		Label moves = kontrol.theModel.moveCount;
+		moves.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> ov, String t, String t1) {
+               System.out.println("NOISE!!!!!!!!!!!!!");
+            }
+        }); 
 		GridPane mainGrid = new GridPane();
 		mainGrid.setPadding(new Insets(5,5,5,5));
 		mainGrid.setHgap(5);
@@ -181,6 +186,8 @@ public class View extends Application{
 		
 		mainGrid.add(gridPane, 0, 0);
 		mainGrid.add(scroll1, 0, 1);
+		mainGrid.add(playLabel, 0, 2);
+		mainGrid.add(moves, 1, 1);
 		
 		game = new Scene(mainGrid, 750, 750);
 

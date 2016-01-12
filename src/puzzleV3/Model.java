@@ -5,14 +5,14 @@ import javafx.scene.control.Label;
 public class Model {
 	Label[][] labels;
 	int puzzleSize;
+	Label isPlaying = new Label("you are still playing huh?");
+	Label moveCount = new Label("0");
+	
 	public void changeLabels(Label[][] newLabels){
 		labels = newLabels;
 	}
 	public  Label[][] getLabels(){
 		return labels;
-	}
-	public int getSize(){
-		return puzzleSize;
 	}
 	
 	public void createLabels(int size){
@@ -47,26 +47,25 @@ public class Model {
 	
 	public String nextToZero(int x, int y){
 		//check up.
-		System.out.println("check: up");
+		//System.out.println("check: up");
 		if (y > 0) {
 			if (labels[y - 1][x].getText().equals("0")) {return "up";}}
 		// check down
-		System.out.println("check: down");
-		if (y < (getSize() - 1)) {
+		//System.out.println("check: down");
+		if (y < (puzzleSize - 1)) {
 			if (labels[y + 1][x].getText().equals("0")) {return "down";}}
 		// check left
-		System.out.println("check: left");
+		//System.out.println("check: left");
 		if (x > 0) {
 			if (labels[y][x - 1].getText().equals("0")) {return "left";}}
 		// check right
-		System.out.println("check: right");
-		if (x < (getSize() - 1)) {
+		//System.out.println("check: right");
+		if (x < (puzzleSize - 1)) {
 			if (labels[y][x + 1].getText().equals("0")) {return "right";}}
 		//if not next to zero 
 		return "not";
 	}
 	public void checkMove(int x, int y){
-		System.out.println("x = " + x + " y = " + y);
 		String var = nextToZero(x, y);
 		System.out.println(var + " x=" + x + " y=" + y + " " + labels[y][x].getText());
 		if (var == "up"){
@@ -85,33 +84,37 @@ public class Model {
 		String temp = labels[i][j].getText();
 		labels[i][j].setText(labels[h][v].getText());
 		labels[h][v].setText(temp);
+		int moves = Integer.parseInt(moveCount.getText())+1;
+		moveCount.setText(Integer.toString(moves));
 	}
 	
 	public boolean winCheck(){
 		boolean won = true;
-		int count = 1;
-		for (int i = 0; i<puzzleSize; i++){
-			for (int j = 0; j <puzzleSize; j++){
-				String currentLabelsText = labels[i][j].getText();
-				if (!labels[puzzleSize-1][puzzleSize-1].getText().equals("0")){
-					won = false;
-				}
-				if (!currentLabelsText.equals(Integer.toString(count)) && count<puzzleSize*puzzleSize){
-					won = false;
+		if (labels[puzzleSize-1][puzzleSize-1].getText().equals("0")){
+			int count = 1;
+			for (int i = 0; i<puzzleSize; i++){
+				for (int j = 0; j <puzzleSize; j++){
+					String labelText = labels[i][j].getText();
+					if (count == puzzleSize*puzzleSize){
+						System.out.println("at the end");
+					}else if (!labelText.equals(Integer.toString(count))){
+						won = false;
+						System.out.println("false: count=" + count + " and lblText: " + labelText);
+					}
+					count++;
 				}
 			}
-		}
+		}else {won = false;}
+		
 		return won;
 	}
 	
 	public void setMouseClickAction(int y, int x){
 		labels[y][x].setOnMouseClicked(e -> {
 			checkMove(x, y);
-			/*if (winCheck()){
-				System.out.println("you've won!!!!!");
-			}else{
-				System.out.println("not yet won!");
-			}*/
+			if (winCheck()){
+				isPlaying.setText("You've won");
+			}
 		});
 	}
 	
