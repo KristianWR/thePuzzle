@@ -89,17 +89,17 @@ public class Model {
 	
 	public boolean winCheck(){
 		boolean won = true;
-		int size = getSize();
 		int count = 1;
-		//checks each label in the dimensional array if it's in order. excluding the last, since it has
-		//to be 0.
-		while (((size*size) > count) && won){
-			for (int i = 0; i<size; i++){
-				if (!(labels[i][count-1].getText() == Integer.toString(count))){
+		for (int i = 0; i<puzzleSize; i++){
+			for (int j = 0; j <puzzleSize; j++){
+				String currentLabelsText = labels[i][j].getText();
+				if (!labels[puzzleSize-1][puzzleSize-1].getText().equals("0")){
+					won = false;
+				}
+				if (!currentLabelsText.equals(Integer.toString(count)) && count<puzzleSize*puzzleSize){
 					won = false;
 				}
 			}
-			count++;
 		}
 		return won;
 	}
@@ -107,9 +107,11 @@ public class Model {
 	public void setMouseClickAction(int y, int x){
 		labels[y][x].setOnMouseClicked(e -> {
 			checkMove(x, y);
-			if (winCheck()){
-				
-			}
+			/*if (winCheck()){
+				System.out.println("you've won!!!!!");
+			}else{
+				System.out.println("not yet won!");
+			}*/
 		});
 	}
 	
