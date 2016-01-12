@@ -1,9 +1,16 @@
 package puzzleV3;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,28 +18,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.media.Media;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 public class View extends Application{
 
@@ -54,6 +51,7 @@ public class View extends Application{
     private Timeline timeline;
     private Label timerLabel = new Label();
     private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+    ScrollPane scroll1;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -65,10 +63,11 @@ public class View extends Application{
 		window.setTitle("15-Puzzle");
 		mainMenuM();
 		window.show();
+		window.setMaxHeight(window.getHeight());
+		window.setMaxWidth(window.getWidth());
 		
 		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/zelda.mp3").toString());
 		Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/win.mp3").toString());
-		//Media backgroundMusic = new Media(getClass().getResourceAsStream("zelda.mp3"));
 		mpMusic = new MediaPlayer(backgroundMusic);		
 		mpWin = new MediaPlayer(winMusic);
 		
@@ -94,9 +93,8 @@ public class View extends Application{
 	    grid.setVgap(20);
 	    grid.setAlignment(Pos.TOP_CENTER);
 
-		mainMenu = new Scene(grid, 750, 750);
+		mainMenu = new Scene(grid, 700, 700);
 	    
-		//titel label
 		Label titel = new Label("15-Puzzle");
 		GridPane.setConstraints(titel, 0, 2);
 
@@ -141,14 +139,14 @@ public class View extends Application{
 		
 		BorderPane borderP = new BorderPane();
 		
-		sizePicker = new Scene(borderP, 750, 750);
+		sizePicker = new Scene(borderP, 700, 700);
 		
 		Label chooseSize = new Label("Choose the size of the game");
-		GridPane.setConstraints(chooseSize, 5, 2);
+		GridPane.setConstraints(chooseSize, 1, 2);
 		
 		TextField sizePrompt = new TextField();
 		sizePrompt.setPromptText("E.g. 3");
-		GridPane.setConstraints(sizePrompt, 5, 3);
+		GridPane.setConstraints(sizePrompt, 1, 3);
 		
 		sizePrompt.setOnKeyPressed(e -> {
 			if(e.getCode().equals(KeyCode.ENTER)){
@@ -158,10 +156,10 @@ public class View extends Application{
 		});
 		
 		Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
-		GridPane.setConstraints(sizeInfo, 5, 4);
+		GridPane.setConstraints(sizeInfo, 1, 4);
 		
 		Button go = new Button("Start");
-		GridPane.setConstraints(go, 6, 3);
+		GridPane.setConstraints(go, 2, 3);
 		go.setOnAction(e -> {
 			initSize = Integer.parseInt(sizePrompt.getText());
 			gameSceneM();
@@ -188,6 +186,8 @@ public class View extends Application{
 		labels = kontrol.theModel.getLabels();
 		Button btn_mute = new Button("Mute Music");
 	    Button btn_muteFX = new Button("Mute SoundFX");
+	    Button randomize = new Button("Randomize");
+	    
 	    
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());	
 	    
@@ -200,6 +200,8 @@ public class View extends Application{
         timerLabel.setStyle("-fx-font-size: 4em;");
         Label timeLeft = new Label();
         timeLeft.setText("Time left:");
+        
+        Label numberOfMoves = new Label("Number of moves:");
 		
 	    //toggle music on/off
 	    btn_mute.setOnAction(new EventHandler<ActionEvent>() {										
@@ -257,7 +259,6 @@ public class View extends Application{
 	                    timeline.stop();    
 	                }
 	                				                
-	                //System.out.println(timeSeconds.getValue()); 				                				               
 	                timeSeconds.set(STARTTIME);
 	                timeline = new Timeline();
 	                timeline.getKeyFrames().add(				                		
@@ -268,47 +269,78 @@ public class View extends Application{
 	                //When times runs out
 	                				                				           
 	                timeline.setOnFinished((ActionEvent event1) -> {
-	                        // put event handler code here
 	                		popUpLoose();
-	                		//PopUpWin.display("Game over", "Time's up!");
-	                		//System.out.println("Timer Works");
-	                		
 	                });
-            	//mpFX.setAutoPlay(true);             	            	
-            	//if (mpFX.getVolume() != 0.0){}         }					            					
-            	//System.out.println("NOISE!!!!!!!!!!!!!");
-            	
 				}
         }); 
+		
+		///// THE MAIN LAYOUT OF THE SCENE /////
+		
+	
+		
 		GridPane mainGrid = new GridPane();
 		mainGrid.setPadding(new Insets(5,5,5,5));
 		mainGrid.setHgap(5);
 		mainGrid.setVgap(5);		
+		
+		//// GRIDPANE ---- THE GAME --- //////
 		
 		gridPane = new GridPane();
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
 		gridPane.setVgap(5);
 		gridPane.getStyleClass().addAll("pane","gridPane");
-		
-		    	
+	
 		gridPane= addLabels(gridPane, labels);
 		
-		ScrollPane scroll1 = new ScrollPane(gridPane);
-		scroll1.setFitToWidth(true);
-		scroll1.setFitToHeight(true);
+		gridPane.setMaxSize(600, 600);
+		gridPane.setMaxWidth(600);
 		
-		mainGrid.add(gridPane, 0, 0);
+		//// BACKBUTTON ---- The button for going back ////
+		
+		Button back = new Button();
+		back.setMaxWidth(40);
+		back.getStyleClass().add("button-back");
+		back.setOnAction(e -> sizePickerM());
+		
+		//// SCROLLPANE --- The layout that has the scroll feature for the game layout ///
+		
+		scroll1 = new ScrollPane(gridPane);
+		scroll1.setFitToWidth(true);
+		
+		////// The HBOX containing top button //////
+		
+		HBox topButtons = new HBox();
+		topButtons.setPadding(new Insets(15, 12, 15, 12));
+	    topButtons.setSpacing(10);
+	    topButtons.setAlignment(Pos.CENTER_RIGHT);
+	    
+	    topButtons.getChildren().addAll(randomize,btn_mute,btn_muteFX);
+	    /////// VBox containing content right of game ///////
+	    
+	    VBox rightContent = new VBox();
+	    rightContent.setPadding(new Insets(15, 12, 15, 12));
+	    rightContent.setSpacing(10);
+	    rightContent.getChildren().addAll(timeLeft,timerLabel,numberOfMoves,moves);
+		
+		////// All content for the main layout is added here ///// 
+	    
+		mainGrid.add(back, 0, 0);
+		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
+		mainGrid.add(topButtons, 2, 0);
+		mainGrid.add(rightContent, 2, 1);
+		
+		/*		
 		mainGrid.add(playLabel, 0, 2);
-		mainGrid.add(moves, 1, 1);
+		
+		mainGrid.add(moves, 0, 1);
 		mainGrid.add(btn_mute, 2, 0);
 		mainGrid.add(btn_muteFX, 2, 1);
 		mainGrid.add(timerLabel, 3, 0);
-		mainGrid.add(timeLeft, 3, 1);
+		mainGrid.add(timeLeft, 3, 1);*/
 		
-		game = new Scene(mainGrid, 750, 750);
-
+		game = new Scene(mainGrid, 700, 700);
 		window.setScene(game);
 		game.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
 	}
