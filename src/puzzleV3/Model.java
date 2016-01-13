@@ -2,8 +2,8 @@ package puzzleV3;
 
 import java.awt.Point;
 import java.util.Random;
-import java.util.Scanner;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 
 public class Model {
@@ -25,7 +25,7 @@ public class Model {
 	
 		//used to define the size of the labels. 
 		String amountOfCiffers = Integer.toString(size*size);
-		double dSize = (amountOfCiffers.length()*5)+20.0;
+		double dSize = setLabelSideLength(amountOfCiffers);
 		
 		//initiates the array with labels with the text of the current label. starting with 1.
 		int count = 1;
@@ -33,6 +33,7 @@ public class Model {
 			for (int j = 0; j<size; j++){
 				labels[i][j] = new Label(Integer.toString(count));
 				labels[i][j].setMinSize(dSize, dSize);
+				labels[i][j].setAlignment(Pos.CENTER);
 				count++;
 			}
 		}
@@ -200,21 +201,11 @@ public class Model {
 		});
 	}
 	
-	public boolean legalSizeInput(String input){
-		Scanner intScanner = new Scanner(input);
-		if (!intScanner.hasNext()){
-			System.out.println("you need to input something");
-			intScanner.close();
-			return false;
-		}else if(!intScanner.hasNextInt()){
-			System.out.println("it needs to be an integer");
-			intScanner.close();
-			return false;
-		}else if(intScanner.nextInt() < 3 || intScanner.nextInt() > 100){
-			System.out.println("it needs to be between 3 and 100");
+	public double setLabelSideLength(String ciffers){
+		double screenLength = 400;
+		if (puzzleSize < 10){
+			return screenLength/puzzleSize;
 		}
-		intScanner.close();
-		return true;
+		return 30.0;
 	}
-	
 }
