@@ -2,6 +2,8 @@ package puzzleV3;
 
 import java.awt.Point;
 import java.util.Random;
+import java.util.Scanner;
+
 import javafx.scene.control.Label;
 
 public class Model {
@@ -169,6 +171,23 @@ public class Model {
 				isPlaying.setText("You've won");
 			}
 		});
+	}
+	
+	public boolean legalSizeInput(String input){
+		Scanner intScanner = new Scanner(input);
+		if (!intScanner.hasNext()){
+			System.out.println("you need to input something");
+			intScanner.close();
+			return false;
+		}else if(!intScanner.hasNextInt()){
+			System.out.println("it needs to be an integer");
+			intScanner.close();
+			return false;
+		}else if(intScanner.nextInt() < 3 || intScanner.nextInt() > 100){
+			System.out.println("it needs to be between 3 and 100");
+		}
+		intScanner.close();
+		return true;
 	}
 	
 }
