@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 
 public class Model {
 	Label[][] labels;
@@ -26,7 +27,7 @@ public class Model {
 		//used to define the size of the labels. 
 		String amountOfCiffers = Integer.toString(size*size);
 		double dSize = setLabelSideLength(amountOfCiffers);
-		
+		Font labelFont = new Font(dSize-10);
 		//initiates the array with labels with the text of the current label. starting with 1.
 		int count = 1;
 		for (int i = 0; i<size; i++){
@@ -34,6 +35,7 @@ public class Model {
 				labels[i][j] = new Label(Integer.toString(count));
 				labels[i][j].setMinSize(dSize, dSize);
 				labels[i][j].setAlignment(Pos.CENTER);
+				labels[i][j].setFont(labelFont);
 				count++;
 			}
 		}
@@ -205,7 +207,6 @@ public class Model {
 		double screenLength = 400;
 		if (puzzleSize < 10){
 			return screenLength/puzzleSize;
-		}
-		return 30.0;
+		}else {return (ciffers.length()*5)+10;}
 	}
 }
