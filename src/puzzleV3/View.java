@@ -308,10 +308,17 @@ public class View extends Application{
 		back.setMaxWidth(40);
 		back.getStyleClass().add("button-back");
 		back.setOnAction(e -> {
-			timeline.stop();   
 			sizePickerM();		
+			timeline.stop();   
 		});
 		back.setAlignment(Pos.TOP_LEFT);
+		
+		HBox topBtns = new HBox();
+		topBtns.setPadding(new Insets(15,12,15,12));
+		topBtns.setSpacing(250);
+		topBtns.setAlignment(Pos.CENTER_LEFT);
+		
+		topBtns.getChildren().addAll(back, randomize);
 		
 		//// SCROLLPANE --- The layout that has the scroll feature for the game layout ///
 		
@@ -326,7 +333,7 @@ public class View extends Application{
 	    bottomBtns.setSpacing(35);
 	    bottomBtns.setAlignment(Pos.CENTER);
 	    
-	    bottomBtns.getChildren().addAll(randomize,btn_mute,btn_muteFX);
+	    bottomBtns.getChildren().addAll(btn_mute,btn_muteFX);
 	    
 	    /////// VBox containing content right of game ///////
 	    
@@ -338,6 +345,7 @@ public class View extends Application{
 		////// All content for the main layout is added here ///// 
 	    
 		//mainGrid.add(back, 0, 0);
+	    mainGrid.setAlignment(Pos.CENTER);
 		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
 		//mainGrid.add(bottomBtns, 1, 0);
@@ -345,7 +353,7 @@ public class View extends Application{
 		
 		BorderPane main = new BorderPane();
 		main.setCenter(mainGrid);
-		main.setTop(back);
+		main.setTop(topBtns);
 		main.setRight(rightContent);
 		main.setBottom(bottomBtns);
 		StackPane stack = new StackPane();
