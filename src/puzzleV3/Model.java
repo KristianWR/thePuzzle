@@ -81,9 +81,9 @@ public class Model {
 		}else if (var == "down"){
 			switchLabels( y+1, x, y, x);
 		}else if (var == "left"){
-			switchLabels( y, x, y, x-1);
+			switchLabels( y, x-1, y, x);
 		}else if (var == "right"){
-			switchLabels( y, x, y, x+1);
+			switchLabels( y, x+1, y, x);
 		}else if (var == "not"){
 			System.out.println("not a valid move");
 		}
