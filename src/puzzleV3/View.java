@@ -46,6 +46,7 @@ public class View extends Application{
 	MediaPlayer mpMusic;
 	MediaPlayer mpFX;
 	MediaPlayer mpWin;
+	MediaPlayer mpLoose;
 	//timer variables
     private static final Integer STARTTIME = 15;
     private Timeline timeline;
@@ -187,6 +188,7 @@ public class View extends Application{
 		Button btn_mute = new Button("Mute Music");
 	    Button btn_muteFX = new Button("Mute SoundFX");
 	    Button randomize = new Button("Randomize");
+	    timeline = new Timeline();
 	    timeSeconds.set(STARTTIME);
 	    
 	    
@@ -265,8 +267,7 @@ public class View extends Application{
 	                    timeline.stop();    
 	                }
 	                				                
-	                timeSeconds.set(STARTTIME);
-	                timeline = new Timeline();
+	                timeSeconds.set(STARTTIME);	               
 	                timeline.getKeyFrames().add(				                		
 	                        new KeyFrame(Duration.seconds(STARTTIME+1),
 	                        new KeyValue(timeSeconds, 0)));
@@ -282,8 +283,7 @@ public class View extends Application{
 		
 		///// THE MAIN LAYOUT OF THE SCENE /////
 		
-	
-		
+			
 		GridPane mainGrid = new GridPane();
 		mainGrid.setPadding(new Insets(5,5,5,5));
 		mainGrid.setHgap(5);
@@ -308,8 +308,14 @@ public class View extends Application{
 		back.setMaxWidth(40);
 		back.getStyleClass().add("button-back");
 		back.setOnAction(e -> {
-			sizePickerM();		
-			timeline.stop();   
+			
+			sizePickerM();
+			
+			if(timeline.getCurrentRate() != 0.0) {
+			timeline.stop();
+			}
+			
+			
 		});
 		back.setAlignment(Pos.TOP_LEFT);
 		
