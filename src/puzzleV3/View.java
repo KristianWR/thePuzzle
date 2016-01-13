@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -27,6 +28,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -53,6 +56,7 @@ public class View extends Application{
     private Label timerLabel = new Label();
     private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
     ScrollPane scroll1;
+    CheckBox cb1;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -67,13 +71,15 @@ public class View extends Application{
 		window.setMaxHeight(window.getHeight());
 		window.setMaxWidth(window.getWidth());
 		
-		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/zelda.mp3").toString());
+		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
 		Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/win.mp3").toString());
+		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/loose.mp3").toString());
 		mpMusic = new MediaPlayer(backgroundMusic);		
 		mpWin = new MediaPlayer(winMusic);
+		mpLoose = new MediaPlayer(looseMusic);
 		
 		mpMusic.setAutoPlay(true);	
-		mpMusic.setVolume(0.3);
+		mpMusic.setVolume(0.9);
 		
 	}
 	
@@ -133,6 +139,7 @@ public class View extends Application{
 	}
 	
 	public void sizePickerM(){
+		
 		GridPane grid2 = new GridPane();
 		grid2.setHgap(10);
 		grid2.setVgap(20);
@@ -143,6 +150,8 @@ public class View extends Application{
 		sizePicker = new Scene(borderP, 700, 700);
 		
 		Label chooseSize = new Label("Choose the size of the game");
+		chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		
 		GridPane.setConstraints(chooseSize, 1, 2);
 		
 		TextField sizePrompt = new TextField();
@@ -160,11 +169,21 @@ public class View extends Application{
 		GridPane.setConstraints(sizeInfo, 1, 4);
 		
 		Button go = new Button("Start");
-		GridPane.setConstraints(go, 2, 3);
+		GridPane.setConstraints(go, 2, 6);
 		go.setOnAction(e -> {
 			initSize = Integer.parseInt(sizePrompt.getText());
 			gameSceneM();
 		});
+		
+		Label timeInfo = new Label("Enable time pressure");
+		GridPane.setConstraints(timeInfo, 1, 5);
+		timeInfo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		
+		cb1 = new CheckBox();
+		cb1.setText("Time pressure");
+		cb1.setTextFill(Color.WHITE);
+		
+		GridPane.setConstraints(cb1, 1, 6);
 		
 		Button goBack = new Button();
 		GridPane.setConstraints(goBack, 0, 0);
@@ -172,7 +191,7 @@ public class View extends Application{
 		goBack.getStyleClass().add("button-back");
 		goBack.setOnAction(e -> mainMenuM());
 		
-		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go);
+		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, cb1, timeInfo, go);
 		borderP.setTop(goBack);
 		borderP.setCenter(grid2);
 		window.setScene(sizePicker);
@@ -189,9 +208,8 @@ public class View extends Application{
 	    Button btn_muteFX = new Button("Mute SoundFX");
 	    Button randomize = new Button("Randomize");
 	    timeline = new Timeline();
-	    timeSeconds.set(STARTTIME);
-	    
-	    
+	    timeSeconds.set(STARTTIME);	   
+	    	    
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());	
 	    
     	mpFX = new MediaPlayer(tileSwap);
@@ -209,10 +227,8 @@ public class View extends Application{
 	    //toggle music on/off
 	    btn_mute.setOnAction(new EventHandler<ActionEvent>() {										
 			
-			public void handle(ActionEvent arg0) {
-				
-				//mpMusic.setMute(true);
-				
+			public void handle(ActionEvent arg0) {				
+				//mpMusic.setMute(true);				
 				if (mpMusic.getVolume() != 0.0){					
 					mpMusic.setVolume(0.0);
 				} else {
@@ -263,6 +279,7 @@ public class View extends Application{
             	mpFX.stop();
             	mpFX.play();
             	
+            	if(cb1.isSelected() == true) {
             	 if (timeline != null) {
 	                    timeline.stop();    
 	                }
@@ -276,8 +293,11 @@ public class View extends Application{
 	                //When times runs out
 	                				                				           
 	                timeline.setOnFinished((ActionEvent event1) -> {
+	                		mpLoose.stop();
+	                		mpLoose.play();
 	                		popUpLoose();
 	                });
+            	}
 				}
         }); 
 		
@@ -346,8 +366,12 @@ public class View extends Application{
 	    VBox rightContent = new VBox();
 	    rightContent.setPadding(new Insets(15, 12, 15, 12));
 	    rightContent.setSpacing(10);
+	    
+	    if(cb1.isSelected() == true) {
 	    rightContent.getChildren().addAll(timeLeft,timerLabel,numberOfMoves,moves);
-		
+	    } else {
+	    	rightContent.getChildren().addAll(numberOfMoves,moves);
+	    }
 		////// All content for the main layout is added here ///// 
 	    
 		//mainGrid.add(back, 0, 0);
@@ -474,8 +498,7 @@ public class View extends Application{
         window.setScene(scene);
         window.show();
 
-	}
-	
+	}	
 
 }
 
