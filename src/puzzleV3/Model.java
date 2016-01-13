@@ -123,8 +123,9 @@ public class Model {
 	
 	public void switchLabels(int i, int j, int h, int v){
 		//switches the text on the two labels 
+		String temp = labels[i][j].getText();
 		labels[i][j].setText(labels[h][v].getText());
-		labels[h][v].setText("0");
+		labels[h][v].setText(temp);
 		//updates the zerPos point
 		zeroPos.setLocation(v, h);
 		//increments the moveCount.
