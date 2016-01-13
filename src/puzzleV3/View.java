@@ -158,21 +158,42 @@ public class View extends Application{
 		sizePrompt.setPromptText("E.g. 3");
 		GridPane.setConstraints(sizePrompt, 1, 3);
 		
+		Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
+		GridPane.setConstraints(sizeInfo, 1, 4);
+		
 		sizePrompt.setOnKeyPressed(e -> {
 			if(e.getCode().equals(KeyCode.ENTER)){
-				initSize = Integer.parseInt(sizePrompt.getText());
-				gameSceneM();
+				try{
+					initSize = Integer.parseInt(sizePrompt.getText());
+					if ( initSize < 3 || initSize > 100){
+						System.out.println("not between 3-100");
+						sizeInfo.setText("must be between 3-100");
+					}else{
+						gameSceneM();					
+					}
+				}catch (NumberFormatException ex){
+					System.out.println("not a int");
+					sizeInfo.setText("must! be an integer");
+				}
 			}
 		});
 		
-		Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
-		GridPane.setConstraints(sizeInfo, 1, 4);
 		
 		Button go = new Button("Start");
 		GridPane.setConstraints(go, 2, 6);
 		go.setOnAction(e -> {
-			initSize = Integer.parseInt(sizePrompt.getText());
-			gameSceneM();
+			try{
+				initSize = Integer.parseInt(sizePrompt.getText());
+				if ( initSize < 3 || initSize > 100){
+					System.out.println("not between 3-100");
+					sizeInfo.setText("must be between 3-100");
+				}else{
+					gameSceneM();					
+				}
+			}catch (NumberFormatException ex){
+				System.out.println("not a int");
+				sizeInfo.setText("must! be an integer");
+			}
 		});
 		
 		Label timeInfo = new Label("Enable time pressure");
