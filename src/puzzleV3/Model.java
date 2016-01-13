@@ -22,10 +22,13 @@ public class Model {
 	public void createLabels(int size){
 		labels = new Label[size][size];
 		puzzleSize = size;
-		int count = 1;
+	
+		//used to define the size of the labels. 
 		String amountOfCiffers = Integer.toString(size*size);
 		double dSize = (amountOfCiffers.length()*5)+20.0;
+		
 		//initiates the array with labels with the text of the current label. starting with 1.
+		int count = 1;
 		for (int i = 0; i<size; i++){
 			for (int j = 0; j<size; j++){
 				labels[i][j] = new Label(Integer.toString(count));
@@ -33,7 +36,8 @@ public class Model {
 				count++;
 			}
 		}
-		//sets the final button text to "0"
+		
+		//sets the final button text to "0" and adds the css style
 		labels[size-1][size-1].setText("0");
 		labels[size-1][size-1].getStyleClass().add("label-zero");
 		
@@ -43,11 +47,13 @@ public class Model {
 		labels[0][0] = labels[0][2];	labels[0][2] = holder1;
 		labels[0][1] = labels[0][0];	labels[0][0] = holder2;
 		
+		//sets the mouseClickAction for every label in labels
 		for (int i = 0; i<labels.length; i++){
 			for (int j = 0; j<labels.length; j++){
 				setMouseClickAction(i, j);
 			}
 		}
+		//important variable for the randomMove() method.
 		zeroPos.setLocation(size-1, size-1);
 	}
 	
@@ -73,6 +79,10 @@ public class Model {
 	}
 	
 	public void checkMove(int x, int y){
+		/*
+		 * checks if the label at the given x,y in labels is next to zero.
+		 * it returns where the zero is relative to the given values.
+		 */
 		String var = nextToZero(x, y);
 		//for debug
 		System.out.println(var + " x=" + x + " y=" + y + " " + labels[y][x].getText());
@@ -131,10 +141,16 @@ public class Model {
 		labels[h][v].setText(temp);
 		//updates the zerPos point
 		zeroPos.setLocation(v, h);
+		
+		/*
+		 * updates which label to have the "label-zero" css style. 
+		 * functionally it makes the label with the text "0" disappear.
+		 */
 		labels[h][v].getStyleClass().add("label-zero");
 	    labels[i][j].getStyleClass().remove("label-zero");
 	    labels[i][j].getStyleClass().add("label");
-		//increments the moveCount.
+
+	    //increments the moveCount.
 		int moves = Integer.parseInt(moveCount.getText())+1;
 		moveCount.setText(Integer.toString(moves));
 	}
@@ -152,12 +168,14 @@ public class Model {
 			for (Label[] l : labels){
 				for (Label tmpLabel : l){
 					String labelText = tmpLabel.getText();
+					
 					//if we are looking at the last Label we don't want to do anything.
 					if (count == puzzleSize*puzzleSize){
-						System.out.println("at the end");
+						System.out.println("at the end");}
+					
 					//if the Label dosen't matches that of the number of labels we've look through
 					//the game is not won.
-					}else if (!labelText.equals(Integer.toString(count))){
+					else if (!labelText.equals(Integer.toString(count))){
 						won = false;
 						System.out.println("false: count=" + count + " and lblText: " + labelText);
 					}
@@ -169,6 +187,11 @@ public class Model {
 	}
 	
 	public void setMouseClickAction(int y, int x){
+		/*
+		 * sets the action to perform when a label is clicked to
+		 * check if it can be moved. if so it moves it. and after every move, 
+		 * the winCheck() method is called to check if the player has won.
+		 */
 		labels[y][x].setOnMouseClicked(e -> {
 			checkMove(x, y);
 			if (winCheck()){
