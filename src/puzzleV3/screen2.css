@@ -10,6 +10,15 @@
 .label{
 	-fx-text-fill: #FFFFFF;
 }
+.label-about{
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 15pt;
+}
+.label-fed{
+	-fx-text-fill: #FFFFFF;
+	-fx-font-weight: bold;
+	-fx-font-size: 20pt;
+}
 .button-back{
 	-fx-background-image: url('BackArrow.png');
 	-fx-background-size: 100% 100%;
