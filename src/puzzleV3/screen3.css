@@ -1,27 +1,31 @@
 .root{
-	-fx-background-color: #848D91;
+	-fx-background-color: #2E2E2E;
 }
 .pane{
-	-fx-background-color: #848D91;
+	-fx-background-color: #2E2E2E;
 }
 
 .button{
-    -fx-background-color: #AB4642;
+    -fx-background-color: #4A4A4A;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 20;
 }
 .label{
 	-fx-text-fill: #FFFFFF;
 	-fx-background-color: #DB7739;
+	-fx-font-weight: bold;	
 }
 .label-zero{
-	-fx-text-fill: #848D91;
-	-fx-background-color: #848D91;
+	-fx-text-fill: #2E2E2E;
+	-fx-background-color: #2E2E2E;
 }
 
 .button-back{
 	-fx-background-image: url('BackArrow.png');
 	-fx-background-size: 100% 100%;
 	-fx-font-size: 15pt;
-	-fx-background-color: #848D91;
+	-fx-background-color: #2E2E2E;
+}
+.label.skrift{
+	-fx-text-fill: #FFFFFF;
 }
