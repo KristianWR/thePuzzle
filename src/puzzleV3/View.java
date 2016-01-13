@@ -47,7 +47,7 @@ public class View extends Application{
 	MediaPlayer mpFX;
 	MediaPlayer mpWin;
 	//timer variables
-    private static final Integer STARTTIME = 3;
+    private static final Integer STARTTIME = 15;
     private Timeline timeline;
     private Label timerLabel = new Label();
     private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
@@ -187,6 +187,7 @@ public class View extends Application{
 		Button btn_mute = new Button("Mute Music");
 	    Button btn_muteFX = new Button("Mute SoundFX");
 	    Button randomize = new Button("Randomize");
+	    timeSeconds.set(STARTTIME);
 	    
 	    
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());	
@@ -249,6 +250,7 @@ public class View extends Application{
             	                        	
             }
         }); 
+		
 		Label moves = kontrol.theModel.moveCount;
         moves.setTextFill(Color.BLACK);
         moves.setStyle("-fx-font-size: 4em;");
@@ -305,7 +307,10 @@ public class View extends Application{
 		Button back = new Button();
 		back.setMaxWidth(40);
 		back.getStyleClass().add("button-back");
-		back.setOnAction(e -> sizePickerM());
+		back.setOnAction(e -> {
+			timeline.stop();   
+			sizePickerM();		
+		});
 		back.setAlignment(Pos.TOP_LEFT);
 		
 		//// SCROLLPANE --- The layout that has the scroll feature for the game layout ///
@@ -394,6 +399,8 @@ public class View extends Application{
 		window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Congratulations");
         window.setMinWidth(250);
+        
+        timeline.stop();
         
         Label label = new Label();
         label.setText("Congratulations! You won!");
