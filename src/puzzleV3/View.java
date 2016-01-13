@@ -119,7 +119,7 @@ public class View extends Application{
 		
 		btnplay.setOnAction(e -> sizePickerM());
 		
-		btnsetting.setOnAction(e -> settingscreen());
+		btnsetting.setOnAction(e -> howscreen());
 		
 		btnabout.setOnAction(e -> aboutscreen());
 		
@@ -404,30 +404,69 @@ public class View extends Application{
 		game.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
 	}
 	public void aboutscreen(){
+		BorderPane border=new BorderPane();
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
 	    grid.setVgap(20);
-	    grid.setAlignment(Pos.CENTER);
+	    grid.setAlignment(Pos.TOP_CENTER);
 	    
-	    Label dev= new Label("The awesome developers: \n Kristian Wolthers Rasmussen \n Pelle Rubin Galløe \n Rasmus Suonperä Liebst "
-	    		+ "\n Jia Johnny Ye");
-	    grid.getChildren().add(dev);
-
+	    Button back = new Button();
+			back.setMaxWidth(40);
+			back.getStyleClass().add("button-back");
+			back.setOnAction(e -> mainMenuM());
+			back.setAlignment(Pos.TOP_LEFT);
+	    
+	    Label dev= new Label("The awesome developers:");
+	    dev.getStyleClass().add("label-fed");
+	    Label tekst= new Label("Kristian Wolthers Rasmussen \nPelle Rubin Galløe \nRasmus Suonperä Liebst "
+	    		+ "\nJia Johnny Ye");
+	    tekst.getStyleClass().add("label-about");
+	    
+	    grid.add(dev, 0,0);
+	    grid.add(tekst, 0,1);
+	    
+	    border.setTop(back);
+	    border.setCenter(grid);
 		
-	    about = new Scene(grid, 750, 750);
+	    about = new Scene(border, 750, 750);
 		window.setScene(about);
-		about.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
+		about.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
-	public void settingscreen(){
+	public void howscreen(){
+		BorderPane border=new BorderPane();
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
 	    grid.setVgap(20);
-	    grid.setAlignment(Pos.CENTER);
+	    grid.setAlignment(Pos.TOP_CENTER);
 	    
-		
-	    setting = new Scene(grid, 750, 750);
+	    Label tut= new Label("Tutorial:");
+	    tut.getStyleClass().add("label-fed");
+	    Label htp= new Label(" You play the game by \n pressing"
+	    		+ " one of the fields \n next to the empty field \n");
+	    htp.getStyleClass().add("label-about");
+	    
+	    Label win= new Label("Wincondition:");
+	    win.getStyleClass().add("label-fed");
+	    Label tekst=new Label(" You win the game by \n having alle the numbers"
+	    		+ " in order \n with the empty field as the last field");
+	    tekst.getStyleClass().add("label-about");
+	    
+	    grid.add(tut, 0, 0);
+	    grid.add(htp, 0, 1);
+	    grid.add(win, 0, 2);
+	    grid.add(tekst, 0, 3);
+	    
+	    Button back = new Button();
+		back.setMaxWidth(40);
+		back.getStyleClass().add("button-back");
+		back.setOnAction(e -> mainMenuM());
+		back.setAlignment(Pos.TOP_LEFT);
+	
+		border.setTop(back);
+		border.setCenter(grid);
+	    setting = new Scene(border, 750, 750);
 		window.setScene(setting);
-		setting.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
+		setting.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
 	
 	public void popUpWin(){
