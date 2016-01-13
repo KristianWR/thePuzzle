@@ -81,6 +81,8 @@ public class View extends Application{
 		mpMusic.setAutoPlay(true);	
 		mpMusic.setVolume(0.9);
 		
+		mpMusic.setCycleCount(1000);
+		
 	}
 	
 	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
@@ -523,6 +525,7 @@ public class View extends Application{
         scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
+        window.setOnCloseRequest(e -> Platform.exit());
 
 	}
 	
@@ -557,6 +560,7 @@ public class View extends Application{
         scene = new Scene(layout);
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(e -> Platform.exit());
 
 	}	
 
