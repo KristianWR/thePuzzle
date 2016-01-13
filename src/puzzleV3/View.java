@@ -240,10 +240,11 @@ public class View extends Application{
 		
 		// Bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
-        timerLabel.setTextFill(Color.BLACK);
         timerLabel.setStyle("-fx-font-size: 4em;");
         Label timeLeft = new Label();
         timeLeft.setText("Time left:");
+	    timeLeft.getStyleClass().remove("label");
+        timeLeft.getStyleClass().add("label-skrift");
         
         Label numberOfMoves = new Label("Number \nof moves:");
 		

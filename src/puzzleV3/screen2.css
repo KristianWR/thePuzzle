@@ -1,5 +1,5 @@
 .root{
-	-fx-background-color: #848D91;
+	-fx-background-color: #2E2E2E;
 }
 
 .button{
@@ -23,5 +23,5 @@
 	-fx-background-image: url('BackArrow.png');
 	-fx-background-size: 100% 100%;
 	-fx-font-size: 15pt;
-	-fx-background-color: #848D91;
+	-fx-background-color: #2E2E2E;
 }
