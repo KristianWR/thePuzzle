@@ -35,6 +35,7 @@ public class Model {
 		}
 		//sets the final button text to "0"
 		labels[size-1][size-1].setText("0");
+		labels[size-1][size-1].getStyleClass().add("label-zero");
 		
 		//sets the first 3 buttons in sequence 2, 3, 1
 		Label holder1 = labels[0][0];
@@ -130,6 +131,9 @@ public class Model {
 		labels[h][v].setText(temp);
 		//updates the zerPos point
 		zeroPos.setLocation(v, h);
+		labels[h][v].getStyleClass().add("label-zero");
+	    labels[i][j].getStyleClass().remove("label-zero");
+	    labels[i][j].getStyleClass().add("label");
 		//increments the moveCount.
 		int moves = Integer.parseInt(moveCount.getText())+1;
 		moveCount.setText(Integer.toString(moves));
