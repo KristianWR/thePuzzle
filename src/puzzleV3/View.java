@@ -171,7 +171,7 @@ public class View extends Application{
 		goBack.getStyleClass().add("button-back");
 		goBack.setOnAction(e -> mainMenuM());
 		
-		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go, goBack);
+		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go);
 		borderP.setTop(goBack);
 		borderP.setCenter(grid2);
 		window.setScene(sizePicker);
@@ -201,7 +201,7 @@ public class View extends Application{
         Label timeLeft = new Label();
         timeLeft.setText("Time left:");
         
-        Label numberOfMoves = new Label("Number of moves:");
+        Label numberOfMoves = new Label("Number \nof moves:");
 		
 	    //toggle music on/off
 	    btn_mute.setOnAction(new EventHandler<ActionEvent>() {										
@@ -248,6 +248,8 @@ public class View extends Application{
             }
         }); 
 		Label moves = kontrol.theModel.moveCount;
+        moves.setTextFill(Color.BLACK);
+        moves.setStyle("-fx-font-size: 4em;");
 		moves.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
@@ -294,7 +296,7 @@ public class View extends Application{
 		gridPane= addLabels(gridPane, labels);
 		
 		gridPane.setMaxSize(600, 600);
-		gridPane.setMaxWidth(600);
+		gridPane.setAlignment(Pos.CENTER);
 		
 		//// BACKBUTTON ---- The button for going back ////
 		
@@ -302,6 +304,7 @@ public class View extends Application{
 		back.setMaxWidth(40);
 		back.getStyleClass().add("button-back");
 		back.setOnAction(e -> sizePickerM());
+		back.setAlignment(Pos.TOP_LEFT);
 		
 		//// SCROLLPANE --- The layout that has the scroll feature for the game layout ///
 		
@@ -310,12 +313,14 @@ public class View extends Application{
 		
 		////// The HBOX containing top button //////
 		
-		HBox topButtons = new HBox();
-		topButtons.setPadding(new Insets(15, 12, 15, 12));
-	    topButtons.setSpacing(10);
-	    topButtons.setAlignment(Pos.CENTER_RIGHT);
+		
+		HBox bottomBtns = new HBox();
+		bottomBtns.setPadding(new Insets(15, 12, 15, 12));
+	    bottomBtns.setSpacing(35);
+	    bottomBtns.setAlignment(Pos.CENTER);
 	    
-	    topButtons.getChildren().addAll(randomize,btn_mute,btn_muteFX);
+	    bottomBtns.getChildren().addAll(randomize,btn_mute,btn_muteFX);
+	    
 	    /////// VBox containing content right of game ///////
 	    
 	    VBox rightContent = new VBox();
@@ -325,11 +330,20 @@ public class View extends Application{
 		
 		////// All content for the main layout is added here ///// 
 	    
-		mainGrid.add(back, 0, 0);
+		//mainGrid.add(back, 0, 0);
 		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
-		mainGrid.add(topButtons, 2, 0);
-		mainGrid.add(rightContent, 2, 1);
+		//mainGrid.add(bottomBtns, 1, 0);
+		//mainGrid.add(rightContent, 2, 1);
+		
+		BorderPane main = new BorderPane();
+		main.setCenter(mainGrid);
+		main.setTop(back);
+		main.setRight(rightContent);
+		main.setBottom(bottomBtns);
+		StackPane stack = new StackPane();
+		stack.setPrefWidth(40);
+		main.setLeft(stack);
 		
 		/*		
 		mainGrid.add(playLabel, 0, 2);
@@ -340,7 +354,7 @@ public class View extends Application{
 		mainGrid.add(timerLabel, 3, 0);
 		mainGrid.add(timeLeft, 3, 1);*/
 		
-		game = new Scene(mainGrid, 700, 700);
+		game = new Scene(main, 700, 700);
 		window.setScene(game);
 		game.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
 	}
