@@ -35,7 +35,9 @@ public class Model {
 				labels[i][j] = new Label(Integer.toString(count));
 				labels[i][j].setMinSize(dSize, dSize);
 				labels[i][j].setAlignment(Pos.CENTER);
-				labels[i][j].setFont(labelFont);
+				if (size <= 10){
+					labels[i][j].setFont(labelFont);
+				}
 				count++;
 			}
 		}
@@ -207,6 +209,6 @@ public class Model {
 		double screenLength = 400;
 		if (puzzleSize < 10){
 			return screenLength/puzzleSize;
-		}else {return (ciffers.length()*5)+10;}
+		}else {return (ciffers.length()*5)+20;}
 	}
 }
