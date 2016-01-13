@@ -235,6 +235,8 @@ public class View extends Application{
 			}
 		});
 	    
+	    //randomizes the game
+	    randomize.setOnAction(e -> kontrol.theModel.randomMove());
 	    	    
 		Label playLabel = kontrol.theModel.isPlaying;
 		playLabel.textProperty().addListener(new ChangeListener<String>() {

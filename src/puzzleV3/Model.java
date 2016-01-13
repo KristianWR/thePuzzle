@@ -68,9 +68,12 @@ public class Model {
 		//if not next to zero 
 		return "not";
 	}
+	
 	public void checkMove(int x, int y){
 		String var = nextToZero(x, y);
+		//for debug
 		System.out.println(var + " x=" + x + " y=" + y + " " + labels[y][x].getText());
+		//runs through every possibility of outcome in switchLabels and switch labels accordingly 
 		if (var == "up"){
 			switchLabels(y-1, x, y, x);
 		}else if (var == "down"){
@@ -86,41 +89,67 @@ public class Model {
 	
 	public void randomMove(){
 		Random rndmNumbGenerator = new Random();
-		for (int i = puzzleSize * 10; i>0; i--){
+		int x = zeroPos.x;
+		int y = zeroPos.y;
+		//Number of random moves = puzzleSize*20
+		for (int i = puzzleSize * 20; i>0; i--){
 			int randNumb = rndmNumbGenerator.nextInt(4);
-			int x = zeroPos.x;
-			int y = zeroPos.y;
-			if (randNumb == 0){
+			/*
+			 * Each if statement uses the randNumb and the condition if that moves is 'legal'
+			 * if we proceed inside a statement we make the move and update x, y that are the
+			 * parameters that keeps count of where a move is "legal" so to speak.
+			 */
+			if (randNumb == 0 && y!=0 && y<puzzleSize){
+				//moves up
 				checkMove(x, y-1);
-			}else if (randNumb == 1){
+				y -= 1;
+			}else if (randNumb == 1 && y<(puzzleSize-1) && y>=0){
+				//moves down
 				checkMove(x, y+1);
-			}else if(randNumb == 2){
+				y += 1;
+			}else if(randNumb == 2 && x !=0 && x<(puzzleSize)){
+				//moves left
 				checkMove(x-1, y);
-			}else {	
+				x -= 1;
+			}else if(x<(puzzleSize-1) && x>=0){	
+				//moves right
 				checkMove(x+1, y);
+				x += 1;
 			}
 		}
+		// reset the moveCount to 0 as the random moves counts as player moves but aren't.
 		moveCount.setText("0");
 	}
 	
 	public void switchLabels(int i, int j, int h, int v){
-		String temp = labels[i][j].getText();
+		//switches the text on the two labels 
 		labels[i][j].setText(labels[h][v].getText());
-		labels[h][v].setText(temp);
+		labels[h][v].setText("0");
+		//updates the zerPos point
 		zeroPos.setLocation(v, h);
+		//increments the moveCount.
 		int moves = Integer.parseInt(moveCount.getText())+1;
 		moveCount.setText(Integer.toString(moves));
 	}
 	
 	public boolean winCheck(){
+		/*
+		 * the base assumption is that the game is won. we then run through every
+		 * possibility that could falsify that assumption. 
+		 */
 		boolean won = true;
+		//if the last label = 0 - it's in the correct position.
 		if (labels[puzzleSize-1][puzzleSize-1].getText().equals("0")){
 			int count = 1;
-			for (int i = 0; i<puzzleSize; i++){
-				for (int j = 0; j <puzzleSize; j++){
-					String labelText = labels[i][j].getText();
+			//for each label in labels[][] (excluding the very last ("0))
+			for (Label[] l : labels){
+				for (Label tmpLabel : l){
+					String labelText = tmpLabel.getText();
+					//if we are looking at the last Label we don't want to do anything.
 					if (count == puzzleSize*puzzleSize){
 						System.out.println("at the end");
+					//if the Label dosen't matches that of the number of labels we've look through
+					//the game is not won.
 					}else if (!labelText.equals(Integer.toString(count))){
 						won = false;
 						System.out.println("false: count=" + count + " and lblText: " + labelText);
@@ -129,7 +158,6 @@ public class Model {
 				}
 			}
 		}else {won = false;}
-		
 		return won;
 	}
 	
