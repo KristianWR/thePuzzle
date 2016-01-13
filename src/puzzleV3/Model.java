@@ -2,6 +2,8 @@ package puzzleV3;
 
 import java.awt.Point;
 import java.util.Random;
+import java.util.Scanner;
+
 import javafx.scene.control.Label;
 
 public class Model {
@@ -33,6 +35,7 @@ public class Model {
 		}
 		//sets the final button text to "0"
 		labels[size-1][size-1].setText("0");
+		labels[size-1][size-1].getStyleClass().add("label-zero");
 		
 		//sets the first 3 buttons in sequence 2, 3, 1
 		Label holder1 = labels[0][0];
@@ -79,9 +82,9 @@ public class Model {
 		}else if (var == "down"){
 			switchLabels( y+1, x, y, x);
 		}else if (var == "left"){
-			switchLabels( y, x, y, x-1);
+			switchLabels( y, x-1, y, x);
 		}else if (var == "right"){
-			switchLabels( y, x, y, x+1);
+			switchLabels( y, x+1, y, x);
 		}else if (var == "not"){
 			System.out.println("not a valid move");
 		}
@@ -128,6 +131,9 @@ public class Model {
 		labels[h][v].setText(temp);
 		//updates the zerPos point
 		zeroPos.setLocation(v, h);
+		labels[h][v].getStyleClass().add("label-zero");
+	    labels[i][j].getStyleClass().remove("label-zero");
+	    labels[i][j].getStyleClass().add("label");
 		//increments the moveCount.
 		int moves = Integer.parseInt(moveCount.getText())+1;
 		moveCount.setText(Integer.toString(moves));
@@ -169,6 +175,23 @@ public class Model {
 				isPlaying.setText("You've won");
 			}
 		});
+	}
+	
+	public boolean legalSizeInput(String input){
+		Scanner intScanner = new Scanner(input);
+		if (!intScanner.hasNext()){
+			System.out.println("you need to input something");
+			intScanner.close();
+			return false;
+		}else if(!intScanner.hasNextInt()){
+			System.out.println("it needs to be an integer");
+			intScanner.close();
+			return false;
+		}else if(intScanner.nextInt() < 3 || intScanner.nextInt() > 100){
+			System.out.println("it needs to be between 3 and 100");
+		}
+		intScanner.close();
+		return true;
 	}
 	
 }
