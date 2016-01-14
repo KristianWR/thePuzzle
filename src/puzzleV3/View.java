@@ -430,7 +430,7 @@ public class View extends Application{
 	    
 	    VBox rightContent = new VBox();
 	    rightContent.setPadding(new Insets(15, 12, 15, 12));
-	    rightContent.setSpacing(80);
+	    rightContent.setSpacing(60);
 	    
 	    if(cb1.isSelected() == true) {
 	    
