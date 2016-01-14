@@ -28,5 +28,11 @@
 }
 .skrift{
 	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 20pt;
+	-fx-font-weight: bold;	
+}
+.size{
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 40pt;
 	-fx-font-weight: bold;	
 }

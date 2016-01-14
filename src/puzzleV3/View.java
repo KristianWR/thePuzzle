@@ -246,7 +246,7 @@ public class View extends Application{
         
         // ???
 	    timerLabel.getStyleClass().remove("label");
-        timerLabel.getStyleClass().add("skrift");
+        timerLabel.getStyleClass().add("size");
         Label timeLeft = new Label("Time left:");
 	    timeLeft.getStyleClass().remove("label");
         timeLeft.getStyleClass().add("skrift");
@@ -318,7 +318,7 @@ public class View extends Application{
 		
 		Label moves = kontrol.theModel.moveCount;
 	    moves.getStyleClass().remove("label");
-        moves.getStyleClass().add("skrift");
+        moves.getStyleClass().add("size");
 		moves.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
@@ -430,9 +430,10 @@ public class View extends Application{
 	    
 	    VBox rightContent = new VBox();
 	    rightContent.setPadding(new Insets(15, 12, 15, 12));
-	    rightContent.setSpacing(10);
+	    rightContent.setSpacing(80);
 	    
 	    if(cb1.isSelected() == true) {
+	    
 	    rightContent.getChildren().addAll(timeLeft,timerLabel,numberOfMoves,moves);
 	    } else {
 	    	rightContent.getChildren().addAll(numberOfMoves,moves);
