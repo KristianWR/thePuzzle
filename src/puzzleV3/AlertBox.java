@@ -17,26 +17,24 @@ public class AlertBox {
 		mainMenuButton = new Button();
 		restartButton = new Button();
 		window = new Stage();
+		window.initModality(Modality.APPLICATION_MODAL);
 	}
 	
     public void display(String title, String message) {
        // window = new Stage();
 
         //Block events to other windows
-        window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
 
         Label label = new Label();
         label.setText(message);
         mainMenuButton = new Button("Main Menu");
-       // mainMenuButton.setOnAction(e -> window.close());
         
         restartButton = new Button("Try again");
-       // restartButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, mainMenuButton, restartButton);
+        layout.getChildren().addAll(label,restartButton, mainMenuButton);
         layout.setAlignment(Pos.CENTER);
 
         //Display window and wait for it to be closed before returning
