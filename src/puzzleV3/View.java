@@ -229,7 +229,8 @@ public class View extends Application{
 	    Button btn_muteFX = new Button("Mute SoundFX");
 	    Button randomize = new Button("Randomize");
 	    timeline = new Timeline();
-	    timeSeconds.set(STARTTIME);	   
+	    timeSeconds.set(STARTTIME);	 
+
 	    	    
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());	
 	    
@@ -238,13 +239,16 @@ public class View extends Application{
 		
 		// Bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
-        timerLabel.setStyle("-fx-font-size: 4em;");
-        Label timeLeft = new Label();
-        timeLeft.setText("Time left:");
+        //timerLabel.setStyle("-fx-font-size: 4em;");
+	    timerLabel.getStyleClass().remove("label");
+        timerLabel.getStyleClass().add("skrift");
+        Label timeLeft = new Label("Time left:");
 	    timeLeft.getStyleClass().remove("label");
-        timeLeft.getStyleClass().add("label-skrift");
+        timeLeft.getStyleClass().add("skrift");
         
         Label numberOfMoves = new Label("Number \nof moves:");
+	    numberOfMoves.getStyleClass().remove("label");
+        numberOfMoves.getStyleClass().add("skrift");
 		
 	    //toggle music on/off
 	    btn_mute.setOnAction(new EventHandler<ActionEvent>() {										
@@ -292,8 +296,8 @@ public class View extends Application{
         }); 
 		
 		Label moves = kontrol.theModel.moveCount;
-        moves.setTextFill(Color.BLACK);
-        moves.setStyle("-fx-font-size: 4em;");
+	    moves.getStyleClass().remove("label");
+        moves.getStyleClass().add("skrift");
 		moves.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
@@ -306,7 +310,7 @@ public class View extends Application{
 	                    timeline.stop();    
 	                }
 	                				                
-	                timeSeconds.set(STARTTIME);	               
+	                timeSeconds.set(STARTTIME);
 	                timeline.getKeyFrames().add(				                		
 	                        new KeyFrame(Duration.seconds(STARTTIME+1),
 	                        new KeyValue(timeSeconds, 0)));
@@ -347,7 +351,7 @@ public class View extends Application{
 		//// BACKBUTTON ---- The button for going back ////
 		
 		Button back = new Button();
-		back.setMaxWidth(40);
+		back.setMaxWidth(30);
 		back.getStyleClass().add("button-back");
 		back.setOnAction(e -> {
 			
