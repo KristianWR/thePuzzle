@@ -115,7 +115,7 @@ public class View extends Application{
 	    Button btnplay = new Button("Play");
 		GridPane.setConstraints(btnplay, 0, 5);
 		
-	    Button btnsetting = new Button("Setting");
+	    Button btnsetting = new Button("How to play");
 		GridPane.setConstraints(btnsetting, 0, 6);
 		
 		Button btnabout = new Button("About");
@@ -180,7 +180,7 @@ public class View extends Application{
 					}
 				}catch (NumberFormatException ex){
 					System.out.println("not a int");
-					sizeInfo.setText("must! be an integer");
+					sizeInfo.setText("Must be an integer");
 				}
 			}
 		});
@@ -199,7 +199,7 @@ public class View extends Application{
 				}
 			}catch (NumberFormatException ex){
 				System.out.println("not a int");
-				sizeInfo.setText("must! be an integer");
+				sizeInfo.setText("Please enter a size");
 			}
 		});
 		
@@ -210,6 +210,22 @@ public class View extends Application{
 		cb1 = new CheckBox();
 		cb1.setText("Time pressure");
 		cb1.setTextFill(Color.WHITE);
+		cb1.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)){
+				try{
+					initSize = Integer.parseInt(sizePrompt.getText());
+					if ( initSize < 3 || initSize > 100){
+						System.out.println("not between 3-100");
+						sizeInfo.setText("Please enter a size first!");
+					}else{
+						gameSceneM();					
+					}
+				}catch (NumberFormatException ex){
+					System.out.println("not an int");
+					sizeInfo.setText("Please enter a size first!");
+				}
+			}
+		});
 		
 		GridPane.setConstraints(cb1, 1, 6);
 		
