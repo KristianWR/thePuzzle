@@ -9,6 +9,7 @@
     -fx-background-color: #4A4A4A;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 20;
+    -fx-font-size: 15pt;
 }
 .label{
 	-fx-text-fill: #FFFFFF;
@@ -33,6 +34,6 @@
 }
 .size{
 	-fx-text-fill: #FFFFFF;
-	-fx-font-size: 40pt;
+	-fx-font-size: 30pt;
 	-fx-font-weight: bold;	
 }
