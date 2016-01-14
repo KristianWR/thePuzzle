@@ -9,9 +9,9 @@ public class MVCPuzzle {
     		}
     	}.start();
 		
-		PuzzleModel theModel = new PuzzleModel();
-		PuzzleView theView = new PuzzleView();
-		PuzzleController theController = new PuzzleController(theView, theModel);
+		//PuzzleModel theModel = new PuzzleModel();
+		//PuzzleView theView = new PuzzleView();
+		//PuzzleController theController = new PuzzleController(theView, theModel);
 		
 		
 	}

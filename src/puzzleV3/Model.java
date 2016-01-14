@@ -27,7 +27,7 @@ public class Model {
 		//used to define the size of the labels. 
 		String amountOfCiffers = Integer.toString(size*size);
 		double dSize = setLabelSideLength(amountOfCiffers);
-		Font labelFont = new Font(dSize-10);
+		Font labelFont = new Font(dSize-20);
 		//initiates the array with labels with the text of the current label. starting with 1.
 		int count = 1;
 		for (int i = 0; i<size; i++){
@@ -207,7 +207,7 @@ public class Model {
 	
 	public double setLabelSideLength(String ciffers){
 		double screenLength = 400;
-		if (puzzleSize < 10){
+		if (puzzleSize <= 10){
 			return screenLength/puzzleSize;
 		}else {return (ciffers.length()*5)+20;}
 	}
