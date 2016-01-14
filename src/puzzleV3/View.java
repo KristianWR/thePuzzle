@@ -300,7 +300,11 @@ public class View extends Application{
             	
             	mpMusic.pause();
             	mpWin.stop();
-            	mpWin.play();  
+            	mpWin.play(); 
+            	
+    			if(timeline.getCurrentRate() != 0.0) {
+    				timeline.stop();
+    				}
             	
             	alertBox.display("You won", "Congratulations");
   	          
