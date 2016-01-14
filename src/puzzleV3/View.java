@@ -46,6 +46,9 @@ public class View extends Application{
 	Label[][] labels;
 	Controller kontrol;
 	int initSize;
+	ScrollPane scroll1;
+	CheckBox cb1;
+	AlertBox alertBox = new AlertBox();
 	//mediaplayer variables
 	MediaPlayer mpMusic;
 	MediaPlayer mpFX;
@@ -56,8 +59,7 @@ public class View extends Application{
     private Timeline timeline;
     private Label timerLabel = new Label();
     private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
-    ScrollPane scroll1;
-    CheckBox cb1;
+    
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -298,8 +300,18 @@ public class View extends Application{
             	
             	mpMusic.pause();
             	mpWin.stop();
-            	mpWin.play();            
-            	popUpWin();
+            	mpWin.play();  
+            	
+            	alertBox.display("You won", "Congratulations");
+  	          
+				alertBox.getMainMenuButton().setOnAction(e -> {
+	                			window.setScene(mainMenu);
+	                			alertBox.window.close();
+	            });
+	            alertBox.getRestartButton().setOnAction(e -> {
+	                    		window.setScene(sizePicker);
+	                    		alertBox.window.close();
+	            });
             	                        	
             }
         }); 
@@ -336,7 +348,17 @@ public class View extends Application{
 	                		mpMusic.pause();
 	                		mpLoose.stop();
 	                		mpLoose.play();
-	                		popUpLoose();
+	                		
+	                    	alertBox.display("You lost", "You are a looser!");
+	            	          
+	        				alertBox.getMainMenuButton().setOnAction(e -> {
+	        	                			window.setScene(mainMenu);
+	        	                			alertBox.window.close();
+	        	            });
+	        	            alertBox.getRestartButton().setOnAction(e -> {
+	        	                    		window.setScene(sizePicker);
+	        	                    		alertBox.window.close();
+	        	            });
 	                }
 	                );
             	}
@@ -417,12 +439,9 @@ public class View extends Application{
 	    }
 		////// All content for the main layout is added here ///// 
 	    
-		//mainGrid.add(back, 0, 0);
 	    mainGrid.setAlignment(Pos.CENTER);
 		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
-		//mainGrid.add(bottomBtns, 1, 0);
-		//mainGrid.add(rightContent, 2, 1);
 		
 		BorderPane main = new BorderPane();
 		main.setCenter(mainGrid);
@@ -432,15 +451,6 @@ public class View extends Application{
 		StackPane stack = new StackPane();
 		stack.setPrefWidth(40);
 		main.setLeft(stack);
-		
-		/*		
-		mainGrid.add(playLabel, 0, 2);
-		
-		mainGrid.add(moves, 0, 1);
-		mainGrid.add(btn_mute, 2, 0);
-		mainGrid.add(btn_muteFX, 2, 1);
-		mainGrid.add(timerLabel, 3, 0);
-		mainGrid.add(timeLeft, 3, 1);*/
 		
 		game = new Scene(main, 700, 700);
 		window.setScene(game);
@@ -512,82 +522,6 @@ public class View extends Application{
 		setting.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
 	
-	public void popUpWin(){
-		Stage window = new Stage();
-		Scene scene;
-		
-		window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Congratulations");
-        window.setMinWidth(250);
-        
-        timeline.stop();
-        
-        Label label = new Label();
-        label.setText("Congratulations! You won!");
-        
-        Button restartButton = new Button("Play again");
-        restartButton.setOnAction(e -> {
-        	mpMusic.play();
-        	sizePickerM();
-        	window.close();
-        });
-        
-        Button mainMenuButton = new Button("Main menu");
-        mainMenuButton.setOnAction(e -> {
-        	mpMusic.play();
-        	mainMenuM();
-        	window.close();
-        });
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, restartButton, mainMenuButton);
-        layout.setAlignment(Pos.CENTER);
-
-        //Display window and wait for it to be closed before returning
-        scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
-        window.setOnCloseRequest(e -> Platform.exit());
-
-	}
-	
-	public void popUpLoose(){
-		Stage window = new Stage();
-		Scene scene;
-		
-		window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Game over");
-        window.setMinWidth(250);
-        
-        Label label = new Label();
-        label.setText("Time is up! You have lost!");
-        
-        Button restartButton = new Button("Try again");
-        restartButton.setOnAction(e -> {
-        	mpMusic.play();
-        	sizePickerM();
-        	window.close();
-        });
-        
-        Button mainMenuButton = new Button("Main menu");
-        mainMenuButton.setOnAction(e -> {
-        	mpMusic.play();
-        	mainMenuM();
-        	window.close();
-        });
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, restartButton, mainMenuButton);
-        layout.setAlignment(Pos.CENTER);
-
-        //Display window and wait for it to be closed before returning
-        scene = new Scene(layout);
-        window.setScene(scene);
-        window.show();
-        window.setOnCloseRequest(e -> Platform.exit());
-
-	}	
-
 }
 
 
