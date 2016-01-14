@@ -1,13 +1,23 @@
+
+/*root method is here the default of the whole scene we are looking at. It puts our png file as a background and forces the
+ * image to fill the whole scene*/
 .root{
 	-fx-background-image: url('Crystal40px.png');
 	-fx-background-size: 100% 100%;
 }
+
+/*The button method here is the default of all the buttons on the scene we are looking at. It sets the color of the button
+ *  background to a hexadecimal color, makes the letters color white with a font size of 20pt
+ *  and makes the button more round*/
 .button{
     -fx-background-color: #DB7739;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 20;
     -fx-font-size: 20pt;
 }
+
+/*The label method here is the default of all the labels on the scene we are looking at. It sets the color of each letter to
+ * white with a font size of 40pt*/
 .label{
 	-fx-font-size: 40pt;
 	-fx-text-fill: #FFFFFF;

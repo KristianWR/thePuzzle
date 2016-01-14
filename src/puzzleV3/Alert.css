@@ -1,11 +1,20 @@
+
+/*root method is here the default of the whole scene we are looking at. It paints
+ the background of the scene with a hexadecimal black color*/
 .root{
 	-fx-background-color: #2E2E2E;
 }
+
+/*The button method here is the default of all the buttons on the scene we are looking at. It sets the color
+ *  of the button background to a hexadecimal color, makes the letters color white and makes the button more round*/
 .button{
     -fx-background-color: #4A4A4A;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 20;
 }
+
+/*The label method here is the default of all the labels on the scene we are looking at. It sets the color of each letter to
+ * white with a font size of 15pt*/
 .label{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 15pt;
