@@ -35,45 +35,74 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class View extends Application{
-
-	Stage window;
-	Scene mainMenu;
+	Stage window = new Stage();
 	Scene sizePicker;
 	Scene game;
 	Scene about;
 	Scene setting;
-	GridPane gridPane;
-	Label[][] labels;
-	Controller kontrol;
-	int initSize;
-	ScrollPane scroll1;
-	CheckBox cb1;
-	AlertBox alertBox = new AlertBox();
+	
+	MainMenuScene mainMenuScene = new MainMenuScene(window);
+	HowToPlayScene howScene = new HowToPlayScene(window);
+	SizePickerScene sizeScene = new SizePickerScene(window); 
+	Model m = new Model();
+	Controller kontrol = new Controller(m);
+	GameScene gameScene = new GameScene(window, mainMenuScene.getMainScene(), sizeScene, sizeScene.getCheckBox(), kontrol);
 	//mediaplayer variables
 	MediaPlayer mpMusic;
-	MediaPlayer mpFX;
 	MediaPlayer mpWin;
 	MediaPlayer mpLoose;
 	//timer variables
-    private static final Integer STARTTIME = 15;
-    private Timeline timeline;
-    private Label timerLabel = new Label();
-    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
-    
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//setting up stage and calling main menu
-		window = primaryStage;
-		window.setTitle("15-Puzzle");
-		mainMenuM();
+		
+		mainMenuScene.mainMenuM();
+		
+		mainMenuScene.btnHow.setOnAction(e -> howScene.howscreen());
+				
+		mainMenuScene.btnPlay.setOnAction(e -> sizeScene.sizePickerM());
+		
+		howScene.back.setOnAction(e -> mainMenuScene.mainMenuM());
+		
+		sizeScene.goBack.setOnAction(e -> mainMenuScene.mainMenuM());
+		
+		sizeScene.go.setOnAction(e -> {
+			try{
+				int size = sizeScene.getInitSize();
+				size = Integer.parseInt(sizeScene.getSizePrompt().getText());
+				
+				if(size < 3 || size > 100){
+					System.out.println("Not between 3-100");
+					///sizeInfo label
+				}else {
+					gameScene.initSize = size;
+					gameScene.gameSceneM();	
+				}
+				
+			}catch(NumberFormatException ex){
+				System.out.println("Not a number");
+			}
+			
+			
+		});
+		
+		
+		
+		gameScene.back.setOnAction(e -> {
+			sizeScene.sizePickerM();
+			
+			if(gameScene.getTimeline().getCurrentRate() != 0.0){
+				gameScene.getTimeline().stop();
+			}
+			
+		});
+		
 		window.show();
-		window.setMaxHeight(window.getHeight());
-		window.setMaxWidth(window.getWidth());
+		
 		
 		//initializing media variables and starting background music 
 		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
@@ -90,16 +119,8 @@ public class View extends Application{
 		
 	}
 	
-	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
-		for(int i = 0; i < tempLabels.length; i++){
-			for(int j = 0; j < tempLabels.length; j++){
-					GridPane.setConstraints(tempLabels[i][j], j, i);
-					gridPane.getChildren().add(tempLabels[i][j]);
-			}
-		}
-		return gridPane;
-	}
-	
+
+	/*
 	public void mainMenuM(){
 		
 		GridPane grid = new GridPane();
@@ -350,11 +371,11 @@ public class View extends Application{
             	//if checkbox is checked, and therefore true, the timer animation is activated 
             	if(cb1.isSelected() == true) {
             		
-            		/*
+            		
             		if (timeline != null) {
 	                    timeline.stop();    
 	                }
-	                */
+	                
 	                				                
 	                timeSeconds.set(STARTTIME);
 	                timeline.getKeyFrames().add(				                		
@@ -437,7 +458,6 @@ public class View extends Application{
 		scroll1.setFitToWidth(true);
 		
 		////// The HBOX containing top button //////
-		
 		
 		HBox bottomBtns = new HBox();
 		bottomBtns.setPadding(new Insets(15, 12, 15, 12));
@@ -542,7 +562,7 @@ public class View extends Application{
 		window.setScene(setting);
 		setting.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
-	
+	*/
 }
 
 
