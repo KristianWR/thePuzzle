@@ -1,36 +1,59 @@
+
+/*root method is here the default of the whole scene we are looking at. It paints
+ the background of the scene with a hexadecimal black color*/
 .root{
 	-fx-background-color: #2E2E2E;
 }
+
+/*The pane is a new method, which can be called in our view to use its properties. It sets the color
+ * of the game gridpane to a hexadecimal black color.*/
 .pane{
 	-fx-background-color: #2E2E2E;
 }
 
+/*The button method here is the default of all the buttons on the scene we are looking at. It sets the color
+ *  of the button background to a hexadecimal color, makes the letters color white with a font size 15pt
+ *  and makes the button more round*/
 .button{
     -fx-background-color: #4A4A4A;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 20;
     -fx-font-size: 15pt;
 }
+
+/*The label method here is the default of all the labels on the scene we are looking at. It sets the color of each letter to
+ * white and the background of the text to a hexadecimal color*/
 .label{
 	-fx-text-fill: #FFFFFF;
 	-fx-background-color: #DB7739;
 }
+
+/*The method label-zero is a new method, which can be called in our method to use its properties. It paints out 0 with
+ * the same color of the background, which makes it invisible.*/
 .label-zero{
 	-fx-text-fill: #2E2E2E;
 	-fx-background-color: #2E2E2E;
 }
 
+/*The method button-back is a new method, which can be called in our view to use its properties. It sets the background
+ * of the button to the png file, fits the image to the button and makes the background of the image to the hexadecimal color.
+ * the reason we font-size in an empty button is to make the button larger.*/
 .button-back{
 	-fx-background-image: url('BackArrow.png');
 	-fx-background-size: 100% 100%;
 	-fx-font-size: 15pt;
 	-fx-background-color: #2E2E2E;
 }
+
+/*The method skrift is a new method, which can be called in our view to use its properties. It paints the letters white, 
+ * makes the font size 20pt and bold.*/
 .skrift{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 20pt;
 	-fx-font-weight: bold;	
 }
+/*The method size is a new method, which can be called in our view to use its properties. It paints the letters white, 
+ * makes the font size 30pt and bold.*/
 .size{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 30pt;

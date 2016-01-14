@@ -1,24 +1,42 @@
+
+/*root method is here the default of the whole scene we are looking at. It paints
+ the background of the scene with a hexadecimal black color*/
 .root{
 	-fx-background-color: #2E2E2E;
 }
 
+/*The button method here is the default of all the buttons on the scene we are looking at. It sets the color of the button
+ *  background to a hexadecimal color, makes the letters color white and makes the button more round*/
 .button{
     -fx-background-color: #4A4A4A;
     -fx-text-fill: #FFFFFF;
     -fx-background-radius: 20;
 }
+
+/*The label method here is the default of all the labels on the scene we are looking at. It sets the color of each letter to
+ * white*/
 .label{
 	-fx-text-fill: #FFFFFF;
 }
+
+/*The method label-about is a new method, which can be called in our view to use its properties. It sets the color
+ * of each letter to white and makes the font size 15pt*/
 .label-about{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 15pt;
 }
+
+/*The method label-fed is a new method, which can be called in our view to use its properties. It sets the color
+ * of each letter to white, makes the font to bold and the font size 20pt*/
 .label-fed{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-weight: bold;
 	-fx-font-size: 20pt;
 }
+
+/*The method button-back is a new method, which can be called in our view to use its properties. It sets the background
+ * of the button to the png file, fits the image to the button and makes the background of the image to the hexadecimal color.
+ * the reason we font-size in an empty button is to make the button larger.*/
 .button-back{
 	-fx-background-image: url('BackArrow.png');
 	-fx-background-size: 100% 100%;
