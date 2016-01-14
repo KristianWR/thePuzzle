@@ -46,6 +46,7 @@ public class View extends Application{
 	Label[][] labels;
 	Controller kontrol;
 	int initSize;
+	//mediaplayer variables
 	MediaPlayer mpMusic;
 	MediaPlayer mpFX;
 	MediaPlayer mpWin;
@@ -64,6 +65,7 @@ public class View extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		//setting up stage and calling main menu
 		window = primaryStage;
 		window.setTitle("15-Puzzle");
 		mainMenuM();
@@ -71,9 +73,10 @@ public class View extends Application{
 		window.setMaxHeight(window.getHeight());
 		window.setMaxWidth(window.getWidth());
 		
+		//initializing media variables and starting background music 
 		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
-		Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/win.mp3").toString());
-		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/loose.mp3").toString());
+		Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
+		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
 		mpMusic = new MediaPlayer(backgroundMusic);		
 		mpWin = new MediaPlayer(winMusic);
 		mpLoose = new MediaPlayer(looseMusic);
@@ -201,7 +204,7 @@ public class View extends Application{
 		Label timeInfo = new Label("Enable time pressure");
 		GridPane.setConstraints(timeInfo, 1, 5);
 		timeInfo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-		
+			
 		cb1 = new CheckBox();
 		cb1.setText("Time pressure");
 		cb1.setTextFill(Color.WHITE);
@@ -228,20 +231,18 @@ public class View extends Application{
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
 		Button btn_mute = new Button("Mute Music");
-	    Button btn_muteFX = new Button("Mute SoundFX");
+	    Button btn_muteFX = new Button("Mute Sound FX");
 	    Button randomize = new Button("Randomize");
 	    timeline = new Timeline();
-	    timeSeconds.set(STARTTIME);	 
-
-	    	    
-	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());	
-	    
+	    timeSeconds.set(STARTTIME);	 	    	    
+	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());		    
     	mpFX = new MediaPlayer(tileSwap);
 		mpFX.setVolume(1.0);
 		
-		// Bind the timerLabel text property to the timeSeconds property
+		//bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
-        //timerLabel.setStyle("-fx-font-size: 4em;");
+        
+        // ???
 	    timerLabel.getStyleClass().remove("label");
         timerLabel.getStyleClass().add("skrift");
         Label timeLeft = new Label("Time left:");
@@ -259,9 +260,12 @@ public class View extends Application{
 				//mpMusic.setMute(true);				
 				if (mpMusic.getVolume() != 0.0){					
 					mpMusic.setVolume(0.0);
+					btn_mute.setText("Play Music");
 				} else {
-					mpMusic.setVolume(0.3);
+					mpMusic.setVolume(0.9);
+					btn_mute.setText("Mute Music");
 				}
+				
 				
 			
 			}
@@ -275,14 +279,16 @@ public class View extends Application{
 															
 				if (mpFX.getVolume() != 0.0){					
 					mpFX.setVolume(0.0);
+					btn_muteFX.setText("Play Sound FX");
 				} else {
 					mpFX.setVolume(1.0);
+					btn_muteFX.setText("Mute Sound FX");
 				}								
 				
 			}
 		});
 	    
-	    //randomizes the game
+	    //randomizes all tiles
 	    randomize.setOnAction(e -> kontrol.theModel.randomMove());
 	    	    
 		Label playLabel = kontrol.theModel.isPlaying;
@@ -290,8 +296,9 @@ public class View extends Application{
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
             	
+            	mpMusic.pause();
             	mpWin.stop();
-            	mpWin.play();
+            	mpWin.play();            
             	popUpWin();
             	                        	
             }
@@ -303,14 +310,19 @@ public class View extends Application{
 		moves.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-            	  
+            	
+            	//"rewinds" the sound, then plays it   
             	mpFX.stop();
             	mpFX.play();
             	
+            	//if checkbox is checked, and therefore true, the timer animation is activated 
             	if(cb1.isSelected() == true) {
-            	 if (timeline != null) {
+            		
+            		/*
+            		if (timeline != null) {
 	                    timeline.stop();    
 	                }
+	                */
 	                				                
 	                timeSeconds.set(STARTTIME);
 	                timeline.getKeyFrames().add(				                		
@@ -321,13 +333,16 @@ public class View extends Application{
 	                //When times runs out
 	                				                				           
 	                timeline.setOnFinished((ActionEvent event1) -> {
+	                		mpMusic.pause();
 	                		mpLoose.stop();
 	                		mpLoose.play();
 	                		popUpLoose();
-	                });
+	                }
+	                );
             	}
-				}
-        }); 
+			}
+        }
+		); 
 		
 		///// THE MAIN LAYOUT OF THE SCENE /////
 		
@@ -512,12 +527,14 @@ public class View extends Application{
         
         Button restartButton = new Button("Play again");
         restartButton.setOnAction(e -> {
+        	mpMusic.play();
         	sizePickerM();
         	window.close();
         });
         
         Button mainMenuButton = new Button("Main menu");
         mainMenuButton.setOnAction(e -> {
+        	mpMusic.play();
         	mainMenuM();
         	window.close();
         });
@@ -547,12 +564,14 @@ public class View extends Application{
         
         Button restartButton = new Button("Try again");
         restartButton.setOnAction(e -> {
+        	mpMusic.play();
         	sizePickerM();
         	window.close();
         });
         
         Button mainMenuButton = new Button("Main menu");
         mainMenuButton.setOnAction(e -> {
+        	mpMusic.play();
         	mainMenuM();
         	window.close();
         });
