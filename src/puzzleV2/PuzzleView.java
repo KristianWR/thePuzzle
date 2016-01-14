@@ -23,6 +23,10 @@ public class PuzzleView extends Application {
 	VBox box;
 	Label[][] labels;
 	
+	public PuzzleView(PuzzleModel theModel) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;

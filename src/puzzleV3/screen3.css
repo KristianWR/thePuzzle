@@ -26,6 +26,7 @@
 	-fx-font-size: 15pt;
 	-fx-background-color: #2E2E2E;
 }
-.label.skrift{
+.skrift{
 	-fx-text-fill: #FFFFFF;
+	-fx-font-weight: bold;	
 }
