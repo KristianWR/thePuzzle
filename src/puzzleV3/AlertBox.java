@@ -18,6 +18,7 @@ public class AlertBox {
 		restartButton = new Button();
 		window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL);
+
 	}
 	
     public void display(String title, String message) {
@@ -39,6 +40,7 @@ public class AlertBox {
 
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
+		scene.getStylesheets().add(View.class.getResource("Alert.css").toExternalForm());
         window.setScene(scene);
         window.show();
         window.setOnCloseRequest(e -> Platform.exit());
