@@ -61,7 +61,8 @@ public class View extends Application{
 					///sizeInfo label
 				}else {
 					gameScene.initSize = size;
-					gameScene.gameSceneM();	
+					gameScene.gameSceneM();
+					addArrowKeyListener();
 				}
 				
 			}catch(NumberFormatException ex){
@@ -102,6 +103,14 @@ public class View extends Application{
 		mpMusic.setVolume(0.9);
 		mpMusic.setCycleCount(1000);
 		
+	}
+	public void addArrowKeyListener(){
+		gameScene.gameScene.setOnKeyPressed(e ->{
+			if		(e.getCode() == KeyCode.UP){kontrol.theModel.keyMove("down");}
+			else if (e.getCode() == KeyCode.DOWN){kontrol.theModel.keyMove("up");}
+			else if (e.getCode() == KeyCode.LEFT){kontrol.theModel.keyMove("right");}
+			else if (e.getCode() == KeyCode.RIGHT){kontrol.theModel.keyMove("left");}
+		}); 
 	}
 	
 }

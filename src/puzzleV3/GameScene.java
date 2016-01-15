@@ -295,12 +295,6 @@ public class GameScene {
 		StackPane stack = new StackPane();
 		stack.setPrefWidth(40);
 		main.setLeft(stack);
-		main.setOnKeyPressed(e ->{
-			if		(e.getCode() == KeyCode.UP){kontrol.theModel.keyMove("down");}
-			else if (e.getCode() == KeyCode.DOWN){kontrol.theModel.keyMove("up");}
-			else if (e.getCode() == KeyCode.LEFT){kontrol.theModel.keyMove("right");}
-			else if (e.getCode() == KeyCode.RIGHT){kontrol.theModel.keyMove("left");}
-		});
 		
 		gameScene = new Scene(main, 700, 700);
 		gameStage.setScene(gameScene);
