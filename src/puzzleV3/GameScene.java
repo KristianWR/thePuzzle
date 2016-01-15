@@ -49,8 +49,6 @@ public class GameScene {
 	MediaPlayer mpWin;
 	MediaPlayer mpLoose;
 	
-	GridPane gridPane;
-	
 	Button back;
 	Button btn_mute;
 	
@@ -62,7 +60,6 @@ public class GameScene {
 		back = new Button();
 		btn_mute = new Button("Mute Music");
 		timeline = new Timeline();
-		gridPane = new GridPane();
 	}
 	
 	public void gameSceneM(){
@@ -225,7 +222,7 @@ public class GameScene {
 		
 		//// GRIDPANE ---- THE GAME --- //////
 		
-		
+		GridPane gridPane = new GridPane();
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
 		gridPane.setVgap(5);
