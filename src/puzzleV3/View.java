@@ -30,7 +30,7 @@ public class View extends Application{
 		
 		mainMenuScene.mainMenuM();
 		
-		mainMenuScene.btnHow.setOnAction(e -> howScene.howscreen());
+		mainMenuScene.btnHow.setOnAction(e -> howScene.howSceneM());
 				
 		mainMenuScene.btnPlay.setOnAction(e -> sizeScene.sizePickerM());
 		
