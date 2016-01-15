@@ -43,9 +43,9 @@ public class GameScene {
     Label[][] labels;
 	Controller kontrol;
 	ScrollPane scroll1;
-	MediaPlayer mpFX;
 	int initSize;
 	
+	MediaPlayer mpFX;
 	MediaPlayer mpMusic;
 	MediaPlayer mpWin;
 	MediaPlayer mpLoose;
@@ -54,6 +54,7 @@ public class GameScene {
 	GridPane gridPane;
 	
 	Button back;
+	Button btn_mute;
 	
 	public GameScene(Stage window, Scene mainMenuScene, SizePickerScene sizeScene, CheckBox cb1, Controller kontrol){
 		this.gameStage = window;
@@ -62,6 +63,7 @@ public class GameScene {
 		this.cb1 = cb1;		
 		this.kontrol = kontrol;
 		back = new Button();
+		btn_mute = new Button("Mute Music");
 		timeline = new Timeline();
 	}
 	
@@ -69,14 +71,23 @@ public class GameScene {
 
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
-		Button btn_mute = new Button("Mute Music");
 	    Button btn_muteFX = new Button("Mute Sound FX");
 	    Button randomize = new Button("Randomize");
 	    timeline = new Timeline();
 	    timeSeconds.set(STARTTIME);	 	    	    
-	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());		    
+	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
+	    Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
+		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
+		
+		mpWin = new MediaPlayer(winMusic);
+		mpLoose = new MediaPlayer(looseMusic);
     	mpFX = new MediaPlayer(tileSwap);
 		mpFX.setVolume(1.0);
+		
+		/// Music 
+
+		
+		
 		
 		//bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
@@ -92,24 +103,6 @@ public class GameScene {
 	    numberOfMoves.getStyleClass().remove("label");
         numberOfMoves.getStyleClass().add("skrift");
 		
-	    //toggle music on/off
-	    btn_mute.setOnAction(new EventHandler<ActionEvent>() {										
-			
-			public void handle(ActionEvent arg0) {				
-				//mpMusic.setMute(true);				
-				if (mpMusic.getVolume() != 0.0){					
-					mpMusic.setVolume(0.0);
-					btn_mute.setText("Play Music");
-				} else {
-					mpMusic.setVolume(0.9);
-					btn_mute.setText("Mute Music");
-				}
-				
-				
-			
-			}
-		});
-	    
 	    //toggle sound fx on/off
 	    btn_muteFX.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -233,6 +226,7 @@ public class GameScene {
 		
 		
 		back.setMaxWidth(30);
+		back.setMinWidth(40);
 		back.getStyleClass().add("button-back");
 		
 		back.setAlignment(Pos.TOP_LEFT);
@@ -297,6 +291,14 @@ public class GameScene {
 	
 	public Timeline getTimeline(){
 		return timeline;
+	}
+	
+	public Button getMuteButton(){
+		return btn_mute;
+	}
+	
+	public void setMuteButtonText(String text){
+		btn_mute.setText(text);
 	}
 	
 	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){

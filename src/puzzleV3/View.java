@@ -92,6 +92,26 @@ public class View extends Application{
 		
 		
 		
+/*		sizeScene.sizePrompt.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)){
+				try{
+					int size = sizeScene.getInitSize();
+					size = Integer.parseInt(sizeScene.getSizePrompt().getText());
+					
+					if(size < 3 || size > 100){
+						System.out.println("Not between 3-100");
+						///sizeInfo label
+					}else {
+						gameScene.initSize = size;
+						gameScene.gameSceneM();	
+					}
+					
+				}catch(NumberFormatException ex){
+					System.out.println("Not a number");
+				}
+			}
+		});*/
+		
 		gameScene.back.setOnAction(e -> {
 			sizeScene.sizePickerM();
 			
@@ -101,16 +121,27 @@ public class View extends Application{
 			
 		});
 		
+		gameScene.btn_mute.setOnAction(e -> {
+			
+			if (mpMusic.getVolume() != 0.0){					
+				mpMusic.setVolume(0.0);
+				gameScene.setMuteButtonText("Play Music");
+			} else {
+				mpMusic.setVolume(0.9);
+				gameScene.setMuteButtonText("Mute Music");
+			}
+		});
+		
 		window.show();
 		
 		
 		//initializing media variables and starting background music 
+		
+		
 		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
-		Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
-		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
+		
 		mpMusic = new MediaPlayer(backgroundMusic);		
-		mpWin = new MediaPlayer(winMusic);
-		mpLoose = new MediaPlayer(looseMusic);
+		
 		
 		mpMusic.setAutoPlay(true);	
 		mpMusic.setVolume(0.9);

@@ -1,5 +1,6 @@
 package puzzleV3;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -74,22 +75,6 @@ public void sizePickerM(){
 		
 		GridPane.setConstraints(go, 2, 6);
 		
-/*		go.setOnAction(e -> {
-			try{
-				initSize = Integer.parseInt(sizePrompt.getText());
-				if ( initSize < 3 || initSize > 100){
-					System.out.println("not between 3-100");
-					sizeInfo.setText("must be between 3-100");
-				}else{
-					System.out.println();
-					//gameSceneM();					
-				}
-			}catch (NumberFormatException ex){
-				System.out.println("not a int");
-				sizeInfo.setText("Please enter a size");
-			}
-		});*/
-		
 		Label timeInfo = new Label("Enable time pressure");
 		GridPane.setConstraints(timeInfo, 1, 5);
 		timeInfo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
@@ -123,6 +108,7 @@ public void sizePickerM(){
 		//goBack.setOnAction(e -> mainMenuM());
 		
 		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, cb1, timeInfo, go);
+		borderP.setPadding(new Insets(15,15,15,15));
 		borderP.setTop(goBack);
 		borderP.setCenter(grid2);
 		sizeStage.setScene(sizePicker);
