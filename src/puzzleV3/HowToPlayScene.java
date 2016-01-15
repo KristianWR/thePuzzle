@@ -14,12 +14,14 @@ public class HowToPlayScene {
 	Scene howScene;
 	Button back;
 	
+	//Constructor
 	public HowToPlayScene(Stage window){
 		this.howStage= window;
 		back = new Button();
 	}
 	
-	public void howscreen(){
+	//This method defines all the GUI elements that makes up the howScene, e.g. layouts, labels and buttons.
+	public void howSceneM(){
 		BorderPane border=new BorderPane();
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
@@ -28,21 +30,20 @@ public class HowToPlayScene {
 	    
 	    Label tut= new Label("Tutorial:");
 	    tut.getStyleClass().add("label-fed");
-	    Label htp= new Label(" You play the game by \n pressing"
-	    		+ " one of the fields \n next to the empty field \n");
+	    Label htp= new Label(" You control the tiles either with the arrow keys or the mouse. \n " +
+	    " If you enable the timer, you will lose when the time runs out");
 	    htp.getStyleClass().add("label-about");
 	    
 	    Label win= new Label("Win condition:");
 	    win.getStyleClass().add("label-fed");
-	    Label tekst=new Label(" You win the game by \n having alle the numbers"
-	    		+ " in order \n with the empty field as the last field");
+	    Label tekst=new Label(" You win the game when the tiles \n are arranged"
+	    		+ " in ascending order \n with the empty tile in the lower right corner");
 	    tekst.getStyleClass().add("label-about");
 	    
 	    grid.add(tut, 0, 0);
 	    grid.add(htp, 0, 1);
 	    grid.add(win, 0, 2);
 	    grid.add(tekst, 0, 3);
-	    
 	    
 		back.setMaxWidth(40);
 		back.getStyleClass().add("button-back");
