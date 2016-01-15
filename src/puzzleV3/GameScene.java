@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -49,7 +50,6 @@ public class GameScene {
 	MediaPlayer mpLoose;
 	
 	GridPane gridPane;
-	BorderPane main;
 	
 	Button back;
 	Button btn_mute;
@@ -62,7 +62,7 @@ public class GameScene {
 		back = new Button();
 		btn_mute = new Button("Mute Music");
 		timeline = new Timeline();
-		main = new BorderPane();
+		gridPane = new GridPane();
 	}
 	
 	public void gameSceneM(){
@@ -225,7 +225,7 @@ public class GameScene {
 		
 		//// GRIDPANE ---- THE GAME --- //////
 		
-		gridPane = new GridPane();
+		
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
 		gridPane.setVgap(5);
@@ -287,6 +287,7 @@ public class GameScene {
 		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
 		
+		BorderPane main = new BorderPane();
 		main.setCenter(mainGrid);
 		main.setTop(topBtns);
 		main.setRight(rightContent);
@@ -294,6 +295,12 @@ public class GameScene {
 		StackPane stack = new StackPane();
 		stack.setPrefWidth(40);
 		main.setLeft(stack);
+		main.setOnKeyPressed(e ->{
+			if		(e.getCode() == KeyCode.UP){kontrol.theModel.keyMove("down");}
+			else if (e.getCode() == KeyCode.DOWN){kontrol.theModel.keyMove("up");}
+			else if (e.getCode() == KeyCode.LEFT){kontrol.theModel.keyMove("right");}
+			else if (e.getCode() == KeyCode.RIGHT){kontrol.theModel.keyMove("left");}
+		});
 		
 		gameScene = new Scene(main, 700, 700);
 		gameStage.setScene(gameScene);
@@ -326,9 +333,5 @@ public class GameScene {
 			}
 		}
 		return gridPane;
-	}
-	
-	public BorderPane getBorderPane(){
-		return main;
 	}
 }
