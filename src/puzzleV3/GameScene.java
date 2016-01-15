@@ -35,10 +35,10 @@ public class GameScene {
 	
 	AlertBox alertBox = new AlertBox();
 	
-    private static final Integer STARTTIME = 15;
+    static Integer STARTTIME = 15;
     Timeline timeline;
-    private Label timerLabel = new Label();
-    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+    Label timerLabel = new Label();
+    IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
     
     Label[][] labels;
 	Controller kontrol;
@@ -63,13 +63,13 @@ public class GameScene {
 	}
 	
 	public void gameSceneM(){
-
+		
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
 	    Button btn_muteFX = new Button("Mute Sound FX");
 	    Button randomize = new Button("Randomize");
-	    timeline = new Timeline();
-	    timeSeconds.set(STARTTIME);	 	    	    
+	    timeSeconds.set(STARTTIME);	
+	    timeline.stop();
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
 	    Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
 		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());

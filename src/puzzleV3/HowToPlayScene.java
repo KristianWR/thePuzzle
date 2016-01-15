@@ -24,28 +24,31 @@ public class HowToPlayScene {
 	public void howSceneM(){
 		BorderPane border=new BorderPane();
 		GridPane grid = new GridPane();
+	    Label tut = new Label("Tutorial:");
+	    Label htp = new Label(" You control the tiles either with the mouse or with the WASD keys. \n " +
+	    		" If you enable the timer, you will lose when the time runs out");
+	    Label win = new Label("Win condition:");
+	    Label tekst = new Label(" You win the game when the tiles \n are arranged" +
+	    						" in ascending order \n with the empty tile in the lower right corner");
+	    
+	    //Sets the horizontal and vertical gap between grids and sets the position of the grid
 	    grid.setHgap(10);
 	    grid.setVgap(20);
 	    grid.setAlignment(Pos.TOP_CENTER);
 	    
-	    Label tut= new Label("Tutorial:");
+	    // Adds the id references to the labels. This id is called in the css file (screen2.css)
 	    tut.getStyleClass().add("label-fed");
-	    Label htp= new Label(" You control the tiles either with the arrow keys or the mouse. \n " +
-	    " If you enable the timer, you will lose when the time runs out");
 	    htp.getStyleClass().add("label-about");
-	    
-	    Label win= new Label("Win condition:");
 	    win.getStyleClass().add("label-fed");
-	    Label tekst=new Label(" You win the game when the tiles \n are arranged"
-	    		+ " in ascending order \n with the empty tile in the lower right corner");
 	    tekst.getStyleClass().add("label-about");
 	    
-	    //Adds elements to grid and the location of the elements
+	    //Adds elements to grid with the given location
 	    grid.add(tut, 0, 0);
 	    grid.add(htp, 0, 1);
 	    grid.add(win, 0, 2);
 	    grid.add(tekst, 0, 3);
 	    
+	    // Sets the style, max size and position of the back button
 		back.setMaxWidth(40);
 		back.getStyleClass().add("button-back");
 		back.setAlignment(Pos.TOP_LEFT);
