@@ -27,37 +27,24 @@ public class MainMenuScene {
 	
 	public void mainMenuM(){
 		
-		//Creates a new grid with all buttons and their location
 		GridPane grid = new GridPane();
+		Label titel = new Label("15-Puzzle");
+		btnExit = new Button("Exit");
+		
+		//Sets the horizontal and vertical gap between grids and sets the position of the grid
 	    grid.setHgap(10);
 	    grid.setVgap(20);
 	    grid.setAlignment(Pos.TOP_CENTER);
 	    
-		Label titel = new Label("15-Puzzle");
+	    //Sets the given elements in the to grid at the given location
 		GridPane.setConstraints(titel, 0, 2);
-
-	    
 		GridPane.setConstraints(btnPlay, 0, 5);
-		
-	    
 		GridPane.setConstraints(btnHow, 0, 6);
-		
-		
 		GridPane.setConstraints(btnAbout, 0, 7);
-	    
-		btnExit = new Button("Exit");
 		GridPane.setConstraints(btnExit, 0, 8);
 		
-/*		btnPlay.setOnAction(e -> sizePickerM());
-		
-		btnHow.setOnAction(e -> howscreen());
-		
-		btnAbout.setOnAction(e -> aboutscreen());
-		
-		*/
 		//The Exit button closes the program
-		btnExit.setOnAction(e -> {Platform.exit();
-		});
+		btnExit.setOnAction(e -> Platform.exit());
 	    
 		//Sets all the buttons to same width and height
 	    btnPlay.setMaxWidth(Double.MAX_VALUE);
@@ -65,7 +52,7 @@ public class MainMenuScene {
 	    btnAbout.setMaxWidth(Double.MAX_VALUE);
 	    btnExit.setMaxWidth(Double.MAX_VALUE);
 	    
-	    //Adds all the elements to grid
+	    //Adds all the elements to the grid layout
 	    grid.getChildren().addAll(titel, btnPlay, btnHow, btnAbout, btnExit);	
 	    
 	    mainMenu = new Scene(grid, 700, 700);
@@ -74,20 +61,15 @@ public class MainMenuScene {
 		//Fetches the .css-file that styles the GUI elements from the same place where view class is
 	    mainMenu.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
-	
+	//This is a get-method which returns the btnPlay button
 	public Button getBtnPlay(){
 		return btnPlay;
 	}
-	
-	/*
-	public Button getBtnHow(){
-		return btnHow;
-	}
-	*/
+	//This is a get-method which returns the btnAbout button
 	public Button getBtnAbout(){
 		return btnAbout;
 	}
-	
+	//This is a get-method which returns the scene mainMenu
 	public Scene getMainScene(){
 		return mainMenu;
 	}
