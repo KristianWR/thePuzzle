@@ -20,7 +20,6 @@ public class AlertBox {
 
 		// Forces you to handle the pop-up window
 		window.initModality(Modality.APPLICATION_MODAL);
-
 	}
 
 	public void display(String title, String message) {
@@ -40,24 +39,22 @@ public class AlertBox {
 		window.setScene(scene);
 		window.show();
 
-		// Tells the window to exit program when x is pressed
+		//Tells the window to exit program when close is clicked
 		window.setOnCloseRequest(e -> Platform.exit());
 
-		// Tells eclipse to look in the same package as view and use the Alert file
+		// Tells Eclipse to look in the same package as view and use the Alert.css file
 		scene.getStylesheets().add(View.class.getResource("Alert.css").toExternalForm());
 	}
 
-	// This is a get-method which returns the button mainMenuButton
+	// Getter methods
 	public Button getMainMenuButton() {
 		return mainMenuButton;
 	}
 
-	// This is a get-method which returns the button restartButton
 	public Button getRestartButton() {
 		return restartButton;
 	}
 
-	// This is a get-method which returns the Stage window
 	public Stage getAlertBoxWindow() {
 		return window;
 	}
