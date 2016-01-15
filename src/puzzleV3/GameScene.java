@@ -88,18 +88,28 @@ public class GameScene {
 		
 		
 		
-		//bind the timerLabel text property to the timeSeconds property
+		//Bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
         
-        // ???
+        //Removes the default css method label from timerLabel
 	    timerLabel.getStyleClass().remove("label");
+	    
+	    //Adds the css method size to timerLabel
         timerLabel.getStyleClass().add("size");
         Label timeLeft = new Label("Time left:");
+        
+        //Removes the default css method label from timerLeft
 	    timeLeft.getStyleClass().remove("label");
+	    
+	    //Adds the css method size to timerLeft
         timeLeft.getStyleClass().add("skrift");
         
         Label numberOfMoves = new Label("Number \nof moves:");
+        
+        //Removes the default css method label from timerLabel
 	    numberOfMoves.getStyleClass().remove("label");
+	    
+	    //Adds the css method size to timerLabel
         numberOfMoves.getStyleClass().add("skrift");
 		
 	    //toggle sound fx on/off
@@ -156,7 +166,9 @@ public class GameScene {
         }); 
 		
 		Label moves = kontrol.theModel.moveCount;
+	    //Removes the default css method label from moves
 	    moves.getStyleClass().remove("label");
+	    //Adds the css method size to moves
         moves.getStyleClass().add("size");
 		moves.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -218,7 +230,9 @@ public class GameScene {
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
 		gridPane.setVgap(5);
-		gridPane.getStyleClass().addAll("pane","gridPane");
+		
+		//Adds the css method pane to the game's gridpane
+		gridPane.getStyleClass().add("pane");
 	
 		gridPane= addLabels(gridPane, labels);
 		
@@ -284,6 +298,8 @@ public class GameScene {
 		
 		gameScene = new Scene(main, 700, 700);
 		gameStage.setScene(gameScene);
+		
+		//Tells eclipse to look in the same package as view and use screen3
 		gameScene.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
 	}
 	
