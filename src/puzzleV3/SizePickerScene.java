@@ -15,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class SizePickerScene {
+	//Variables
 	private Stage sizeStage;
 	private Scene sizePicker;
 	private int initSize;
@@ -23,15 +24,15 @@ public class SizePickerScene {
 	private Button go;
 	private TextField sizePrompt;
 	
+	//Constructor
 	public SizePickerScene(Stage window){
 		this.sizeStage = window;
 		
-		//Creates two new buttons
 		goBack = new Button();
 		go = new Button("Start");
 	}
 
-public void sizePickerM(){
+	public void sizePickerM(){
 		
 		GridPane grid = new GridPane();
 		BorderPane borderP = new BorderPane();
@@ -46,7 +47,7 @@ public void sizePickerM(){
 		timeInfo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 		chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 		
-		// This sets the light gray text in the text field
+		//This sets the light gray sample text in the text field
 		sizePrompt.setPromptText("E.g. 3");
 		
 		cb1.setText("Time pressure");
@@ -80,30 +81,30 @@ public void sizePickerM(){
 		
 		sizeStage.setScene(sizePicker);
 	
-		//Tells eclipse to look in the same package as view and use screen2
+		//Tells Eclipse to look in the same package as view and use screen2
 		sizePicker.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
-	//This is a get-method which returns the goBack button
+	//Getter methods
 	public Button getGoBackButton(){
 		return goBack;
 	}
-	//This is a get-method which returns the sizePicker scene
+	
 	public Scene getSizeScene(){
 		return sizePicker;
 	}
-	//This is a get-method which returns the go button
+	
 	public Button getGoButton(){
 		return go;
 	}
-	//This is a get-method which returns the initSize
+	
 	public int getInitSize(){
 		return initSize;
 	}
-    //This is a get-method which returns the cb1 check box
+	
 	public CheckBox getCheckBox(){
 		return cb1;
 	}
-	//This is a get-method which returns the sizePrompt text field
+	
 	public TextField getSizePrompt(){
 		return sizePrompt;
 	}
