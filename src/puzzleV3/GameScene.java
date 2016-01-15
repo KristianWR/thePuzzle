@@ -176,7 +176,7 @@ public class GameScene {
             	mpFX.play();
             	
             	//if checkbox is checked, and therefore true, the timer animation is activated 
-            	if(sizeScene.cb1.isSelected() == true) {
+            	if(sizeScene.getCheckBox().isSelected() == true) {
             		
             		
             		if (timeline != null) {
@@ -272,7 +272,7 @@ public class GameScene {
 	    rightContent.setSpacing(60);
 	    
 	    
-	    if(sizeScene.cb1.isSelected() == true) {
+	    if(sizeScene.getCheckBox().isSelected() == true) {
 	    
 	    rightContent.getChildren().addAll(timeLeft,timerLabel,numberOfMoves,moves);
 	    } else {

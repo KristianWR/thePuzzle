@@ -50,8 +50,8 @@ public class View extends Application{
 		/*
 		 * SizeScene
 		 */
-		sizeScene.goBack.setOnAction(e -> mainMenuScene.mainMenuM());
-		sizeScene.go.setOnAction(e -> {
+		sizeScene.getGoBackButton().setOnAction(e -> mainMenuScene.mainMenuM());
+		sizeScene.getGoButton().setOnAction(e -> {
 			try{
 				int size = sizeScene.getInitSize();
 				size = Integer.parseInt(sizeScene.getSizePrompt().getText());

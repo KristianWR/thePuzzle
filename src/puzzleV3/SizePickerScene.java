@@ -15,13 +15,13 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class SizePickerScene {
-	Stage sizeStage;
-	Scene sizePicker;
-	int initSize;
-	CheckBox cb1;
-	Button goBack;
-	Button go;
-	TextField sizePrompt;
+	private Stage sizeStage;
+	private Scene sizePicker;
+	private int initSize;
+	private CheckBox cb1;
+	private Button goBack;
+	private Button go;
+	private TextField sizePrompt;
 	
 	public SizePickerScene(Stage window){
 		this.sizeStage = window;
