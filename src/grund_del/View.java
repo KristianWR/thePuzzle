@@ -114,10 +114,10 @@ public class View extends Application{
 	
 	public void addArrowKeyListener(){
 		game.setOnKeyPressed(e ->{
-			if		(e.getCode() == KeyCode.UP){m.keyMove("down");}
-			else if (e.getCode() == KeyCode.DOWN){m.keyMove("up");}
-			else if (e.getCode() == KeyCode.LEFT){m.keyMove("right");}
-			else if (e.getCode() == KeyCode.RIGHT){m.keyMove("left");}
+			if		(e.getCode() == KeyCode.W){m.keyMove("down");}
+			else if (e.getCode() == KeyCode.S){m.keyMove("up");}
+			else if (e.getCode() == KeyCode.A){m.keyMove("right");}
+			else if (e.getCode() == KeyCode.D){m.keyMove("left");}
 		}); 
 	}
 	

@@ -60,12 +60,6 @@ public class model {
 		labels[0][0] = labels[0][2];	labels[0][2] = holder1;
 		labels[0][1] = labels[0][0];	labels[0][0] = holder2;
 		
-		//Sets the mouseClickAction for every label in labels
-		for (int i = 0; i<labels.length; i++){
-			for (int j = 0; j<labels.length; j++){
-				setMouseClickAction(i, j);
-			}
-		}
 		//Important variable for the randomMove() method.
 		zeroPos.setLocation(size-1, size-1);
 		moveCount.setText("0");
@@ -148,15 +142,7 @@ public class model {
 	}
 
 
-	/*
-	 * Sets the action to perform when a label is clicked to
-	 * check if it can be moved. If so it moves it, and after every move.
-	 */
-	public void setMouseClickAction(int y, int x){
-		labels[y][x].setOnMouseClicked(e -> {
-			checkMove(x, y);
-		});
-	}
+
 	
 }
 	
