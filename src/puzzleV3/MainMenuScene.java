@@ -61,15 +61,16 @@ public class MainMenuScene {
 		//Fetches the .css-file that styles the GUI elements from the same place where view class is
 	    mainMenu.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
-	//This is a get-method which returns the btnPlay button
+	
+	//Getter methods
 	public Button getBtnPlay(){
 		return btnPlay;
 	}
-	//This is a get-method which returns the btnAbout button
+	
 	public Button getBtnAbout(){
 		return btnAbout;
 	}
-	//This is a get-method which returns the scene mainMenu
+
 	public Scene getMainScene(){
 		return mainMenu;
 	}
