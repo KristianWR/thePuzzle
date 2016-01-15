@@ -14,9 +14,12 @@ public class AlertBox {
 	Stage window;
 	
 	public AlertBox(){
-		mainMenuButton = new Button();
-		restartButton = new Button();
+		//Creates two new buttons
+		mainMenuButton = new Button("Main Menu");
+		restartButton = new Button("Try again");
 		window = new Stage();
+		
+		//Forces you to handle the pop-up window
 		window.initModality(Modality.APPLICATION_MODAL);
 
 	}
@@ -29,12 +32,10 @@ public class AlertBox {
         window.setMinWidth(250);
         window.setMinHeight(250);
 
+        //Creates a new label
         Label label = new Label();
         label.setText(message);
-        mainMenuButton = new Button("Main Menu");
         
-        restartButton = new Button("Try again");
-
         VBox layout = new VBox(10);
         //Adds elements to layout
         layout.getChildren().addAll(label,restartButton, mainMenuButton);
@@ -51,15 +52,15 @@ public class AlertBox {
         //Tells the window to exit program when x is pressed
         window.setOnCloseRequest(e -> Platform.exit());
     }
-    
+    //This is a get-method which returns the mainMenuButton
     public Button getMainMenuButton() {
     	return mainMenuButton;
     }
-    
+    //This is a get-method which returns the restartButton
     public Button getRestartButton(){
     	return restartButton;
     }
-    
+    //This is a get-method which returns the window
     public Stage getAlertBoxWindow(){
     	return window;
     }
