@@ -53,6 +53,7 @@ public class HowToPlayScene {
 		border.setCenter(grid);
 	    howScene = new Scene(border, 750, 750);
 		howStage.setScene(howScene);
+		//Fetches the .css-file that styles the GUI elements
 		howScene.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
 }
