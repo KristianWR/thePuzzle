@@ -32,6 +32,7 @@ public class SizePickerScene {
 
 public void sizePickerM(){
 		
+		//Creates gridpane
 		GridPane grid2 = new GridPane();
 		grid2.setHgap(10);
 		grid2.setVgap(20);
@@ -44,13 +45,18 @@ public void sizePickerM(){
 		Label chooseSize = new Label("Choose the size of the game");
 		chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 		
+		//Adds choosesize with location on grid
 		GridPane.setConstraints(chooseSize, 1, 2);
 		
 		sizePrompt = new TextField();
 		sizePrompt.setPromptText("E.g. 3");
+		
+		//Adds sizeprompt with location on grid
 		GridPane.setConstraints(sizePrompt, 1, 3);
 		
 		Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
+		
+		//Adds sizeInfo with location on grid
 		GridPane.setConstraints(sizeInfo, 1, 4);
 		
 /*		sizePrompt.setOnKeyPressed(e -> {
@@ -72,10 +78,12 @@ public void sizePickerM(){
 		});*/
 		
 		
-		
+		//Adds go with location on grid
 		GridPane.setConstraints(go, 2, 6);
 		
 		Label timeInfo = new Label("Enable time pressure");
+		
+		//Adds timeInfo with location on grid
 		GridPane.setConstraints(timeInfo, 1, 5);
 		timeInfo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 			
@@ -98,20 +106,23 @@ public void sizePickerM(){
 				}
 			}
 		});
-		
+		//Adds cb1  with location on grid
 		GridPane.setConstraints(cb1, 1, 6);
 		
-		
+		//Adds goback with location on grid
 		GridPane.setConstraints(goBack, 0, 0);
 		goBack.setMaxWidth(40);
 		goBack.getStyleClass().add("button-back");
 		//goBack.setOnAction(e -> mainMenuM());
 		
+		//Adds elements to grid
 		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, cb1, timeInfo, go);
 		borderP.setPadding(new Insets(15,15,15,15));
 		borderP.setTop(goBack);
 		borderP.setCenter(grid2);
 		sizeStage.setScene(sizePicker);
+	
+		//Tells eclipse to look in the same package as view and use screen2
 		sizePicker.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
 
