@@ -76,7 +76,6 @@ public class View extends Application{
 		//Back button chances scene to SizePickerScene
 		gameScene.back.setOnAction(e -> {
 			sizeScene.sizePickerM();
-			
 			if(gameScene.getTimeline().getCurrentRate() != 0.0){
 				gameScene.getTimeline().stop();
 			}
