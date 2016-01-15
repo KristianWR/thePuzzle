@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -34,86 +33,65 @@ public class SizePickerScene {
 
 public void sizePickerM(){
 		
-		//Creates gridpane
-		GridPane grid2 = new GridPane();
-		grid2.setHgap(10);
-		grid2.setVgap(20);
-		grid2.setAlignment(Pos.TOP_CENTER);
-		
+		GridPane grid = new GridPane();
 		BorderPane borderP = new BorderPane();
-		
-		sizePicker = new Scene(borderP, 700, 700);
-		
 		Label chooseSize = new Label("Choose the size of the game");
-		chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-		
-		//Adds choosesize with location on grid
-		GridPane.setConstraints(chooseSize, 1, 2);
-		
-		//Creates a new Textfield
-		sizePrompt = new TextField();
-		sizePrompt.setPromptText("E.g. 3");
-		
-		//Adds sizeprompt with location on grid
-		GridPane.setConstraints(sizePrompt, 1, 3);
-		
 		Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
-		
-		//Adds sizeInfo with location on grid
-		GridPane.setConstraints(sizeInfo, 1, 4);
-		
-		//Adds go with location on grid
-		GridPane.setConstraints(go, 2, 6);
-		
 		Label timeInfo = new Label("Enable time pressure");
 		
-		//Adds timeInfo with location on grid
-		GridPane.setConstraints(timeInfo, 1, 5);
-		timeInfo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-			
+		sizePicker = new Scene(borderP, 700, 700);
+		sizePrompt = new TextField();
 		cb1 = new CheckBox();
+		
+		timeInfo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		
+		// This sets the light gray text in the text field
+		sizePrompt.setPromptText("E.g. 3");
+		
 		cb1.setText("Time pressure");
 		cb1.setTextFill(Color.WHITE);
-		cb1.setOnKeyPressed(e -> {
-
-				try{
-					initSize = Integer.parseInt(sizePrompt.getText());
-					if ( initSize < 3 || initSize > 100){
-						System.out.println("not between 3-100");
-						sizeInfo.setText("Please enter a size first!");			
-					}
-				}catch (NumberFormatException ex){
-					System.out.println("not an int");
-					sizeInfo.setText("Please enter a size first!");
-				}
-		});
-		//Adds cb1  with location on grid
-		GridPane.setConstraints(cb1, 1, 6);
 		
-		//Adds goback with location on grid
-		GridPane.setConstraints(goBack, 0, 0);
 		goBack.setMaxWidth(40);
 		goBack.getStyleClass().add("button-back");
+		
+		//Sets the horizontal and vertical gap between grids and sets the position of the grid
+		grid.setHgap(10);
+		grid.setVgap(20);
+		grid.setAlignment(Pos.TOP_CENTER);
+		
+		//Sets the given elements in the to grid at the given location
+		GridPane.setConstraints(chooseSize, 1, 2);
+		GridPane.setConstraints(sizePrompt, 1, 3);
+		GridPane.setConstraints(sizeInfo, 1, 4);
+		GridPane.setConstraints(go, 2, 6);
+		GridPane.setConstraints(timeInfo, 1, 5);
+		GridPane.setConstraints(cb1, 1, 6);
+		GridPane.setConstraints(goBack, 0, 0);
 
-		//Adds elements to grid
-		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, cb1, timeInfo, go);
-		borderP.setPadding(new Insets(15,15,15,15));
+		//Adds elements to the grid
+		grid.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, cb1, timeInfo, go);
+		
+		//Adds elements to the main layout
 		borderP.setTop(goBack);
-		borderP.setCenter(grid2);
+		borderP.setCenter(grid);
+		
+		borderP.setPadding(new Insets(15,15,15,15));
+		
 		sizeStage.setScene(sizePicker);
 	
 		//Tells eclipse to look in the same package as view and use screen2
 		sizePicker.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
-	//This is a get-method which returns the sizepicker
+	//This is a get-method which returns the goBack button
 	public Button getGoBackButton(){
 		return goBack;
 	}
-	//This is a get-method which returns the sizepicker
+	//This is a get-method which returns the sizePicker scene
 	public Scene getSizeScene(){
 		return sizePicker;
 	}
-	//This is a get-method which returns the go
+	//This is a get-method which returns the go button
 	public Button getGoButton(){
 		return go;
 	}
@@ -121,11 +99,11 @@ public void sizePickerM(){
 	public int getInitSize(){
 		return initSize;
 	}
-    //This is a get-method which returns the cb1
+    //This is a get-method which returns the cb1 check box
 	public CheckBox getCheckBox(){
 		return cb1;
 	}
-	//This is a get-method which returns the sizePrompt
+	//This is a get-method which returns the sizePrompt text field
 	public TextField getSizePrompt(){
 		return sizePrompt;
 	}
