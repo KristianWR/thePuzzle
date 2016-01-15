@@ -7,19 +7,21 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class View extends Application{
+	// The main stage of the application
 	Stage window = new Stage();
 	
+	// The instances of the different "objects"
 	MainMenuScene mainMenuScene = new MainMenuScene(window);
 	HowToPlayScene howScene = new HowToPlayScene(window);
 	SizePickerScene sizeScene = new SizePickerScene(window); 
 	Model m = new Model();
 	Controller kontrol = new Controller(m);
 	GameScene gameScene = new GameScene(window, mainMenuScene, sizeScene, kontrol);
-	//mediaplayer variables
+	
+	//Media player variables
 	MediaPlayer mpMusic;
 	MediaPlayer mpWin;
 	MediaPlayer mpLoose;
-	//timer variables
 
 	public static void main(String[] args) {
 		launch(args);
@@ -28,6 +30,7 @@ public class View extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+		// The 
 		mainMenuScene.mainMenuM();
 		
 		mainMenuScene.btnHow.setOnAction(e -> howScene.howSceneM());
