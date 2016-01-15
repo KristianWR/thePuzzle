@@ -27,6 +27,7 @@ public class AlertBox {
         //Block events to other windows
         window.setTitle(title);
         window.setMinWidth(250);
+        window.setMinHeight(250);
 
         Label label = new Label();
         label.setText(message);
@@ -40,7 +41,7 @@ public class AlertBox {
         layout.setAlignment(Pos.CENTER);
 
         //Display window and wait for it to be closed before returning
-        Scene scene = new Scene(layout);
+        Scene scene = new Scene(layout, 250, 250);
         
 		//Tells eclipse to look in the same package as view and use the Alert file
 		scene.getStylesheets().add(View.class.getResource("Alert.css").toExternalForm());

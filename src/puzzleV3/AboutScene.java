@@ -35,8 +35,8 @@ public class AboutScene {
 		//Tekst on about menu
 	    Label dev = new Label("The game developers:");
 	    dev.getStyleClass().add("label-fed");
-	    Label tekst = new Label("Kristian Wolthers Rasmussen \nPelle Rubin Galløe \nRasmus Suonperä Liebst "
-	    		+ "\nJia Johnny Ye");
+	    Label tekst = new Label("Kristian Wolthers Rasmussen (s154121) \nPelle Rubin Galloee (s153742) \nRasmus Liebst (s144483) "
+	    		+ "\nJia Johnny Ye (s154074)");
 	    tekst.getStyleClass().add("label-about");
 	    
 	    grid.add(dev, 0, 0);
