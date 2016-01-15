@@ -1,5 +1,6 @@
 package puzzleV3;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,6 +57,7 @@ public class HowToPlayScene {
 		//Adds elements to border and afterwards border to the grid
 		border.setTop(back);
 		border.setCenter(grid);
+		border.setPadding(new Insets(15,15,15,15));
 	    howScene = new Scene(border, 750, 750);
 		howStage.setScene(howScene);
 		
