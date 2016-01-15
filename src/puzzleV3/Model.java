@@ -98,6 +98,17 @@ public class Model {
 		}
 	}
 	
+	public void keyMove(String command){
+		int x = zeroPos.x;
+		int y = zeroPos.y;
+		if 		(command.equals("up")    && y>0){checkMove(x, y-1);}
+		else if (command.equals("down")  && y<puzzleSize-1){checkMove(x, y+1);}
+		else if (command.equals("left")  && x>0){checkMove(x-1, y);}
+		else if (command.equals("right") && x<puzzleSize-1){checkMove(x+1,y);}
+		if (winCheck()){
+			isPlaying.setText("no");
+		}
+	}
 	/*
 	 * Checks the labels in each of the 4 directions from the labels' 
 	 * x,y coordinates sent along. It only checks inside our labels[][].

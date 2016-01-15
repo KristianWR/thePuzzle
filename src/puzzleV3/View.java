@@ -1,6 +1,7 @@
 package puzzleV3;
 
 import javafx.application.Application;
+import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -76,6 +77,13 @@ public class View extends Application{
 				mpMusic.setVolume(0.9);
 				gameScene.setMuteButtonText("Mute Music");
 			}
+		});
+		
+		gameScene.getBorderPane().setOnKeyPressed(e ->{
+			if		(e.getCode() == KeyCode.UP){kontrol.theModel.keyMove("down");}
+			else if (e.getCode() == KeyCode.DOWN){kontrol.theModel.keyMove("up");}
+			else if (e.getCode() == KeyCode.LEFT){kontrol.theModel.keyMove("right");}
+			else if (e.getCode() == KeyCode.RIGHT){kontrol.theModel.keyMove("left");}
 		});
 		
 		window.show();

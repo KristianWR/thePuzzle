@@ -50,6 +50,7 @@ public class GameScene {
 	MediaPlayer mpLoose;
 	
 	GridPane gridPane;
+	BorderPane main;
 	
 	Button back;
 	Button btn_mute;
@@ -62,6 +63,7 @@ public class GameScene {
 		back = new Button();
 		btn_mute = new Button("Mute Music");
 		timeline = new Timeline();
+		main = new BorderPane();
 	}
 	
 	public void gameSceneM(){
@@ -272,7 +274,6 @@ public class GameScene {
 		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
 		
-		BorderPane main = new BorderPane();
 		main.setCenter(mainGrid);
 		main.setTop(topBtns);
 		main.setRight(rightContent);
@@ -310,5 +311,9 @@ public class GameScene {
 			}
 		}
 		return gridPane;
+	}
+	
+	public BorderPane getBorderPane(){
+		return main;
 	}
 }
