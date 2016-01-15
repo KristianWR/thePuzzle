@@ -36,6 +36,7 @@ public class AboutScene {
 			
 			back.setAlignment(Pos.TOP_LEFT);
 	    
+		//Tekst on about menu
 	    Label dev = new Label("The game developers:");
 	    dev.getStyleClass().add("label-fed");
 	    Label tekst = new Label("Kristian Wolthers Rasmussen \nPelle Rubin Galløe \nRasmus Suonperä Liebst "
@@ -50,7 +51,7 @@ public class AboutScene {
 		
 	    aboutScene = new Scene(border, 750, 750);
 		aboutStage.setScene(aboutScene);
-		//Fetches the .css-file that styles the GUI elements
+		//Fetches the .css-file that styles the GUI elements from the same place where View class is
 		aboutScene.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
 }

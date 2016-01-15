@@ -27,6 +27,7 @@ public class MainMenuScene {
 	
 	public void mainMenuM(){
 		
+		//Creates a new grid with all buttons and their location
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
 	    grid.setVgap(20);
@@ -54,20 +55,23 @@ public class MainMenuScene {
 		btnAbout.setOnAction(e -> aboutscreen());
 		
 		*/
-		
+		//The Exit button closes the program
 		btnExit.setOnAction(e -> {Platform.exit();
 		});
 	    
+		//Sets all the buttons to same width and height
 	    btnPlay.setMaxWidth(Double.MAX_VALUE);
 	    btnHow.setMaxWidth(Double.MAX_VALUE);
 	    btnAbout.setMaxWidth(Double.MAX_VALUE);
 	    btnExit.setMaxWidth(Double.MAX_VALUE);
 	    
-	    
+	    //Adds all the elements to grid
 	    grid.getChildren().addAll(titel, btnPlay, btnHow, btnAbout, btnExit);	
 	    
 	    mainMenu = new Scene(grid, 700, 700);
 	    mainStage.setScene(mainMenu);
+	    
+		//Fetches the .css-file that styles the GUI elements from the same place where view class is
 	    mainMenu.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
 	}
 	

@@ -35,14 +35,19 @@ public class AlertBox {
         restartButton = new Button("Try again");
 
         VBox layout = new VBox(10);
+        //Adds elements to layout
         layout.getChildren().addAll(label,restartButton, mainMenuButton);
         layout.setAlignment(Pos.CENTER);
 
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(layout);
+        
+		//Tells eclipse to look in the same package as view and use the Alert file
 		scene.getStylesheets().add(View.class.getResource("Alert.css").toExternalForm());
         window.setScene(scene);
         window.show();
+        
+        //Tells the window to exit program when x is pressed
         window.setOnCloseRequest(e -> Platform.exit());
     }
     
