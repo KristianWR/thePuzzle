@@ -12,8 +12,8 @@ public class Model {
 	int puzzleSize;
 	Label moveCount = new Label("0");
 	
-	//Only used for communicating to the view that the player has won or lost.  ****
-	
+	//Only used for communicating to the view that the player has won or lost -
+	//by the use of onChangeListener.
 	Label isPlaying = new Label("yes"); 
 	
 	//A point that keeps track of the label with the text "0". Used in our randomMove().
@@ -48,7 +48,7 @@ public class Model {
 				labels[i][j] = new Label(Integer.toString(count));
 				labels[i][j].setMinSize(dSize, dSize);
 				labels[i][j].setAlignment(Pos.CENTER);
-				//If the game board is 10 or less wide, the font "follow" the labelSize.    ****  (+ EVT RYK OP)
+				//If the game board is 10 or less wide, the font scales with the labelSize.
 				if (size <= 10){
 					labels[i][j].setFont(labelFont);
 				}
@@ -56,7 +56,7 @@ public class Model {
 			}
 		}
 		
-		//Sets the bottom right labels' text to "0" and adds the css style     *** (som jo også gør 0 usynlig!)
+		//Sets the bottom right labels' text to "0" and adds the css style which makes it invisible.
 		labels[size-1][size-1].setText("0");
 		labels[size-1][size-1].getStyleClass().add("label-zero");
 		
@@ -66,18 +66,21 @@ public class Model {
 		labels[0][0] = labels[0][2];	labels[0][2] = holder1;
 		labels[0][1] = labels[0][0];	labels[0][0] = holder2;
 		
-		//Sets the mouseClickAction for every label in labels      *** "in our labels array"
+		//Sets the mouseClickAction for every label in our labels array (called labels)
 		for (int i = 0; i<labels.length; i++){
 			for (int j = 0; j<labels.length; j++){
 				setMouseClickAction(i, j);
 			}
 		}
-		//Important variable for the randomMove() method.      **** hvorfor er den vigtig - evt forklar. og hvorfor står den her?       
+		//Initiates the point variable that is essential in our randomMove() method. Explained in the method.
 		zeroPos.setLocation(size-1, size-1);
 		moveCount.setText("0");
 	}
 	
-																// ***** mangler comments 
+	/*
+	 * This method is called when a key is pressed. opposite key. e.g up becomes down.
+	 * it get's the x, y of the label with text "0" and moves the label in the direction.
+	 */
 	public void keyMove(String command){
 		int x = zeroPos.x;
 		int y = zeroPos.y;
@@ -137,11 +140,6 @@ public class Model {
 		moveCount.setText(Integer.toString(moves));
 	}
 	
-	/*
-	 * Checks if the label at the given x,y in labels is next to zero.
-	 * It returns where the zero is relative to the given values.       **** ("where the zero-label..") + den returnerer vel ikke - den er void?
-	 */
-	
 	/* This method essentially joins the nextToZero method and the switchlabels method. 
 	 * First it identifies where the zero-tile is situated compared to the tile the user 
 	 * wish to move, and then calls the switchLabels method with the correct argument 
@@ -150,7 +148,6 @@ public class Model {
 		String var = nextToZero(x, y);                        
 
 		//Runs through every possible outcome of nextToZero()
-		//and switch labels accordingly.                         ****  overflødigt i forhold til overstående kommentar?
 		if (var == "up"){
 			switchLabels(y-1, x, y, x);
 		}else if (var == "down"){
@@ -165,12 +162,13 @@ public class Model {
 	}
 
 	/*
-	 * Runs through every label and checks if their text matches that of the count.    **** "the text of the count"    forstår ikke helt denne metode
+	 * Runs through every label and checks if their text (which is a number converted to string)
+	 * matches that of the count.
 	 * It checks if the labels are in "order" from 1 to puzzleSize-1. If just one
 	 * of the label are in the wrong place winCheck returns false.
 	 */
 	public boolean winCheck(){
-		/* The base assumption is that the game is won. We then run through every     **** erstat base med "basic"
+		/* The basic assumption is that the game is won. We then run through every
 		 * possibility that could falsify that assumption. */
 		boolean won = true;
 		//If the last label = 0 - it's in the correct position.
@@ -238,7 +236,7 @@ public class Model {
 			/*
 			 * Each if statement uses the randNumb and the condition if that moves is 'legal'
 			 * if we proceed inside a statement we make the move and update x, y that are the
-			 * parameters that keeps count of where a move is "legal" so to speak.                **** "so to speak" lidt talesprogs agtigt...
+			 * parameters that keeps track of where a move is "legal".
 			 */
 			if (randNumb == 0 && y!=0 && y<puzzleSize){
 				//Moves up
