@@ -111,5 +111,4 @@ public class View extends Application{
 			else if (e.getCode() == KeyCode.D){kontrol.theModel.keyMove("left");}
 		}); 
 	}
-	
 }

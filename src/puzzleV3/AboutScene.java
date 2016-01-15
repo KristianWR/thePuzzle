@@ -28,7 +28,6 @@ public class AboutScene {
 	    grid.setVgap(20);
 	    grid.setAlignment(Pos.TOP_CENTER);
 	    
-	    back = new Button();
 		back.setMaxWidth(40);
 		back.getStyleClass().add("button-back");
 		back.setAlignment(Pos.TOP_LEFT);

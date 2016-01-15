@@ -205,8 +205,7 @@ public class GameScene {
 	        	                    		gameStage.setScene(sizeScene.getSizeScene());
 	        	                    		alertBox.window.close();
 	        	            });
-	                }
-	                );
+	                });
             	}
 			}
         }
