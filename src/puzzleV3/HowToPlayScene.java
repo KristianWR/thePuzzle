@@ -40,6 +40,7 @@ public class HowToPlayScene {
 	    		+ " in ascending order \n with the empty tile in the lower right corner");
 	    tekst.getStyleClass().add("label-about");
 	    
+	    //Adds elements to grid and the location of the elements
 	    grid.add(tut, 0, 0);
 	    grid.add(htp, 0, 1);
 	    grid.add(win, 0, 2);
@@ -49,10 +50,12 @@ public class HowToPlayScene {
 		back.getStyleClass().add("button-back");
 		back.setAlignment(Pos.TOP_LEFT);
 	
+		//Adds elements to border and afterwards border to the grid
 		border.setTop(back);
 		border.setCenter(grid);
 	    howScene = new Scene(border, 750, 750);
 		howStage.setScene(howScene);
+		
 		//Fetches the .css-file that styles the GUI elements from the same place where View class is
 		howScene.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
