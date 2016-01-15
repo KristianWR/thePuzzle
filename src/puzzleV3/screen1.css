@@ -1,5 +1,5 @@
 
-/*root method is here the default of the whole scene we are looking at. It puts our png file as a background and forces the
+/*Root method is here the default of the whole scene we are looking at. It puts our png file as a background and forces the
  * image to fill the whole scene*/
 .root{
 	-fx-background-image: url('Crystal40px.png');

@@ -1,5 +1,5 @@
 
-/*root method is here the default of the whole scene we are looking at. It paints
+/*Root method is here the default of the whole scene we are looking at. It paints
  the background of the scene with a hexadecimal black color*/
 .root{
 	-fx-background-color: #2E2E2E;
