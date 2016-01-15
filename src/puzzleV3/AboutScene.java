@@ -28,13 +28,10 @@ public class AboutScene {
 	    grid.setVgap(20);
 	    grid.setAlignment(Pos.TOP_CENTER);
 	    
-	    Button back = new Button();
-			back.setMaxWidth(40);
-			back.getStyleClass().add("button-back");
-			
-			//back.setOnAction(e -> mainMenuM());
-			
-			back.setAlignment(Pos.TOP_LEFT);
+	    back = new Button();
+		back.setMaxWidth(40);
+		back.getStyleClass().add("button-back");
+		back.setAlignment(Pos.TOP_LEFT);
 	    
 		//Tekst on about menu
 	    Label dev = new Label("The game developers:");
@@ -54,4 +51,5 @@ public class AboutScene {
 		//Fetches the .css-file that styles the GUI elements from the same place where View class is
 		aboutScene.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
+	
 }
