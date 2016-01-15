@@ -104,13 +104,6 @@ public class View extends Application{
 			}
 		});
 		
-		gameScene.getBorderPane().setOnKeyPressed(e ->{
-			if		(e.getCode() == KeyCode.UP){kontrol.theModel.keyMove("down");}
-			else if (e.getCode() == KeyCode.DOWN){kontrol.theModel.keyMove("up");}
-			else if (e.getCode() == KeyCode.LEFT){kontrol.theModel.keyMove("right");}
-			else if (e.getCode() == KeyCode.RIGHT){kontrol.theModel.keyMove("left");}
-		});
-		
 		//Makes the main Stage "window" visible
 		window.show();
 		
