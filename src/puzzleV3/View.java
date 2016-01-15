@@ -59,7 +59,7 @@ public class View extends Application{
 		});
 		
 		
-		
+		//Gives gameScene.back action to chance scene
 		gameScene.back.setOnAction(e -> {
 			sizeScene.sizePickerM();
 			
@@ -68,7 +68,7 @@ public class View extends Application{
 			}
 			
 		});
-		
+		//Gives gameScene mutebutton action to mute
 		gameScene.getMuteButton().setOnAction(e -> {										
 			if (mpMusic.getVolume() != 0.0){					
 				mpMusic.setVolume(0.0);
