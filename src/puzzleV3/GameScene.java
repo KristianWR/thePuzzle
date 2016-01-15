@@ -28,6 +28,7 @@ import javafx.util.Duration;
 
 public class GameScene {
 	
+	//Game scene variables and objects
 	Stage gameStage;
 	Scene gameScene;
 	MainMenuScene mainMenuScene;
@@ -35,7 +36,7 @@ public class GameScene {
 	
 	AlertBox alertBox = new AlertBox();
 	
-    static Integer STARTTIME = 15;
+    Integer STARTTIME = 15;
     Timeline timeline;
     Label timerLabel = new Label();
     IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
@@ -52,6 +53,7 @@ public class GameScene {
 	Button back;
 	Button btn_mute;
 	
+	//Constructor
 	public GameScene(Stage window, MainMenuScene mainMenuScene, SizePickerScene sizeScene, Controller kontrol){
 		this.gameStage = window;
 		this.mainMenuScene = mainMenuScene;
@@ -62,58 +64,50 @@ public class GameScene {
 		timeline = new Timeline();
 	}
 	
+	/*This method constructs the GUI of the game scene.
+	 * It also 
+	 */
 	public void gameSceneM(){
-		
-		kontrol.theModel.createLabels(initSize);
-		labels = kontrol.theModel.getLabels();
-	    Button btn_muteFX = new Button("Mute Sound FX");
+	    
+		Label playLabel = kontrol.theModel.isPlaying;
+	    Label numberOfMoves = new Label("Number \nof moves:");
+	    Label timeLeft = new Label("Time left:");
 	    Button randomize = new Button("Randomize");
-	    timeSeconds.set(STARTTIME);	
-	    timeline.stop();
+	    Button btn_muteFX = new Button("Mute Sound FX");
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
 	    Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
 		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
-		
 		mpWin = new MediaPlayer(winMusic);
 		mpLoose = new MediaPlayer(looseMusic);
     	mpFX = new MediaPlayer(tileSwap);
 		mpFX.setVolume(1.0);
-		
-		/// Music 
-
-		
-		
+		kontrol.theModel.createLabels(initSize);
+		labels = kontrol.theModel.getLabels();
+		timeSeconds.set(STARTTIME);	
+		timeline.stop();
 		
 		//Bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
         
         //Removes the default css method label from timerLabel
+        //Adds the css method size to timerLabel
 	    timerLabel.getStyleClass().remove("label");
+	    timerLabel.getStyleClass().add("size");
 	    
-	    //Adds the css method size to timerLabel
-        timerLabel.getStyleClass().add("size");
-        Label timeLeft = new Label("Time left:");
-        
         //Removes the default css method label from timerLeft
+        //and then adds the css method size to timerLeft
 	    timeLeft.getStyleClass().remove("label");
-	    
-	    //Adds the css method size to timerLeft
-        timeLeft.getStyleClass().add("skrift");
-        
-        Label numberOfMoves = new Label("Number \nof moves:");
+	    timeLeft.getStyleClass().add("skrift");
         
         //Removes the default css method label from timerLabel
+        //and then adds the css method size to timerLabel
 	    numberOfMoves.getStyleClass().remove("label");
-	    
-	    //Adds the css method size to timerLabel
-        numberOfMoves.getStyleClass().add("skrift");
+	    numberOfMoves.getStyleClass().add("skrift");
 		
-	    //toggle sound fx on/off
+	    //Toggle sound fx on/off
 	    btn_muteFX.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			
 			public void handle(ActionEvent arg0) {
-															
 				if (mpFX.getVolume() != 0.0){					
 					mpFX.setVolume(0.0);
 					btn_muteFX.setText("Play Sound FX");
@@ -121,14 +115,22 @@ public class GameScene {
 					mpFX.setVolume(1.0);
 					btn_muteFX.setText("Mute Sound FX");
 				}								
-				
 			}
 		});
 	    
-	    //randomizes all tiles
+	    //Randomizes all tiles
 	    randomize.setOnAction(e -> kontrol.theModel.randomMove());
-	    	    
-		Label playLabel = kontrol.theModel.isPlaying;
+	    
+	    /* A ChangeListener registers changes to the label playLabel. 
+	     *  If this happens the method "changed" is called. If the label 
+	     * does not have the text "yes", it means the player has won. 
+	     * If this is the case, the following happens: 
+	     * The win mediaplayer will play. The timeline will stop, if it 
+	     * is active. An alertbox is then called, that informs
+	     * the player, she has won. The alertbox object has two
+	     * buttons - one will take the player to the main scene, the other
+	     * to the pick size scene. 
+	     */
 		playLabel.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
@@ -136,7 +138,6 @@ public class GameScene {
             	if (playLabel.getText().equals("yes")){
             		System.out.println("still playing");
             	}else{
-            		//mpMusic.pause();
                 	mpWin.stop();
                 	mpWin.play(); 
                 	
