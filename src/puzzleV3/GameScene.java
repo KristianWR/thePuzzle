@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -33,10 +32,9 @@ public class GameScene {
 	Scene gameScene;
 	MainMenuScene mainMenuScene;
 	SizePickerScene sizeScene;
-	
 	AlertBox alertBox = new AlertBox();
 	
-    Integer STARTTIME = 15;
+    Integer STARTTIME = 10;
     Timeline timeline;
     Label timerLabel = new Label();
     IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
@@ -69,6 +67,7 @@ public class GameScene {
 	 */
 	public void gameSceneM(){
 	    
+		Label moves = kontrol.theModel.moveCount;
 		Label playLabel = kontrol.theModel.isPlaying;
 	    Label numberOfMoves = new Label("Number \nof moves:");
 	    Label timeLeft = new Label("Time left:");
@@ -89,20 +88,16 @@ public class GameScene {
 		//Bind the timerLabel text property to the timeSeconds property
         timerLabel.textProperty().bind(timeSeconds.asString());
         
-        //Removes the default css method label from timerLabel
-        //Adds the css method size to timerLabel
+        //Removes the default css method label
+        //adds a custom css method to the label
 	    timerLabel.getStyleClass().remove("label");
 	    timerLabel.getStyleClass().add("size");
-	    
-        //Removes the default css method label from timerLeft
-        //and then adds the css method size to timerLeft
 	    timeLeft.getStyleClass().remove("label");
 	    timeLeft.getStyleClass().add("skrift");
-        
-        //Removes the default css method label from timerLabel
-        //and then adds the css method size to timerLabel
 	    numberOfMoves.getStyleClass().remove("label");
 	    numberOfMoves.getStyleClass().add("skrift");
+	    moves.getStyleClass().remove("label");
+	    moves.getStyleClass().add("size");
 		
 	    //Toggle sound fx on/off
 	    btn_muteFX.setOnAction(new EventHandler<ActionEvent>() {
@@ -143,7 +138,7 @@ public class GameScene {
                 	
         			if(timeline.getCurrentRate() != 0.0) {
         				timeline.stop();
-        				}
+        			}
                 	
                 	alertBox.display("You won", "Congratulations");
       	          
@@ -159,45 +154,38 @@ public class GameScene {
                 	                        	
 
             	}
-            	            }
+            }
         }); 
 		
-		Label moves = kontrol.theModel.moveCount;
-	    //Removes the default css method label from moves
-	    moves.getStyleClass().remove("label");
-	    //Adds the css method size to moves
-        moves.getStyleClass().add("size");
+		/*The move label increments every time a tile is moved. When this happens, a
+		 *the changed method is called. 
+		 */ 
 		moves.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-            	
-            	//"rewinds" the sound, then plays it   
+            	//"Rewinds" the sound, then plays it   
             	mpFX.stop();
             	mpFX.play();
             	
-            	//if checkbox is checked, and therefore true, the timer animation is activated 
+            	//If checkbox is checked (true), the timer animation is activated 
             	if(sizeScene.getCheckBox().isSelected() == true) {
             		
-            		
-            		if (timeline != null) {
-	                    timeline.stop();    
-	                }
-	                
-	                				                
+            		//Sets up the timer animation with the defined start time
 	                timeSeconds.set(STARTTIME);
 	                timeline.getKeyFrames().add(				                		
 	                        new KeyFrame(Duration.seconds(STARTTIME+1),
 	                        new KeyValue(timeSeconds, 0)));
-	                
 	                timeline.playFromStart();
-	                //When times runs out
 	                				                				           
+	                //Detects when the timeline is finished (defined in KeyValue as 0)
+	                //and triggers an action event
 	                timeline.setOnFinished((ActionEvent event1) -> {
+	                		//"Rewinds" then plays sound
 	                		mpLoose.stop();
 	                		mpLoose.play();
 	                		
+	                		//An alert box is called via its display method.
 	                    	alertBox.display("You lost", "You are a looser!");
-	            	          
 	        				alertBox.getMainMenuButton().setOnAction(e -> {
 	        	                			gameStage.setScene(mainMenuScene.getMainScene());
 	        	                			alertBox.window.close();
@@ -213,15 +201,12 @@ public class GameScene {
 		); 
 		
 		///// THE MAIN LAYOUT OF THE SCENE /////
-		
-			
 		GridPane mainGrid = new GridPane();
 		mainGrid.setPadding(new Insets(5,5,5,5));
 		mainGrid.setHgap(5);
 		mainGrid.setVgap(5);		
 		
 		//// GRIDPANE ---- THE GAME --- //////
-		
 		GridPane gridPane = new GridPane();
 		gridPane.setPadding(new Insets(5,5,5,5));
 		gridPane.setHgap(5);
@@ -229,19 +214,14 @@ public class GameScene {
 		
 		//Adds the css method pane to the game's gridpane
 		gridPane.getStyleClass().add("pane");
-	
 		gridPane= addLabels(gridPane, labels);
-		
 		gridPane.setMaxSize(600, 600);
 		gridPane.setAlignment(Pos.CENTER);
 		
-		//// BACKBUTTON ---- The button for going back ////
-		
-		
+		//// TOP BUTTONS ////
 		back.setMaxWidth(30);
 		back.setMinWidth(40);
 		back.getStyleClass().add("button-back");
-		
 		back.setAlignment(Pos.TOP_LEFT);
 		
 		HBox topBtns = new HBox();
@@ -256,50 +236,52 @@ public class GameScene {
 		scroll1 = new ScrollPane(gridPane);
 		scroll1.setFitToWidth(true);
 		
-		////// The HBOX containing top button //////
+		////// The HBOX containing bottom buttons //////
 		
 		HBox bottomBtns = new HBox();
 		bottomBtns.setPadding(new Insets(15, 12, 15, 12));
 	    bottomBtns.setSpacing(35);
 	    bottomBtns.setAlignment(Pos.CENTER);
-	    
 	    bottomBtns.getChildren().addAll(btn_mute,btn_muteFX);
 	    
 	    /////// VBox containing content right of game ///////
-	    
 	    VBox rightContent = new VBox();
 	    rightContent.setPadding(new Insets(15, 12, 15, 12));
 	    rightContent.setSpacing(60);
 	    
-	    
+	    //If the checkbox for time pressure is enabled in the size picker scene,
+	    // timer labels are added to the layout.
 	    if(sizeScene.getCheckBox().isSelected() == true) {
 	    
 	    rightContent.getChildren().addAll(timeLeft,timerLabel,numberOfMoves,moves);
 	    } else {
 	    	rightContent.getChildren().addAll(numberOfMoves,moves);
 	    }
+	    
 		////// All content for the main layout is added here ///// 
+	    BorderPane main = new BorderPane();
+	    StackPane stack = new StackPane();
 	    
 	    mainGrid.setAlignment(Pos.CENTER);
 		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
 		
-		BorderPane main = new BorderPane();
 		main.setCenter(mainGrid);
 		main.setTop(topBtns);
 		main.setRight(rightContent);
 		main.setBottom(bottomBtns);
-		StackPane stack = new StackPane();
-		stack.setPrefWidth(40);
 		main.setLeft(stack);
+		
+		stack.setPrefWidth(40);
 		
 		gameScene = new Scene(main, 700, 700);
 		gameStage.setScene(gameScene);
 		
-		//Tells eclipse to look in the same package as view and use screen3
+		//Tells Eclipse to look in the same package as view and use screen3
 		gameScene.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
 	}
 	
+	//Getter and setter methods
 	public Button getGoBackButton(){
 		return back;
 	}
@@ -316,6 +298,7 @@ public class GameScene {
 		btn_mute.setText(text);
 	}
 	
+	//Adds the labels to the gridpane
 	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
 		for(int i = 0; i < tempLabels.length; i++){
 			for(int j = 0; j < tempLabels.length; j++){
