@@ -26,6 +26,8 @@ public class SizePickerScene {
 	
 	public SizePickerScene(Stage window){
 		this.sizeStage = window;
+		
+		//Creates two new buttons
 		goBack = new Button();
 		go = new Button("Start");
 	}
@@ -48,6 +50,7 @@ public void sizePickerM(){
 		//Adds choosesize with location on grid
 		GridPane.setConstraints(chooseSize, 1, 2);
 		
+		//Creates a new Textfield
 		sizePrompt = new TextField();
 		sizePrompt.setPromptText("E.g. 3");
 		
@@ -58,25 +61,6 @@ public void sizePickerM(){
 		
 		//Adds sizeInfo with location on grid
 		GridPane.setConstraints(sizeInfo, 1, 4);
-		
-/*		sizePrompt.setOnKeyPressed(e -> {
-			if(e.getCode().equals(KeyCode.ENTER)){
-				try{
-					initSize = Integer.parseInt(sizePrompt.getText());
-					if ( initSize < 3 || initSize > 100){
-						System.out.println("not between 3-100");
-						sizeInfo.setText("must be between 3-100");
-					}else{
-						System.out.println("IT WORKS");
-						//gameSceneM();					
-					}
-				}catch (NumberFormatException ex){
-					System.out.println("not a int");
-					sizeInfo.setText("Must be an integer");
-				}
-			}
-		});*/
-		
 		
 		//Adds go with location on grid
 		GridPane.setConstraints(go, 2, 6);
@@ -91,20 +75,17 @@ public void sizePickerM(){
 		cb1.setText("Time pressure");
 		cb1.setTextFill(Color.WHITE);
 		cb1.setOnKeyPressed(e -> {
-			if(e.getCode().equals(KeyCode.ENTER)){
+
 				try{
 					initSize = Integer.parseInt(sizePrompt.getText());
 					if ( initSize < 3 || initSize > 100){
 						System.out.println("not between 3-100");
-						sizeInfo.setText("Please enter a size first!");
-					}else{
-						//gameSceneM();					
+						sizeInfo.setText("Please enter a size first!");			
 					}
 				}catch (NumberFormatException ex){
 					System.out.println("not an int");
 					sizeInfo.setText("Please enter a size first!");
 				}
-			}
 		});
 		//Adds cb1  with location on grid
 		GridPane.setConstraints(cb1, 1, 6);
@@ -113,8 +94,7 @@ public void sizePickerM(){
 		GridPane.setConstraints(goBack, 0, 0);
 		goBack.setMaxWidth(40);
 		goBack.getStyleClass().add("button-back");
-		//goBack.setOnAction(e -> mainMenuM());
-		
+
 		//Adds elements to grid
 		grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, cb1, timeInfo, go);
 		borderP.setPadding(new Insets(15,15,15,15));
@@ -125,26 +105,27 @@ public void sizePickerM(){
 		//Tells eclipse to look in the same package as view and use screen2
 		sizePicker.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
 	}
-
+	//This is a get-method which returns the sizepicker
 	public Button getGoBackButton(){
 		return goBack;
 	}
-	
+	//This is a get-method which returns the sizepicker
 	public Scene getSizeScene(){
 		return sizePicker;
 	}
-	
+	//This is a get-method which returns the go
 	public Button getGoButton(){
 		return go;
 	}
+	//This is a get-method which returns the initSize
 	public int getInitSize(){
 		return initSize;
 	}
-	
+    //This is a get-method which returns the cb1
 	public CheckBox getCheckBox(){
 		return cb1;
 	}
-	
+	//This is a get-method which returns the sizePrompt
 	public TextField getSizePrompt(){
 		return sizePrompt;
 	}
