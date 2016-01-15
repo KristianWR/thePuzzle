@@ -30,7 +30,7 @@ public class GameScene {
 	
 	Stage gameStage;
 	Scene gameScene;
-	Scene mainMenuScene;
+	MainMenuScene mainMenuScene;
 	SizePickerScene sizeScene;
 	
 	AlertBox alertBox = new AlertBox();
@@ -46,21 +46,18 @@ public class GameScene {
 	int initSize;
 	
 	MediaPlayer mpFX;
-	MediaPlayer mpMusic;
 	MediaPlayer mpWin;
 	MediaPlayer mpLoose;
 	
-	CheckBox cb1;
 	GridPane gridPane;
 	
 	Button back;
 	Button btn_mute;
 	
-	public GameScene(Stage window, Scene mainMenuScene, SizePickerScene sizeScene, CheckBox cb1, Controller kontrol){
+	public GameScene(Stage window, MainMenuScene mainMenuScene, SizePickerScene sizeScene, Controller kontrol){
 		this.gameStage = window;
 		this.mainMenuScene = mainMenuScene;
 		this.sizeScene = sizeScene;
-		this.cb1 = cb1;		
 		this.kontrol = kontrol;
 		back = new Button();
 		btn_mute = new Button("Mute Music");
@@ -128,27 +125,32 @@ public class GameScene {
             @Override
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
             	
-            	mpMusic.pause();
-            	mpWin.stop();
-            	mpWin.play(); 
-            	
-    			if(timeline.getCurrentRate() != 0.0) {
-    				timeline.stop();
-    				}
-            	
-            	alertBox.display("You won", "Congratulations");
-  	          
-				alertBox.getMainMenuButton().setOnAction(e -> {
-	                			
-							gameStage.setScene(mainMenuScene);
-	                			alertBox.window.close();
-	            });
-	            alertBox.getRestartButton().setOnAction(e -> {
-	                    		gameStage.setScene(sizeScene.getSizeScene());
-	                    		alertBox.window.close();
-	            });
-            	                        	
-            }
+            	if (playLabel.getText().equals("yes")){
+            		System.out.println("still playing");
+            	}else{
+            		//mpMusic.pause();
+                	mpWin.stop();
+                	mpWin.play(); 
+                	
+        			if(timeline.getCurrentRate() != 0.0) {
+        				timeline.stop();
+        				}
+                	
+                	alertBox.display("You won", "Congratulations");
+      	          
+    				alertBox.getMainMenuButton().setOnAction(e -> {
+    	                			
+    							gameStage.setScene(mainMenuScene.getMainScene());
+    	                			alertBox.window.close();
+    	            });
+    	            alertBox.getRestartButton().setOnAction(e -> {
+    	                    		gameStage.setScene(sizeScene.getSizeScene());
+    	                    		alertBox.window.close();
+    	            });
+                	                        	
+
+            	}
+            	            }
         }); 
 		
 		Label moves = kontrol.theModel.moveCount;
@@ -180,14 +182,13 @@ public class GameScene {
 	                //When times runs out
 	                				                				           
 	                timeline.setOnFinished((ActionEvent event1) -> {
-	                		mpMusic.pause();
 	                		mpLoose.stop();
 	                		mpLoose.play();
 	                		
 	                    	alertBox.display("You lost", "You are a looser!");
 	            	          
 	        				alertBox.getMainMenuButton().setOnAction(e -> {
-	        	                			gameStage.setScene(mainMenuScene);
+	        	                			gameStage.setScene(mainMenuScene.getMainScene());
 	        	                			alertBox.window.close();
 	        	            });
 	        	            alertBox.getRestartButton().setOnAction(e -> {

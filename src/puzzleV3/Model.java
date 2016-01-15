@@ -13,7 +13,7 @@ public class Model {
 	Label moveCount = new Label("0");
 	
 	//only used for communicating to the view that a special change occurs.
-	Label isPlaying = new Label("you are still playing huh?"); 
+	Label isPlaying = new Label("yes"); 
 	
 	//a point that keeps track of the label with the text "0". used in our randomMove().
 	Point zeroPos = new Point(0,0);
@@ -30,6 +30,7 @@ public class Model {
 	 */
 	public void createLabels(int size){
 		//initializes the label array with the correct dimensions.
+		isPlaying.setText("yes");
 		labels = new Label[size][size];
 		puzzleSize = size;
 	
@@ -72,6 +73,7 @@ public class Model {
 		}
 		//important variable for the randomMove() method.
 		zeroPos.setLocation(size-1, size-1);
+		moveCount.setText("0");
 	}
 	
 	/*
@@ -186,7 +188,7 @@ public class Model {
 		labels[y][x].setOnMouseClicked(e -> {
 			checkMove(x, y);
 			if (winCheck()){
-				isPlaying.setText("You've won");
+				isPlaying.setText("no");
 			}
 		});
 	}

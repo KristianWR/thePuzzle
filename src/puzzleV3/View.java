@@ -1,52 +1,19 @@
 package puzzleV3;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class View extends Application{
 	Stage window = new Stage();
-	Scene sizePicker;
-	Scene game;
-	Scene about;
-	Scene setting;
 	
 	MainMenuScene mainMenuScene = new MainMenuScene(window);
 	HowToPlayScene howScene = new HowToPlayScene(window);
 	SizePickerScene sizeScene = new SizePickerScene(window); 
 	Model m = new Model();
 	Controller kontrol = new Controller(m);
-	GameScene gameScene = new GameScene(window, mainMenuScene.getMainScene(), sizeScene, sizeScene.getCheckBox(), kontrol);
+	GameScene gameScene = new GameScene(window, mainMenuScene, sizeScene, kontrol);
 	//mediaplayer variables
 	MediaPlayer mpMusic;
 	MediaPlayer mpWin;
@@ -92,26 +59,6 @@ public class View extends Application{
 		
 		
 		
-/*		sizeScene.sizePrompt.setOnKeyPressed(e -> {
-			if(e.getCode().equals(KeyCode.ENTER)){
-				try{
-					int size = sizeScene.getInitSize();
-					size = Integer.parseInt(sizeScene.getSizePrompt().getText());
-					
-					if(size < 3 || size > 100){
-						System.out.println("Not between 3-100");
-						///sizeInfo label
-					}else {
-						gameScene.initSize = size;
-						gameScene.gameSceneM();	
-					}
-					
-				}catch(NumberFormatException ex){
-					System.out.println("Not a number");
-				}
-			}
-		});*/
-		
 		gameScene.back.setOnAction(e -> {
 			sizeScene.sizePickerM();
 			
@@ -121,8 +68,7 @@ public class View extends Application{
 			
 		});
 		
-		gameScene.btn_mute.setOnAction(e -> {
-			
+		gameScene.getMuteButton().setOnAction(e -> {										
 			if (mpMusic.getVolume() != 0.0){					
 				mpMusic.setVolume(0.0);
 				gameScene.setMuteButtonText("Play Music");
@@ -136,12 +82,12 @@ public class View extends Application{
 		
 		
 		//initializing media variables and starting background music 
-		
-		
 		Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
-		
+		Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
+		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
 		mpMusic = new MediaPlayer(backgroundMusic);		
-		
+		mpWin = new MediaPlayer(winMusic);
+		mpLoose = new MediaPlayer(looseMusic);
 		
 		mpMusic.setAutoPlay(true);	
 		mpMusic.setVolume(0.9);
