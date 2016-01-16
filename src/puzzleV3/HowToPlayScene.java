@@ -13,7 +13,7 @@ public class HowToPlayScene {
 	
 	private Stage howStage;
 	private Scene howScene;
-	public Button back;
+	private Button back;
 	
 	//Constructor
 	public HowToPlayScene(Stage window){
@@ -61,7 +61,12 @@ public class HowToPlayScene {
 	    howScene = new Scene(border, 750, 750);
 		howStage.setScene(howScene);
 		
-		//Fetches the .css-file that styles the GUI elements from the same place where View class is
-		howScene.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
+		//Fetches the .css-file that styles the GUI elements from the same place where Controller class is
+		howScene.getStylesheets().add(Controller.class.getResource("screen2.css").toExternalForm());
+	}
+	
+	// Getter method
+	public Button getBack() {
+		return back;
 	}
 }

@@ -13,7 +13,7 @@ public class AboutScene {
 
 	private Stage aboutStage;
 	private Scene aboutScene;
-	public Button back;
+	private Button back;
 	
 	//Constructor
 	public AboutScene (Stage window) {
@@ -54,8 +54,12 @@ public class AboutScene {
 	    aboutScene = new Scene(border, 750, 750);
 		aboutStage.setScene(aboutScene);
 		
-		//Fetches the .css-file that styles the GUI elements from the same place where View class is
-		aboutScene.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
+		//Fetches the .css-file that styles the GUI elements from the same place where Controller class is
+		aboutScene.getStylesheets().add(Controller.class.getResource("screen2.css").toExternalForm());
 	}
 	
+	// Getter method
+	public Button getBack() {
+		return back;
+	}	
 }

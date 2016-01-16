@@ -1,12 +1,12 @@
 
-/*Root method is here the default of the whole scene we are looking at. It paints
+/*Root method is here the default of the whole scene we are looking at. It sets
  the background of the scene with a hexadecimal black color*/
 .root{
 	-fx-background-color: #2E2E2E;
 }
 
-/*The pane is a new method, which can be called in our view to use its properties. It sets the color
- * of the game gridpane to a hexadecimal black color.*/
+/*The pane is a new method, which can be called in our different scene classes to use its properties. 
+ * It sets the color of the game gridpane to a hexadecimal black color.*/
 .pane{
 	-fx-background-color: #2E2E2E;
 }
@@ -35,9 +35,9 @@
 	-fx-background-color: #2E2E2E;
 }
 
-/*The method button-back is a new method, which can be called in our view to use its properties. It sets the background
- * of the button to the png file, fits the image to the button and makes the background of the image to the hexadecimal color.
- * the reason we font-size in an empty button is to make the button larger.*/
+/*The method button-back is a new method, which can be called in our different scene classes to use its properties. 
+ * It sets the background of the button to the png file, fits the image to the button and makes the background 
+ * of the image to the hexadecimal color. The reason we font-size in an empty button is to make the button larger.*/
 .button-back{
 	-fx-background-image: url('BackArrow.png');
 	-fx-background-size: 100% 100%;
@@ -45,15 +45,15 @@
 	-fx-background-color: #2E2E2E;
 }
 
-/*The method skrift is a new method, which can be called in our view to use its properties. It paints the letters white, 
- * makes the font size 20pt and bold.*/
+/*The method skrift is a new method, which can be called in our different scene classes to use its properties. 
+ * It paints the letters white, makes the font size 20pt and bold.*/
 .skrift{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 20pt;
 	-fx-font-weight: bold;	
 }
-/*The method size is a new method, which can be called in our view to use its properties. It paints the letters white, 
- * makes the font size 30pt and bold.*/
+/*The method size is a new method, which can be called in our different scene classes to use its properties. 
+ * It paints the letters white, makes the font size 30pt and bold.*/
 .size{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 30pt;

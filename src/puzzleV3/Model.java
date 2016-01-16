@@ -9,19 +9,15 @@ import javafx.scene.text.Font;
 
 public class Model {
 	private Label[][] labels;
-	public int puzzleSize;
-	public Label moveCount = new Label("0");
+	private int puzzleSize;
+	private Label moveCount = new Label("0");
 	
-	//Only used for communicating to the view that the player has won or lost -
+	//Only used for communicating to the controller that the player has won or lost -
 	//by the use of onChangeListener.
-	public Label isPlaying = new Label("yes"); 
+	private Label isPlaying = new Label("yes"); 
 	
 	//A point that keeps track of the label with the text "0". Used in our randomMove().
 	private Point zeroPos = new Point(0,0);
-	
-	public  Label[][] getLabels(){
-		return labels;
-	}
 	
 	/*
 	 *Creates the 2 dimensional labelArray that represents the game board.
@@ -258,6 +254,27 @@ public class Model {
 		}
 		// Reset the moveCount to 0. The random moves counts as regular player moves but should not. 
 		moveCount.setText("0");
+	}
+	
+	// Getter methods
+	public int getPuzzleSize() {
+		return puzzleSize;
+	}
+	
+	public Label getMoveCount() {
+		return moveCount;
+	}
+	
+	public Label getIsPlaying() {
+		return isPlaying;
+	}
+	
+	public Point getZeroPos() {
+		return zeroPos;
+	}
+	
+	public  Label[][] getLabels(){
+		return labels;
 	}
 }
 

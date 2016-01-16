@@ -9,17 +9,17 @@ import javafx.geometry.*;
 
 public class AlertBox {
 
-	Button mainMenuButton;
-	Button restartButton;
-	Stage window;
+	private Button mainMenuButton;
+	private Button restartButton;
+	private Stage window;
 
 	public AlertBox() {
 		mainMenuButton = new Button("Main Menu");
 		restartButton = new Button("Try again");
-		window = new Stage();
+		setWindow(new Stage());
 
 		// Forces you to handle the pop-up window
-		window.initModality(Modality.APPLICATION_MODAL);
+		getWindow().initModality(Modality.APPLICATION_MODAL);
 	}
 
 	public void display(String title, String message) {
@@ -33,17 +33,17 @@ public class AlertBox {
 		layout.getChildren().addAll(label, restartButton, mainMenuButton);
 		layout.setAlignment(Pos.CENTER);
 
-		window.setTitle(title);
-		window.setMinWidth(250);
-		window.setMinHeight(250);
-		window.setScene(scene);
-		window.show();
+		getWindow().setTitle(title);
+		getWindow().setMinWidth(250);
+		getWindow().setMinHeight(250);
+		getWindow().setScene(scene);
+		getWindow().show();
 
 		//Tells the window to exit program when close is clicked
-		window.setOnCloseRequest(e -> Platform.exit());
+		getWindow().setOnCloseRequest(e -> Platform.exit());
 
-		// Tells Eclipse to look in the same package as view and use the Alert.css file
-		scene.getStylesheets().add(View.class.getResource("Alert.css").toExternalForm());
+		// Tells Eclipse to look in the same package as controller and use the Alert.css file
+		scene.getStylesheets().add(Controller.class.getResource("Alert.css").toExternalForm());
 	}
 
 	// Getter methods
@@ -56,7 +56,15 @@ public class AlertBox {
 	}
 
 	public Stage getAlertBoxWindow() {
+		return getWindow();
+	}
+
+	public Stage getWindow() {
 		return window;
+	}
+
+	public void setWindow(Stage window) {
+		this.window = window;
 	}
 
 }

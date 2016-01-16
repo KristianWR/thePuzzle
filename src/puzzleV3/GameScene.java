@@ -33,20 +33,20 @@ public class GameScene {
 	private SizePickerScene sizeScene;
 	private AlertBox alertBox = new AlertBox();
 	
+	//Media variables
     private Integer STARTTIME = 10;
-    
     private Label timerLabel = new Label();
     private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
-   
-    public Timeline timeline;
+    private Timeline timeline;
     
-    public Scene gameScene;
-	public int initSize;
-	public Model theModel;
+    private Scene gameScene;
+	private int initSize;
+	private Model theModel;
 
-	public Button back;
-	public Button btn_mute;
+	private Button back;
+	private Button btn_mute;
 	
+
 	//Constructor
 	public GameScene(Stage window, MainMenuScene mainMenuScene, SizePickerScene sizeScene, Model m){
 		this.gameStage = window;
@@ -59,24 +59,24 @@ public class GameScene {
 	}
 	
 	/*This method constructs the GUI of the game scene. It also applies multiple
-	 * evenHandlers for different events - all described below or in View.
+	 * evenHandlers for different events - all described below or in Controller.
 	 */
 	public void gameSceneM(){
 	    //Game board 2-d array for the labels.
 		Label[][] labels;
 		
 	    //Declares different UI objects used in the gameScene.
-		Label moves = theModel.moveCount;
-		Label playLabel = theModel.isPlaying;
+		Label moves = theModel.getMoveCount();
+		Label playLabel = theModel.getIsPlaying();
 	    Label numberOfMoves = new Label("Number \nof moves:");
 	    Label timeLeft = new Label("Time left:");
 	    Button randomize = new Button("Randomize");
 	    Button btn_muteFX = new Button("Mute Sound FX");
 	    
 	    //Media objects for different sounds that occur at special events handled later in the code.
-	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
-	    Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
-		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
+	    Media tileSwap = new Media(Controller.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
+	    Media winMusic = new Media(Controller.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
+		Media looseMusic = new Media(Controller.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
 		
 		//MediaPlayers for the different sounds declared above.
 		MediaPlayer mpWin = new MediaPlayer(winMusic);
@@ -151,12 +151,12 @@ public class GameScene {
       	          
     				alertBox.getMainMenuButton().setOnAction(e -> {
     	                			
-    							gameStage.setScene(mainMenuScene.mainMenu);
-    	                			alertBox.window.close();
+    							gameStage.setScene(mainMenuScene.getMainMenu());
+    	                			alertBox.getWindow().close();
     	            });
     	            alertBox.getRestartButton().setOnAction(e -> {
-    	                    		gameStage.setScene(sizeScene.sizePicker);
-    	                    		alertBox.window.close();
+    	                    		gameStage.setScene(sizeScene.getSizePicker());
+    	                    		alertBox.getWindow().close();
     	            });
                 	                        	
 
@@ -175,7 +175,7 @@ public class GameScene {
             	mpFX.play();
             	
             	//If checkbox is checked (true), the timer animation is activated 
-            	if(sizeScene.cb1.isSelected() == true) {
+            	if(sizeScene.getCb1().isSelected() == true) {
             		
             		//Sets up the timer animation with the defined start time
 	                timeSeconds.set(STARTTIME);
@@ -194,12 +194,12 @@ public class GameScene {
 	                		//An alert box is called via its display method.
 	                    	alertBox.display("You lost", "You are a looser!");
 	        				alertBox.getMainMenuButton().setOnAction(e -> {
-	        	                			gameStage.setScene(mainMenuScene.mainMenu);
-	        	                			alertBox.window.close();
+	        	                			gameStage.setScene(mainMenuScene.getMainMenu());
+	        	                			alertBox.getWindow().close();
 	        	            });
 	        	            alertBox.getRestartButton().setOnAction(e -> {
-	        	                    		gameStage.setScene(sizeScene.sizePicker);
-	        	                    		alertBox.window.close();
+	        	                    		gameStage.setScene(sizeScene.getSizePicker());
+	        	                    		alertBox.getWindow().close();
 	        	            });
 	                });
             	}
@@ -258,7 +258,7 @@ public class GameScene {
 	    
 	    //If the checkbox for time pressure is enabled in the size picker scene,
 	    // timer labels are added to the layout.
-	    if(sizeScene.cb1.isSelected() == true) {
+	    if(sizeScene.getCb1().isSelected() == true) {
 	    
 	    rightContent.getChildren().addAll(timeLeft,timerLabel,numberOfMoves,moves);
 	    } else {
@@ -284,8 +284,8 @@ public class GameScene {
 		gameScene = new Scene(main, 700, 700);
 		gameStage.setScene(gameScene);
 		
-		//Tells Eclipse to look in the same package as view and use screen3
-		gameScene.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
+		//Tells Eclipse to look in the same package as controller and use screen3
+		gameScene.getStylesheets().add(Controller.class.getResource("screen3.css").toExternalForm());
 	}
 	
 	//Adds the labels to the gridpane
@@ -297,5 +297,34 @@ public class GameScene {
 			}
 		}
 		return gridPane;
+	}
+	
+	// Getter and setter methods
+	public Timeline getTimeline() {
+		return timeline;
+	}
+	
+	public Scene getGameScene() {
+		return gameScene;
+	}
+	
+	public int getInitSize() {
+		return initSize;
+	}
+	
+	public void setInitSize(int initSize) {
+		this.initSize = initSize;
+	}
+
+	public Model getTheModel() {
+		return theModel;
+	}
+	
+	public Button getBack() {
+		return back;
+	}
+	
+	public Button getBtn_mute() {
+		return btn_mute;
 	}
 }

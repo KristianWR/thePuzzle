@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 public class MainMenuScene {
 	
 	private Stage mainStage;
-	public Scene mainMenu;
-	public Button btnPlay;
-	public Button btnHow;
-	public Button btnExit;
-	public Button btnAbout;
-	
+	private Scene mainMenu;
+	private Button btnPlay;
+	private Button btnHow;
+	private Button btnExit;
+	private Button btnAbout;
+
 	public MainMenuScene(Stage window){
 		btnPlay = new Button("Play");
 		btnHow = new Button("How to play");
@@ -59,6 +59,27 @@ public class MainMenuScene {
 	    mainStage.setScene(mainMenu);
 	    
 		//Fetches the .css-file that styles the GUI elements from the same place where view class is
-	    mainMenu.getStylesheets().add(View.class.getResource("screen1.css").toExternalForm());
+	    mainMenu.getStylesheets().add(Controller.class.getResource("screen1.css").toExternalForm());
+	}
+	
+	// Getter methods
+	public Scene getMainMenu() {
+		return mainMenu;
+	}
+	
+	public Button getBtnPlay() {
+		return btnPlay;
+	}
+	
+	public Button getBtnHow() {
+		return btnHow;
+	}
+	
+	public Button getBtnExit() {
+		return btnExit;
+	}
+	
+	public Button getBtnAbout() {
+		return btnAbout;
 	}
 }

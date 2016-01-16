@@ -17,13 +17,13 @@ import javafx.stage.Stage;
 public class SizePickerScene {
 	//Variables
 	private Stage sizeStage;
-	public CheckBox cb1;
-	public Scene sizePicker;
-	public int initSize;
-	public Button goBack;
-	public Button go;
-	public TextField sizePrompt;
-	public Label sizeInfo;
+	private CheckBox cb1;
+	private Scene sizePicker;
+	private int initSize;
+	private Button goBack;
+	private Button go;
+	private TextField sizePrompt;
+	private Label sizeInfo;
 	
 	//Constructor
 	public SizePickerScene(Stage window){
@@ -82,7 +82,36 @@ public class SizePickerScene {
 		
 		sizeStage.setScene(sizePicker);
 	
-		//Tells Eclipse to look in the same package as view and use screen2
-		sizePicker.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
+		//Tells Eclipse to look in the same package as controller and use screen2
+		sizePicker.getStylesheets().add(Controller.class.getResource("screen2.css").toExternalForm());
+	}
+	
+	// Getter methods 
+	public CheckBox getCb1() {
+		return cb1;
+	}
+	
+	public Scene getSizePicker() {
+		return sizePicker;
+	}
+	
+	public int getInitSize() {
+		return initSize;
+	}
+	
+	public Button getGoBack() {
+		return goBack;
+	}
+	
+	public Button getGo() {
+		return go;
+	}
+	
+	public TextField getSizePrompt() {
+		return sizePrompt;
+	}
+	
+	public Label getSizeInfo() {
+		return sizeInfo;
 	}
 }

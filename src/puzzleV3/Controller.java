@@ -6,7 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class View extends Application{
+public class Controller extends Application{
 	// The main stage of the application
 	private Stage window = new Stage();
 	
@@ -20,7 +20,7 @@ public class View extends Application{
 	
 	//Background music variable and object
 	private MediaPlayer mpMusic;
-	private Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
+	private Media backgroundMusic = new Media(Controller.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
 	
 	//Main method (launches program)
 	public static void main(String[] args) {
@@ -35,38 +35,38 @@ public class View extends Application{
 		 * MainScene 
 		 */
 		mainMenuScene.mainMenuM();
-		mainMenuScene.btnHow.setOnAction(e -> howScene.howSceneM());
-		mainMenuScene.btnPlay.setOnAction(e -> sizeScene.sizePickerM());
-		mainMenuScene.btnAbout.setOnAction(e -> aboutScene.aboutSceneM());
+		mainMenuScene.getBtnHow().setOnAction(e -> howScene.howSceneM());
+		mainMenuScene.getBtnPlay().setOnAction(e -> sizeScene.sizePickerM());
+		mainMenuScene.getBtnAbout().setOnAction(e -> aboutScene.aboutSceneM());
 		/*
 		 * HowScene
 		 */
-		howScene.back.setOnAction(e -> mainMenuScene.mainMenuM());
+		howScene.getBack().setOnAction(e -> mainMenuScene.mainMenuM());
 		/*
 		 * AboutScene
 		 */
-		aboutScene.back.setOnAction(e -> mainMenuScene.mainMenuM());
+		aboutScene.getBack().setOnAction(e -> mainMenuScene.mainMenuM());
 		/*
 		 * SizeScene
 		 */
-		sizeScene.goBack.setOnAction(e -> mainMenuScene.mainMenuM());
-		sizeScene.go.setOnAction(e -> {
+		sizeScene.getGoBack().setOnAction(e -> mainMenuScene.mainMenuM());
+		sizeScene.getGo().setOnAction(e -> {
 			try{
-				int size = sizeScene.initSize;
-				size = Integer.parseInt(sizeScene.sizePrompt.getText());
+				int size = sizeScene.getInitSize();
+				size = Integer.parseInt(sizeScene.getSizePrompt().getText());
 				
 				if(size < 3 || size > 100){
 					System.out.println("Not between 3-100");
-					sizeScene.sizeInfo.setText("Must be between 3 and 100!");
+					sizeScene.getSizeInfo().setText("Must be between 3 and 100!");
 				}else {
-					gameScene.initSize = size;
+					gameScene.setInitSize(size);
 					gameScene.gameSceneM();
 					addKeyListener();
 				}
 				
 			}catch(NumberFormatException ex){
 				System.out.println("Not a number");
-				sizeScene.sizeInfo.setText("That is not a number.");
+				sizeScene.getSizeInfo().setText("That is not a number.");
 			}
 		});
 		
@@ -74,21 +74,21 @@ public class View extends Application{
 		 * GameScene 
 		 */
 		//Back button chances scene to SizePickerScene
-		gameScene.back.setOnAction(e -> {
+		gameScene.getBack().setOnAction(e -> {
 			sizeScene.sizePickerM();
-			if(gameScene.timeline.getCurrentRate() != 0.0){
-				gameScene.timeline.stop();
+			if(gameScene.getTimeline().getCurrentRate() != 0.0){
+				gameScene.getTimeline().stop();
 			}
 		});
 		
 		//Mute button toggles music on/off 
-		gameScene.btn_mute.setOnAction(e -> {										
+		gameScene.getBtn_mute().setOnAction(e -> {										
 			if (mpMusic.getVolume() != 0.0){					
 				mpMusic.setVolume(0.0);
-				gameScene.btn_mute.setText("Play Music");
+				gameScene.getBtn_mute().setText("Play Music");
 			} else {
 				mpMusic.setVolume(0.9);
-				gameScene.btn_mute.setText("Mute Music");
+				gameScene.getBtn_mute().setText("Mute Music");
 			}
 		});
 		
@@ -104,10 +104,10 @@ public class View extends Application{
 		
 	}
 	/*
-	 * 
+	 * This method adds the key listeners to the buttons WASD
 	 */
 	public void addKeyListener(){
-		gameScene.gameScene.setOnKeyPressed(e ->{
+		gameScene.getGameScene().setOnKeyPressed(e ->{
 			if		(e.getCode() == KeyCode.W){theModel.keyMove("down");}
 			else if (e.getCode() == KeyCode.S){theModel.keyMove("up");}
 			else if (e.getCode() == KeyCode.A){theModel.keyMove("right");}
