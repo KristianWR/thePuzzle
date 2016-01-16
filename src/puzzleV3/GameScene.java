@@ -62,26 +62,34 @@ public class GameScene {
 		timeline = new Timeline();
 	}
 	
-	/*This method constructs the GUI of the game scene.
-	 * It also 
+	/*This method constructs the GUI of the game scene. It also applies multiple
+	 * evenHandlers for different events - all described below or in View.
 	 */
 	public void gameSceneM(){
-	    
+	    //declares different UI objects used in the gameScene.
 		Label moves = kontrol.theModel.moveCount;
 		Label playLabel = kontrol.theModel.isPlaying;
 	    Label numberOfMoves = new Label("Number \nof moves:");
 	    Label timeLeft = new Label("Time left:");
 	    Button randomize = new Button("Randomize");
 	    Button btn_muteFX = new Button("Mute Sound FX");
+	    
+	    //media objects for different sounds that occur at special events handled later in the code.
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
 	    Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
 		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
+		
+		//mediaPlayers for the different sounds declared above.
 		mpWin = new MediaPlayer(winMusic);
 		mpLoose = new MediaPlayer(looseMusic);
     	mpFX = new MediaPlayer(tileSwap);
 		mpFX.setVolume(1.0);
+		
+		//creates a new label[][] in model based on the size chosen in sizePickerScene.
 		kontrol.theModel.createLabels(initSize);
 		labels = kontrol.theModel.getLabels();
+		
+		//sets the initial time for the time pressure (which is optional).
 		timeSeconds.set(STARTTIME);	
 		timeline.stop();
 		
