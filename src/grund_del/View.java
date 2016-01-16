@@ -14,11 +14,11 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class View extends Application{
-	Scene game;
-	model m;
-	Label[][] labels;
-	int initSize;
-	TextField sizePrompt;
+	private Scene game;
+	private model m;
+	private Label[][] labels;
+	private int initSize;
+	private TextField sizePrompt;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -27,48 +27,32 @@ public class View extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		
-		//Creates gridpane
 				GridPane grid2 = new GridPane();
-				grid2.setAlignment(Pos.TOP_CENTER);
-				
 				Scene sizePicker= new Scene(grid2, 700, 700);
-
 				Label chooseSize = new Label("Choose the size of the game");
-				chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-				
-				//Adds choosesize with location on grid
-				GridPane.setConstraints(chooseSize, 1, 2);
-				
+				Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
+				Button go = new Button("start");
 				sizePrompt = new TextField();
 				
-				//Adds sizeprompt with location on grid
+				chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+				
+				//Sets the given elements in the to grid at the given location
+				GridPane.setConstraints(chooseSize, 1, 2);
 				GridPane.setConstraints(sizePrompt, 1, 3);
-				
-				Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
-				
-				//Adds sizeInfo with location on grid
 				GridPane.setConstraints(sizeInfo, 1, 4);
-				
-				//Creates buttons with location on grid
-				Button go=new Button("start");
 				GridPane.setConstraints(go, 2, 6);
 				
-				go.setOnMouseClicked(e->{
-					
-					//initSize = Integer.parseInt(sizePrompt.getText());
-					gameSceneM();					
+				go.setOnMouseClicked(e-> gameSceneM());
 
-					
-				});
-
-				//Adds elements to grid
+				//Adds elements to grid pane 
 				grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go);
+				grid2.setAlignment(Pos.TOP_CENTER);
+				
 				primaryStage.setScene(sizePicker);
 				primaryStage.show();
 }
 	
-	//Creates all the labels on gridpane
+	//Adds the labels to the gridpane
 	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
 		for(int i = 0; i < tempLabels.length; i++){
 			for(int j = 0; j < tempLabels.length; j++){
@@ -81,37 +65,41 @@ public class View extends Application{
 		
 	public void gameSceneM(){
 		
-		//Makes an instance of model
 		Stage window = new Stage();
+		GridPane gridPane = new GridPane();
+		ScrollPane scroll1 = new ScrollPane(gridPane);
+		GridPane mainGrid= new GridPane();
 		initSize = Integer.parseInt(sizePrompt.getText());
+		game = new Scene(mainGrid, 1000, 1000);
+		
+		//Makes an instance of model
 		m= new model();
 		m.createLabels(initSize);
-		labels= model.getLabels();
+		labels = model.getLabels();
 		
-		//Adds the generated labels to gridpane
-		GridPane gridPane = new GridPane();
+		//Adds the generated labels to grid pane
 		gridPane =addLabels(gridPane, labels);
 		gridPane.setMaxSize(600, 600);
 		gridPane.setAlignment(Pos.CENTER);
 		
-		//// SCROLLPANE --- The layout that has the scroll feature for the game layout ///
-		
-		ScrollPane scroll1 = new ScrollPane(gridPane);
 		scroll1.setFitToWidth(true);
 	
-		//Adds game and scrollpane to new gridpane
-		GridPane mainGrid= new GridPane();
+		//Adds game and scroll pane to the main grid pane
 		mainGrid.setAlignment(Pos.CENTER);
 		mainGrid.add(gridPane, 1, 1);
 		mainGrid.add(scroll1, 0, 1);
 		
-		game=new Scene(mainGrid, 1000, 1000);
 		addArrowKeyListener();
+		
+		//Sets the shown scene to the scene game and makes the stage window visible
 		window.setScene(game);
 		window.show();
 		
 	}
 	
+	/*
+	 * This method adds the key listeners to the buttons WASD
+	 */
 	public void addArrowKeyListener(){
 		game.setOnKeyPressed(e ->{
 			if		(e.getCode() == KeyCode.W){m.keyMove("down");}

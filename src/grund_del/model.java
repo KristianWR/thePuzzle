@@ -7,19 +7,16 @@ import javafx.scene.control.Label;
 
 public class model {
 	
-    static Label[][] labels;
-	int puzzleSize;
-	Label moveCount = new Label("0");
+    private static Label[][] labels;
+	private int puzzleSize;
+	private Label moveCount = new Label("0");
 	
 	//Only used for communicating to the view that a special change occurs.
-	Label isPlaying = new Label("yes"); 
+	private Label isPlaying = new Label("yes"); 
 	
 	//A point that keeps track of the label with the text "0". used in our randomMove().
-	Point zeroPos = new Point(0,0);
+	private Point zeroPos = new Point(0,0);
 	
-	public static  Label[][] getLabels(){
-		return labels;
-	}
 	
 	/*
 	 *Creates the 2 dimensional labelArray that represents the game board.
@@ -138,11 +135,12 @@ public class model {
 		 */
 		labels[h][v].setVisible(false);
 	    labels[i][j].setVisible(true);
-		
 	}
-
-
-
+	
+	// Getter method
+	public static  Label[][] getLabels(){
+		return labels;
+	}
 	
 }
 	
