@@ -9,7 +9,6 @@ public class model {
 	
     private static Label[][] labels;
 	private int puzzleSize;
-	private Label moveCount = new Label("0"); 
 	
 	//A point that keeps track of the label with the text "0". used in our randomMove().
 	private Point zeroPos = new Point(0,0);
@@ -55,7 +54,6 @@ public class model {
 		
 		//Important variable for the randomMove() method.
 		zeroPos.setLocation(size-1, size-1);
-		moveCount.setText("0");
 	}
 	
 	/*
