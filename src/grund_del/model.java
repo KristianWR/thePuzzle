@@ -9,10 +9,7 @@ public class model {
 	
     private static Label[][] labels;
 	private int puzzleSize;
-	private Label moveCount = new Label("0");
-	
-	//Only used for communicating to the view that a special change occurs.
-	private Label isPlaying = new Label("yes"); 
+	private Label moveCount = new Label("0"); 
 	
 	//A point that keeps track of the label with the text "0". used in our randomMove().
 	private Point zeroPos = new Point(0,0);
@@ -26,7 +23,6 @@ public class model {
 	 */
 	public void createLabels(int size){
 		//Initializes the label array with the correct dimensions.
-		isPlaying.setText("yes");
 		labels = new Label[size][size];
 		puzzleSize = size;
 	
