@@ -8,19 +8,19 @@ import javafx.stage.Stage;
 
 public class View extends Application{
 	// The main stage of the application
-	Stage window = new Stage();
+	private Stage window = new Stage();
 	
 	// Instances of objects (including scenes) 
-	MainMenuScene mainMenuScene = new MainMenuScene(window);
-	HowToPlayScene howScene = new HowToPlayScene(window);
-	SizePickerScene sizeScene = new SizePickerScene(window);
-	AboutScene aboutScene = new AboutScene(window);
-	Model theModel = new Model();
-	GameScene gameScene = new GameScene(window, mainMenuScene, sizeScene, theModel);
+	private MainMenuScene mainMenuScene = new MainMenuScene(window);
+	private HowToPlayScene howScene = new HowToPlayScene(window);
+	private SizePickerScene sizeScene = new SizePickerScene(window);
+	private AboutScene aboutScene = new AboutScene(window);
+	private Model theModel = new Model();
+	private GameScene gameScene = new GameScene(window, mainMenuScene, sizeScene, theModel);
 	
 	//Background music variable and object
-	MediaPlayer mpMusic;
-	Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
+	private MediaPlayer mpMusic;
+	private Media backgroundMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/15zen.mp3").toString());
 	
 	//Main method (launches program)
 	public static void main(String[] args) {

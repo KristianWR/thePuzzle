@@ -8,16 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 
 public class Model {
-	Label[][] labels;
-	int puzzleSize;
-	Label moveCount = new Label("0");
+	private Label[][] labels;
+	public int puzzleSize;
+	public Label moveCount = new Label("0");
 	
 	//Only used for communicating to the view that the player has won or lost -
 	//by the use of onChangeListener.
-	Label isPlaying = new Label("yes"); 
+	public Label isPlaying = new Label("yes"); 
 	
 	//A point that keeps track of the label with the text "0". Used in our randomMove().
-	Point zeroPos = new Point(0,0);
+	private Point zeroPos = new Point(0,0);
 	
 	public  Label[][] getLabels(){
 		return labels;
