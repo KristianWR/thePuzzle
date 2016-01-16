@@ -61,7 +61,7 @@ public class View extends Application{
 				}else {
 					gameScene.initSize = size;
 					gameScene.gameSceneM();
-					addArrowKeyListener();
+					addKeyListener();
 				}
 				
 			}catch(NumberFormatException ex){
@@ -106,7 +106,7 @@ public class View extends Application{
 	/*
 	 * 
 	 */
-	public void addArrowKeyListener(){
+	public void addKeyListener(){
 		gameScene.gameScene.setOnKeyPressed(e ->{
 			if		(e.getCode() == KeyCode.W){theModel.keyMove("down");}
 			else if (e.getCode() == KeyCode.S){theModel.keyMove("up");}
