@@ -17,12 +17,13 @@ import javafx.stage.Stage;
 public class SizePickerScene {
 	//Variables
 	private Stage sizeStage;
-	private Scene sizePicker;
-	private int initSize;
-	private CheckBox cb1;
-	private Button goBack;
-	private Button go;
-	private TextField sizePrompt;
+	public CheckBox cb1;
+	public Scene sizePicker;
+	public int initSize;
+	public Button goBack;
+	public Button go;
+	public TextField sizePrompt;
+	public Label sizeInfo;
 	
 	//Constructor
 	public SizePickerScene(Stage window){
@@ -37,7 +38,7 @@ public class SizePickerScene {
 		GridPane grid = new GridPane();
 		BorderPane borderP = new BorderPane();
 		Label chooseSize = new Label("Choose the size of the game");
-		Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
+		sizeInfo = new Label("(N.B. write a number between 3 and 100)");
 		Label timeInfo = new Label("Enable time pressure");
 		
 		sizePicker = new Scene(borderP, 700, 700);
@@ -83,29 +84,5 @@ public class SizePickerScene {
 	
 		//Tells Eclipse to look in the same package as view and use screen2
 		sizePicker.getStylesheets().add(View.class.getResource("screen2.css").toExternalForm());
-	}
-	//Getter methods
-	public Button getGoBackButton(){
-		return goBack;
-	}
-	
-	public Scene getSizeScene(){
-		return sizePicker;
-	}
-	
-	public Button getGoButton(){
-		return go;
-	}
-	
-	public int getInitSize(){
-		return initSize;
-	}
-	
-	public CheckBox getCheckBox(){
-		return cb1;
-	}
-	
-	public TextField getSizePrompt(){
-		return sizePrompt;
 	}
 }

@@ -28,28 +28,24 @@ import javafx.util.Duration;
 public class GameScene {
 	
 	//Game scene variables and objects
-	Stage gameStage;
-	Scene gameScene;
-	MainMenuScene mainMenuScene;
-	SizePickerScene sizeScene;
-	AlertBox alertBox = new AlertBox();
+	private Stage gameStage;
+	private MainMenuScene mainMenuScene;
+	private SizePickerScene sizeScene;
+	private AlertBox alertBox = new AlertBox();
 	
-    Integer STARTTIME = 10;
-    Timeline timeline;
-    Label timerLabel = new Label();
-    IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+    private Integer STARTTIME = 10;
     
-    Label[][] labels;
-	ScrollPane scroll1;
-	int initSize;
-	Model theModel;
-	
-	MediaPlayer mpFX;
-	MediaPlayer mpWin;
-	MediaPlayer mpLoose;
-	
-	Button back;
-	Button btn_mute;
+    private Label timerLabel = new Label();
+    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
+   
+    public Timeline timeline;
+    
+    public Scene gameScene;
+	public int initSize;
+	public Model theModel;
+
+	public Button back;
+	public Button btn_mute;
 	
 	//Constructor
 	public GameScene(Stage window, MainMenuScene mainMenuScene, SizePickerScene sizeScene, Model m){
@@ -66,7 +62,10 @@ public class GameScene {
 	 * evenHandlers for different events - all described below or in View.
 	 */
 	public void gameSceneM(){
-	    //declares different UI objects used in the gameScene.
+	    //Game board 2-d array for the labels.
+		Label[][] labels;
+		
+	    //Declares different UI objects used in the gameScene.
 		Label moves = theModel.moveCount;
 		Label playLabel = theModel.isPlaying;
 	    Label numberOfMoves = new Label("Number \nof moves:");
@@ -74,22 +73,22 @@ public class GameScene {
 	    Button randomize = new Button("Randomize");
 	    Button btn_muteFX = new Button("Mute Sound FX");
 	    
-	    //media objects for different sounds that occur at special events handled later in the code.
+	    //Media objects for different sounds that occur at special events handled later in the code.
 	    Media tileSwap = new Media(View.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
 	    Media winMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
 		Media looseMusic = new Media(View.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
 		
-		//mediaPlayers for the different sounds declared above.
-		mpWin = new MediaPlayer(winMusic);
-		mpLoose = new MediaPlayer(looseMusic);
-    	mpFX = new MediaPlayer(tileSwap);
+		//MediaPlayers for the different sounds declared above.
+		MediaPlayer mpWin = new MediaPlayer(winMusic);
+		MediaPlayer mpLoose = new MediaPlayer(looseMusic);
+    	MediaPlayer mpFX = new MediaPlayer(tileSwap);
 		mpFX.setVolume(1.0);
 		
-		//creates a new label[][] in model based on the size chosen in sizePickerScene.
+		//Creates a new label[][] in model based on the size chosen in sizePickerScene.
 		theModel.createLabels(initSize);
 		labels = theModel.getLabels();
 		
-		//sets the initial time for the time pressure (which is optional).
+		//Sets the initial time for the time pressure (which is optional).
 		timeSeconds.set(STARTTIME);	
 		timeline.stop();
 		
@@ -152,11 +151,11 @@ public class GameScene {
       	          
     				alertBox.getMainMenuButton().setOnAction(e -> {
     	                			
-    							gameStage.setScene(mainMenuScene.getMainScene());
+    							gameStage.setScene(mainMenuScene.mainMenu);
     	                			alertBox.window.close();
     	            });
     	            alertBox.getRestartButton().setOnAction(e -> {
-    	                    		gameStage.setScene(sizeScene.getSizeScene());
+    	                    		gameStage.setScene(sizeScene.sizePicker);
     	                    		alertBox.window.close();
     	            });
                 	                        	
@@ -176,7 +175,7 @@ public class GameScene {
             	mpFX.play();
             	
             	//If checkbox is checked (true), the timer animation is activated 
-            	if(sizeScene.getCheckBox().isSelected() == true) {
+            	if(sizeScene.cb1.isSelected() == true) {
             		
             		//Sets up the timer animation with the defined start time
 	                timeSeconds.set(STARTTIME);
@@ -195,11 +194,11 @@ public class GameScene {
 	                		//An alert box is called via its display method.
 	                    	alertBox.display("You lost", "You are a looser!");
 	        				alertBox.getMainMenuButton().setOnAction(e -> {
-	        	                			gameStage.setScene(mainMenuScene.getMainScene());
+	        	                			gameStage.setScene(mainMenuScene.mainMenu);
 	        	                			alertBox.window.close();
 	        	            });
 	        	            alertBox.getRestartButton().setOnAction(e -> {
-	        	                    		gameStage.setScene(sizeScene.getSizeScene());
+	        	                    		gameStage.setScene(sizeScene.sizePicker);
 	        	                    		alertBox.window.close();
 	        	            });
 	                });
@@ -241,7 +240,7 @@ public class GameScene {
 		
 		//// SCROLLPANE --- The layout that has the scroll feature for the game layout ///
 		
-		scroll1 = new ScrollPane(gridPane);
+		ScrollPane scroll1 = new ScrollPane(gridPane);
 		scroll1.setFitToWidth(true);
 		
 		////// The HBOX containing bottom buttons //////
@@ -259,7 +258,7 @@ public class GameScene {
 	    
 	    //If the checkbox for time pressure is enabled in the size picker scene,
 	    // timer labels are added to the layout.
-	    if(sizeScene.getCheckBox().isSelected() == true) {
+	    if(sizeScene.cb1.isSelected() == true) {
 	    
 	    rightContent.getChildren().addAll(timeLeft,timerLabel,numberOfMoves,moves);
 	    } else {
@@ -287,23 +286,6 @@ public class GameScene {
 		
 		//Tells Eclipse to look in the same package as view and use screen3
 		gameScene.getStylesheets().add(View.class.getResource("screen3.css").toExternalForm());
-	}
-	
-	//Getter and setter methods
-	public Button getGoBackButton(){
-		return back;
-	}
-	
-	public Timeline getTimeline(){
-		return timeline;
-	}
-	
-	public Button getMuteButton(){
-		return btn_mute;
-	}
-	
-	public void setMuteButtonText(String text){
-		btn_mute.setText(text);
 	}
 	
 	//Adds the labels to the gridpane

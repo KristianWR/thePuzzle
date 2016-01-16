@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 
 public class AboutScene {
 
-	Stage aboutStage;
-	Scene aboutScene;
-	Button back;
+	private Stage aboutStage;
+	private Scene aboutScene;
+	public Button back;
 	
 	//Constructor
 	public AboutScene (Stage window) {

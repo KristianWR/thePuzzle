@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 
 public class HowToPlayScene {
 	
-	Stage howStage;
-	Scene howScene;
-	Button back;
+	private Stage howStage;
+	private Scene howScene;
+	public Button back;
 	
 	//Constructor
 	public HowToPlayScene(Stage window){
