@@ -46,7 +46,16 @@ public class GameScene {
 	private Button back;
 	private Button btn_mute;
 	
-
+    //Media objects for different sounds that occur at special events handled later in the code.
+    private Media tileSwap = new Media(Controller.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
+    private Media winMusic = new Media(Controller.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
+	private Media looseMusic = new Media(Controller.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
+	
+	//MediaPlayers for the different sounds declared above.
+	private MediaPlayer mpWin = new MediaPlayer(winMusic);
+	private MediaPlayer mpLoose = new MediaPlayer(looseMusic);
+	private MediaPlayer mpFX = new MediaPlayer(tileSwap);
+	
 	//Constructor
 	public GameScene(Stage window, MainMenuScene mainMenuScene, SizePickerScene sizeScene, Model m){
 		this.gameStage = window;
@@ -73,15 +82,6 @@ public class GameScene {
 	    Button randomize = new Button("Randomize");
 	    Button btn_muteFX = new Button("Mute Sound FX");
 	    
-	    //Media objects for different sounds that occur at special events handled later in the code.
-	    Media tileSwap = new Media(Controller.class.getClassLoader().getResource("puzzleV3/walk2.mp3").toString());
-	    Media winMusic = new Media(Controller.class.getClassLoader().getResource("puzzleV3/WinV1.mp3").toString());
-		Media looseMusic = new Media(Controller.class.getClassLoader().getResource("puzzleV3/LostV1.mp3").toString());
-		
-		//MediaPlayers for the different sounds declared above.
-		MediaPlayer mpWin = new MediaPlayer(winMusic);
-		MediaPlayer mpLoose = new MediaPlayer(looseMusic);
-    	MediaPlayer mpFX = new MediaPlayer(tileSwap);
 		mpFX.setVolume(1.0);
 		
 		//Creates a new label[][] in model based on the size chosen in sizePickerScene.
@@ -239,12 +239,10 @@ public class GameScene {
 		topBtns.getChildren().addAll(back, randomize);
 		
 		//// SCROLLPANE --- The layout that has the scroll feature for the game layout ///
-		
 		ScrollPane scroll1 = new ScrollPane(gridPane);
 		scroll1.setFitToWidth(true);
 		
 		////// The HBOX containing bottom buttons //////
-		
 		HBox bottomBtns = new HBox();
 		bottomBtns.setPadding(new Insets(15, 12, 15, 12));
 	    bottomBtns.setSpacing(35);
