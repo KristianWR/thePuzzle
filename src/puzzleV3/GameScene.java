@@ -40,9 +40,9 @@ public class GameScene {
     IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME);
     
     Label[][] labels;
-	Controller kontrol;
 	ScrollPane scroll1;
 	int initSize;
+	Model theModel;
 	
 	MediaPlayer mpFX;
 	MediaPlayer mpWin;
@@ -52,11 +52,11 @@ public class GameScene {
 	Button btn_mute;
 	
 	//Constructor
-	public GameScene(Stage window, MainMenuScene mainMenuScene, SizePickerScene sizeScene, Controller kontrol){
+	public GameScene(Stage window, MainMenuScene mainMenuScene, SizePickerScene sizeScene, Model m){
 		this.gameStage = window;
 		this.mainMenuScene = mainMenuScene;
 		this.sizeScene = sizeScene;
-		this.kontrol = kontrol;
+		this.theModel = m;
 		back = new Button();
 		btn_mute = new Button("Mute Music");
 		timeline = new Timeline();
@@ -67,8 +67,8 @@ public class GameScene {
 	 */
 	public void gameSceneM(){
 	    //declares different UI objects used in the gameScene.
-		Label moves = kontrol.theModel.moveCount;
-		Label playLabel = kontrol.theModel.isPlaying;
+		Label moves = theModel.moveCount;
+		Label playLabel = theModel.isPlaying;
 	    Label numberOfMoves = new Label("Number \nof moves:");
 	    Label timeLeft = new Label("Time left:");
 	    Button randomize = new Button("Randomize");
@@ -86,8 +86,8 @@ public class GameScene {
 		mpFX.setVolume(1.0);
 		
 		//creates a new label[][] in model based on the size chosen in sizePickerScene.
-		kontrol.theModel.createLabels(initSize);
-		labels = kontrol.theModel.getLabels();
+		theModel.createLabels(initSize);
+		labels = theModel.getLabels();
 		
 		//sets the initial time for the time pressure (which is optional).
 		timeSeconds.set(STARTTIME);	
@@ -122,7 +122,7 @@ public class GameScene {
 		});
 	    
 	    //Randomizes all tiles
-	    randomize.setOnAction(e -> kontrol.theModel.randomMove());
+	    randomize.setOnAction(e -> theModel.randomMove());
 	    
 	    /* A ChangeListener registers changes to the label playLabel. 
 	     *  If this happens the method "changed" is called. If the label 
