@@ -52,8 +52,7 @@ public class Controller extends Application{
 		sizeScene.getGoBack().setOnAction(e -> mainMenuScene.mainMenuM());
 		sizeScene.getGo().setOnAction(e -> {
 			try{
-				int size = sizeScene.getInitSize();
-				size = Integer.parseInt(sizeScene.getSizePrompt().getText());
+				int size = Integer.parseInt(sizeScene.getSizePrompt().getText());
 				
 				if(size < 3 || size > 100){
 					System.out.println("Not between 3-100");
@@ -73,7 +72,7 @@ public class Controller extends Application{
 		/*
 		 * GameScene 
 		 */
-		//Back button chances scene to SizePickerScene
+		//Back button changes scene to SizePickerScene
 		gameScene.getBack().setOnAction(e -> {
 			sizeScene.sizePickerM();
 			if(gameScene.getTimeline().getCurrentRate() != 0.0){

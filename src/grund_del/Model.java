@@ -5,7 +5,7 @@ import java.awt.Point;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 
-public class model {
+public class Model {
 	
     private static Label[][] labels;
 	private int puzzleSize;

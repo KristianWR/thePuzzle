@@ -162,7 +162,7 @@ public class Model {
 	private boolean winCheck(){
 		/* The basic assumption is that the game is won. We then run through every
 		 * possibility that could falsify that assumption. */
-		boolean won = true;
+		
 		//If the last label = 0 - it's in the correct position.
 		if (labels[puzzleSize-1][puzzleSize-1].getText().equals("0")){
 			int count = 1;
@@ -172,18 +172,18 @@ public class Model {
 					String labelText = tmpLabel.getText();
 					
 					//If we are looking at the last Label we do not want to do anything since we already checked.
-					if (count == puzzleSize*puzzleSize);
-
-					//If the Label dosen't matches that of the number of labels we've look through
-					//the game is not won.
-					else if (!labelText.equals(Integer.toString(count))){
-						won = false;
+					if (count != puzzleSize*puzzleSize){
+						//If the Label dosen't matches that of the number of labels we've look through
+						//the game is not won.
+						if (!labelText.equals(Integer.toString(count))){
+							return false;
+						}
 					}
 					count++;
 				}
 			}
-		}else {won = false;}
-		return won;
+		}else {return false;}
+		return true;
 	}
 
 	/*

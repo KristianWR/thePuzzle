@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class View extends Application{
 	private Scene game;
-	private model m;
+	private Model m;
 	private Label[][] labels;
 	private int initSize;
 	private TextField sizePrompt;
@@ -73,9 +73,9 @@ public class View extends Application{
 		game = new Scene(mainGrid, 1000, 1000);
 		
 		//Makes an instance of model
-		m= new model();
+		m= new Model();
 		m.createLabels(initSize);
-		labels = model.getLabels();
+		labels = Model.getLabels();
 		
 		//Adds the generated labels to grid pane
 		gridPane =addLabels(gridPane, labels);

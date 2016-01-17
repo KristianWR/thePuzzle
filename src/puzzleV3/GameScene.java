@@ -84,7 +84,7 @@ public class GameScene {
 	    
 		mpFX.setVolume(1.0);
 		
-		//Creates a new label[][] in model based on the size chosen in sizePickerScene.
+		//Creates a new label[][] in theModel based on the size chosen in sizePickerScene.
 		theModel.createLabels(initSize);
 		labels = theModel.getLabels();
 		
