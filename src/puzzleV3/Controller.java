@@ -105,7 +105,7 @@ public class Controller extends Application{
 	/*
 	 * This method adds the key listeners to the buttons WASD
 	 */
-	public void addKeyListener(){
+	private void addKeyListener(){
 		gameScene.getGameScene().setOnKeyPressed(e ->{
 			if		(e.getCode() == KeyCode.W){theModel.keyMove("down");}
 			else if (e.getCode() == KeyCode.S){theModel.keyMove("up");}

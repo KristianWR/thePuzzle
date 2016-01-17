@@ -286,7 +286,7 @@ public class GameScene {
 	}
 	
 	//Adds the labels to the gridpane
-	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
+	private GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
 		for(int i = 0; i < tempLabels.length; i++){
 			for(int j = 0; j < tempLabels.length; j++){
 					GridPane.setConstraints(tempLabels[i][j], j, i);

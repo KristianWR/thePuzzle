@@ -34,13 +34,14 @@ public class SizePickerScene {
 	}
 
 	public void sizePickerM(){
-		
+		//Declares different UI objects used in the method
 		GridPane grid = new GridPane();
 		BorderPane borderP = new BorderPane();
 		Label chooseSize = new Label("Choose the size of the game");
 		sizeInfo = new Label("(N.B. write a number between 3 and 100)");
 		Label timeInfo = new Label("Enable time pressure");
 		
+		//The shown scene with borderbane added
 		sizePicker = new Scene(borderP, 700, 700);
 		sizePrompt = new TextField();
 		cb1 = new CheckBox();
