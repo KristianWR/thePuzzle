@@ -57,7 +57,7 @@ public class View extends Application{
 }
 	
 	//Adds the labels to the gridpane
-	public GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
+	private GridPane addLabels(GridPane gridPane, Label[][] tempLabels){
 		for(int i = 0; i < tempLabels.length; i++){
 			for(int j = 0; j < tempLabels.length; j++){
 					GridPane.setConstraints(tempLabels[i][j], j, i);
@@ -70,7 +70,7 @@ public class View extends Application{
 	/*
 	 * This method constructs the GUI of the game scene
 	 */
-	public void gameSceneM(){
+	private void gameSceneM(){
 		
 		Stage window = new Stage();
 		GridPane gridPane = new GridPane();
@@ -107,7 +107,7 @@ public class View extends Application{
 	/*
 	 * This method adds the key listeners to the buttons WASD
 	 */
-	public void addArrowKeyListener(){
+	private void addArrowKeyListener(){
 		game.setOnKeyPressed(e ->{
 			if		(e.getCode() == KeyCode.W){m.keyMove("down");}
 			else if (e.getCode() == KeyCode.S){m.keyMove("up");}

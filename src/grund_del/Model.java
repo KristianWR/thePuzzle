@@ -26,8 +26,8 @@ public class Model {
 		puzzleSize = size;
 	
 		//Used to define the size of the labels. 
-				String amountOfDigits = Integer.toString(size*size);
-				double dSize = (amountOfDigits.length()*5)+20;
+		String amountOfDigits = Integer.toString(size*size);
+		double dSize = (amountOfDigits.length()*5)+20;
 		
 		//Sets properties for each label in labels[][] with the text of the
 		//Current count, starting with 1.
@@ -60,7 +60,7 @@ public class Model {
 	 * Checks if the label at the given x,y in labels is next to zero.
 	 * It returns where the zero is relative to the given values.
 	 */
-	public void checkMove(int x, int y){
+	private void checkMove(int x, int y){
 		String var = nextToZero(x, y);
 
 		//Runs through every possible outcome of nextToZero()
@@ -94,7 +94,7 @@ public class Model {
 	 * x,y coordinates sent along. It only checks inside our labels[][].
 	 * It returns a string with the direction of which the label with "0" is.
 	 */
-	public String nextToZero(int x, int y){
+	private String nextToZero(int x, int y){
 		//Check up if there is a label "above" the current label in our labels[][]
 		if (y > 0) {
 			if (labels[y - 1][x].getText().equals("0")) {return "up";}}
@@ -116,7 +116,7 @@ public class Model {
 	 * It switches the cssStyle that "hides" the label with the text "0".
 	 * Lastly it updates both the moves integer and movesCount label.
 	 */
-	public void switchLabels(int i, int j, int h, int v){
+	private void switchLabels(int i, int j, int h, int v){
 		//Switches the text on the two labels 
 		String temp = labels[i][j].getText();
 		labels[i][j].setText(labels[h][v].getText());
