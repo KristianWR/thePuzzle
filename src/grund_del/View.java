@@ -16,40 +16,44 @@ import javafx.stage.Stage;
 public class View extends Application{
 	private Scene game;
 	private Model m;
+	// Game board 2-d array for the labels.
 	private Label[][] labels;
 	private int initSize;
 	private TextField sizePrompt;
 	
+	//Main method (launches program)
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+			//Declares different UI objects used in the gameScene.
+			GridPane grid2 = new GridPane();
+			Scene sizePicker= new Scene(grid2, 700, 700);
+			Label chooseSize = new Label("Choose the size of the game");
+			Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
+			Button go = new Button("start");
+			
+			//The textfield where a user enters the game size
+			sizePrompt = new TextField();
+			
+			chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+			
+			//Sets the given elements in the to grid at the given location
+			GridPane.setConstraints(chooseSize, 1, 2);
+			GridPane.setConstraints(sizePrompt, 1, 3);
+			GridPane.setConstraints(sizeInfo, 1, 4);
+			GridPane.setConstraints(go, 2, 6);
+			
+			go.setOnMouseClicked(e-> gameSceneM());
 
-				GridPane grid2 = new GridPane();
-				Scene sizePicker= new Scene(grid2, 700, 700);
-				Label chooseSize = new Label("Choose the size of the game");
-				Label sizeInfo = new Label("(N.B. write a number between 3 and 100)");
-				Button go = new Button("start");
-				sizePrompt = new TextField();
-				
-				chooseSize.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-				
-				//Sets the given elements in the to grid at the given location
-				GridPane.setConstraints(chooseSize, 1, 2);
-				GridPane.setConstraints(sizePrompt, 1, 3);
-				GridPane.setConstraints(sizeInfo, 1, 4);
-				GridPane.setConstraints(go, 2, 6);
-				
-				go.setOnMouseClicked(e-> gameSceneM());
-
-				//Adds elements to grid pane 
-				grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go);
-				grid2.setAlignment(Pos.TOP_CENTER);
-				
-				primaryStage.setScene(sizePicker);
-				primaryStage.show();
+			//Adds elements to grid pane 
+			grid2.getChildren().addAll(chooseSize, sizePrompt, sizeInfo, go);
+			grid2.setAlignment(Pos.TOP_CENTER);
+			
+			primaryStage.setScene(sizePicker);
+			primaryStage.show();
 }
 	
 	//Adds the labels to the gridpane
@@ -62,7 +66,10 @@ public class View extends Application{
 			}
 		return gridPane;
 	}
-		
+	
+	/*
+	 * This method constructs the GUI of the game scene
+	 */
 	public void gameSceneM(){
 		
 		Stage window = new Stage();
@@ -73,7 +80,7 @@ public class View extends Application{
 		game = new Scene(mainGrid, 1000, 1000);
 		
 		//Makes an instance of model
-		m= new Model();
+		m = new Model();
 		m.createLabels(initSize);
 		labels = Model.getLabels();
 		
