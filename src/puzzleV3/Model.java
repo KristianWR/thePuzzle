@@ -52,9 +52,9 @@ public class Model {
 			}
 		}
 		
-		//Sets the bottom right labels' text to "0" and adds the css style which makes it invisible.
+		//Sets the bottom right labels' text to "0" and set its visibility to false.
 		labels[size-1][size-1].setText("0");
-		labels[size-1][size-1].getStyleClass().add("label-zero");
+		labels[size-1][size-1].setVisible(false);
 		
 		//Sets the first 3 labels in sequence 2, 3, 1
 		Label holder1 = labels[0][0];
@@ -112,7 +112,7 @@ public class Model {
 	
 	/*
 	 * Switches the text of 2 labels. updates the position of the "0". 
-	 * It switches the cssStyle that "hides" the label with the text "0".
+	 * It switches the invisible "0" with other labels.
 	 * Lastly it updates both the moves integer and movesCount label.
 	 */
 	public void switchLabels(int i, int j, int h, int v){
@@ -124,12 +124,10 @@ public class Model {
 		zeroPos.setLocation(v, h);
 		
 		/*
-		 * Updates which label to have the "label-zero" css style. 
-		 * Functionally it makes the label with the text "0" become invisible.
+		 * Updates the visibility of the labels and makes "0" invisible. 
 		 */
-		labels[h][v].getStyleClass().add("label-zero");
-	    labels[i][j].getStyleClass().remove("label-zero");
-	    labels[i][j].getStyleClass().add("label");
+		labels[h][v].setVisible(false);
+	    labels[i][j].setVisible(true);
 
 	    //Increments moves and updates moveCount.
 		int moves = Integer.parseInt(moveCount.getText())+1;
@@ -152,8 +150,6 @@ public class Model {
 			switchLabels( y, x-1, y, x);
 		}else if (var == "right"){
 			switchLabels( y, x+1, y, x);
-		}else if (var == "not"){
-			System.out.println("not a valid move");
 		}
 	}
 
@@ -176,13 +172,12 @@ public class Model {
 					String labelText = tmpLabel.getText();
 					
 					//If we are looking at the last Label we do not want to do anything since we already checked.
-					if (count == puzzleSize*puzzleSize){System.out.println("at the end");}
+					if (count == puzzleSize*puzzleSize);
 
 					//If the Label dosen't matches that of the number of labels we've look through
 					//the game is not won.
 					else if (!labelText.equals(Integer.toString(count))){
 						won = false;
-						System.out.println("false: count=" + count + " and lblText: " + labelText);
 					}
 					count++;
 				}

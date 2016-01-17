@@ -28,13 +28,6 @@
 	-fx-background-color: #DB7739;
 }
 
-/*The method label-zero is a new method, which can be called in our method to use its properties. It paints out 0 with
- * the same color of the background, which makes it invisible.*/
-.label-zero{
-	-fx-text-fill: #2E2E2E;
-	-fx-background-color: #2E2E2E;
-}
-
 /*The method button-back is a new method, which can be called in our different scene classes to use its properties. 
  * It sets the background of the button to the png file, fits the image to the button and makes the background 
  * of the image to the hexadecimal color. The reason we font-size in an empty button is to make the button larger.*/

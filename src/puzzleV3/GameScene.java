@@ -138,7 +138,6 @@ public class GameScene {
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {
             	
             	if (playLabel.getText().equals("yes")){
-            		System.out.println("still playing");
             	}else{
                 	mpWin.stop();
                 	mpWin.play(); 
