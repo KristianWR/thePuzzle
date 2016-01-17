@@ -93,7 +93,7 @@ public class Model {
 	 * x,y coordinates sent along. It only checks inside our labels[][].
 	 * It returns a string with the direction of which the label with "0" is.
 	 */
-	public String nextToZero(int x, int y){
+	private String nextToZero(int x, int y){
 		//Check up if there is a label "above" the current label in our labels[][]
 		if (y > 0) {
 			if (labels[y - 1][x].getText().equals("0")) {return "up";}}
@@ -115,7 +115,7 @@ public class Model {
 	 * It switches the invisible "0" with other labels.
 	 * Lastly it updates both the moves integer and movesCount label.
 	 */
-	public void switchLabels(int i, int j, int h, int v){
+	private void switchLabels(int i, int j, int h, int v){
 		//Switches the text on the two labels 
 		String temp = labels[i][j].getText();
 		labels[i][j].setText(labels[h][v].getText());
@@ -159,7 +159,7 @@ public class Model {
 	 * It checks if the labels are in "order" from 1 to puzzleSize-1. If just one
 	 * of the label are in the wrong place winCheck returns false.
 	 */
-	public boolean winCheck(){
+	private boolean winCheck(){
 		/* The basic assumption is that the game is won. We then run through every
 		 * possibility that could falsify that assumption. */
 		boolean won = true;
@@ -191,7 +191,7 @@ public class Model {
 	 * check if it can be moved. If so it moves it, and after every move, 
 	 * the winCheck() method is called to check if the player has won.
 	 */
-	public void setMouseClickAction(int y, int x){
+	private void setMouseClickAction(int y, int x){
 		labels[y][x].setOnMouseClicked(e -> {
 			checkMove(x, y);
 			if (winCheck()){
@@ -205,7 +205,7 @@ public class Model {
 	 * If puzzleSize <= 10 we want the double to be a puzzleSize'th of the screen. Else we want
 	 * to calculate a size based on how many digits the biggest number is. 
 	 */
-	public double setLabelSideLength(String digits){
+	private double setLabelSideLength(String digits){
 		double screenLength = 400;
 		if (puzzleSize <= 10){
 			return screenLength/puzzleSize;
